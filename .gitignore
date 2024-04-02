@@ -1,0 +1,11 @@
+
+#  archives ignore list
+*.tgz
+*.zip
+*.gz
+*/build/*
+#ignore hidden file
+.*
+ 
+# mais pas ce fichier car utile
+!.gitignore
