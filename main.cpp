@@ -77,12 +77,13 @@ int main( void )
     
     ///// init a newscene
     Scene s;
-    Node hm = s.make_node(Heightmap);
-    s.scalenode(hm , glm::vec3(4.f));
-    Node player = s.make_node_mesh("../src/maillages/sphere.off");
-    s.get_data(player)->set_color(glm::vec3(0.1f , 0.3f, 1.f)); 
-    s.scalenode(player , glm::vec3(0.05f , 0.1f , 0.05f));
-    hm.addChild(player);
+    Node plan = s.make_node(Plane);
+    s.scalenode(plan , glm::vec3(4.f));
+    Node cube = s.make_node(Cube);
+    s.get_data(cube)->set_color(glm::vec3(0.1f , 0.3f, 1.f)); 
+    s.scalenode(cube , glm::vec3(0.1f , 0.1f , 0.1f));
+    s.translatenode(cube, glm::vec3(0.0 , 0.05, .0));
+    plan.addChild(cube);
     glm::vec3 camera_initpos =  glm::vec3(0.f , 1.f , 2.f) +  s.get_data(s.get_node_list()[0])->getpos()  ;
     glm::vec3 camera_inittarget = normalize(s.get_data(s.get_node_list()[0])->getpos() - camera_initpos ); 
     Camera *camera = new Camera
@@ -103,13 +104,13 @@ int main( void )
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         I_M.Input_Camera(camera , deltaTime);
-        I_M.Input_GameObject(s.get_data(player) , deltaTime);
+        I_M.Input_GameObject(s.get_data(cube) , deltaTime);
         //camera->be_orbital(s.get_data(s.get_node_list()[0])->getpos() ,deltaTime ,0);
 
         
         glm::mat4 vm = camera->getViewMatrix();
         glm::mat4 pm = camera->getProjectionMatrix();
-        s.drawscene(vm, pm , hm);
+        s.drawscene(vm, pm , plan);
     
         
         glfwSwapBuffers(window);

@@ -2,8 +2,12 @@
 Node Scene::make_node(Object o) 
 {
     Node n;
-    if (o == Object::Heightmap){
+    if (o == Object::Plane){
         GameObject* go = new Plan(glm::vec3(0.f) , 16 ,16);
+        n.add_data(go);
+    }
+    if (o == Object::Cube){
+        GameObject* go = new CubeInit();
         n.add_data(go);
     }
     //         if (o == Object::Sphere) 
@@ -64,3 +68,5 @@ void Scene::deletescene()
         n.getData()->deleteobject();
     }
 }
+
+

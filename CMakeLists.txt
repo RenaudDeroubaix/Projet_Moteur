@@ -89,6 +89,9 @@ add_executable(TP4
 	
 	common/InputManager.cpp
 	common/InputManager.hpp
+
+	common/CubeInit.hpp
+	common/CubeInit.cpp
 	
 	
 	

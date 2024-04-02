@@ -3,9 +3,10 @@
 #include "common/Graph.hpp"
 #include "common/GameObject.hpp"
 #include "Plan.hpp"
+#include "CubeInit.hpp"
 #include "Mesh.hpp"
 
-typedef enum {Heightmap, Maillage} Object;
+typedef enum {Plane, Maillage, Cube} Object;
 
 class Scene {
     
