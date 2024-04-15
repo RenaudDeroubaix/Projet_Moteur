@@ -61,7 +61,7 @@
 /* #undef _GLFW_USE_HYBRID_HPG */
 
 // Define this to 1 if the XInput X11 extension is available
-#define _GLFW_HAS_XINPUT
+/* #undef _GLFW_HAS_XINPUT */
 // Define this to 1 if the Xxf86vm X11 extension is available
 /* #undef _GLFW_HAS_XF86VM */
 

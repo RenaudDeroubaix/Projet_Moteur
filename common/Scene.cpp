@@ -16,6 +16,25 @@ Node Scene::make_node(Object o)
     node_list.push_back(n);
     return node_list[node_list.size() - 1];
 }
+
+Node Scene::make_node(Object o, int longeur, int largeur) 
+{
+    Node n;
+    if (o == Object::Plane){
+        GameObject* go = new Plan(glm::vec3(0.f) , longeur ,largeur);
+        n.add_data(go);
+    }
+    if (o == Object::Cube){
+        GameObject* go = new CubeInit();
+        n.add_data(go);
+    }
+    //         if (o == Object::Sphere) 
+   
+   
+    node_list.push_back(n);
+    return node_list[node_list.size() - 1];
+}
+
 Node Scene::make_node_mesh(const std::string & path) 
 {
     Node n;

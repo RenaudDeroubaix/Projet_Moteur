@@ -55,7 +55,7 @@ add_definitions(
 )
 
 # TP3
-add_executable(TP4
+add_executable(TP
     main.cpp
     common/utils.hpp
     common/stb_image.hpp
@@ -84,7 +84,7 @@ add_executable(TP4
 	common/Mesh.hpp
 	common/Mesh.cpp
 	
-    common/Camera.cpp
+    	common/Camera.cpp
 	common/Camera.hpp
 	
 	common/InputManager.cpp
@@ -93,21 +93,23 @@ add_executable(TP4
 	common/CubeInit.hpp
 	common/CubeInit.cpp
 	
+	common/Room.hpp
+	common/Room.cpp
 	
 	
 )
-target_link_libraries(TP4
+target_link_libraries(TP
 	${ALL_LIBS}
 	
 )
 
 # Xcode and Visual working directories
-set_target_properties(TP4 PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-create_target_launcher(TP4 WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+set_target_properties(TP PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+create_target_launcher(TP WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
 if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode" )
 add_custom_command(
-   TARGET TP4 POST_BUILD
+   TARGET TP POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )

@@ -1,4 +1,4 @@
-# Install script for directory: /home/orenu/Documents/Cours/OpenGl/TPs/TP4_code
+# Install script for directory: /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/orenu/Documents/Cours/OpenGl/TPs/TP4_code/build/external/cmake_install.cmake")
+  include("/home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/build/external/cmake_install.cmake")
 
 endif()
 
@@ -56,5 +56,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/orenu/Documents/Cours/OpenGl/TPs/TP4_code/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

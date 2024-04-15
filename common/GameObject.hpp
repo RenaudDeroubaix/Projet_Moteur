@@ -38,6 +38,7 @@ public:
     void setscale(glm::vec3 s);
     void settranslate(glm::vec3 t);
     void setrotate(float angle ,glm::vec3 axe);
+
     
     // void is_on_object(GameObject * go){
     //     glm::vec4 A; glm::vec3 AB;

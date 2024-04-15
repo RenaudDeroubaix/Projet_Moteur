@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/cursor.dir/cursor.c.o"
+  "CMakeFiles/cursor.dir/cursor.c.o.d"
   "cursor"
   "cursor.pdb"
 )

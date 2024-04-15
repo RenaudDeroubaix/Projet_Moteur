@@ -9,10 +9,9 @@ void GameObject::setscale(glm::vec3 s)
 }
 void GameObject::settranslate(glm::vec3 t)
 {
-    modelmat = glm::translate(glm::mat4(1.f) , t)* modelmat;
+    modelmat = glm::translate(glm::mat4(1.f) , t) * modelmat;
 }
 void GameObject::setrotate(float angle ,glm::vec3 axe)
 {
    modelmat =  glm::rotate( glm::mat4(1.f) ,glm::radians(angle) , axe) * modelmat;
 }
-

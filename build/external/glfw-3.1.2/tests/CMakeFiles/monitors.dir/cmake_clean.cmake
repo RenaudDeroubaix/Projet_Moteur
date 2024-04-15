@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/monitors.dir/__/deps/getopt.c.o"
+  "CMakeFiles/monitors.dir/__/deps/getopt.c.o.d"
   "CMakeFiles/monitors.dir/monitors.c.o"
+  "CMakeFiles/monitors.dir/monitors.c.o.d"
   "monitors"
   "monitors.pdb"
 )

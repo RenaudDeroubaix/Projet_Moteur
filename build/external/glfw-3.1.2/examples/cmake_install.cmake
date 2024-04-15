@@ -1,4 +1,4 @@
-# Install script for directory: /home/orenu/Documents/Cours/OpenGl/TPs/TP4_code/external/glfw-3.1.2/examples
+# Install script for directory: /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/external/glfw-3.1.2/examples
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

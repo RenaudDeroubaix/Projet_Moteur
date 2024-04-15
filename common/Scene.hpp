@@ -11,7 +11,7 @@ typedef enum {Plane, Maillage, Cube} Object;
 class Scene {
     
 private:
-    std::vector<Node> node_list;
+    std::vector<Node > node_list;
 
 public:
     Scene(){}   
@@ -20,9 +20,10 @@ public:
     
     
     
-    std::vector<Node> get_node_list(){return node_list;}
+    std::vector<Node > get_node_list(){return node_list;}
     
     Node make_node(Object o);
+    Node make_node(Object o, int longeur, int largeur); 
     Node make_node_mesh(const std::string & path);
     
     GameObject* get_data(Node & n){return n.getData();}

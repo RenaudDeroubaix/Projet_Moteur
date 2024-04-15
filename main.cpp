@@ -4,6 +4,7 @@
 #include "common/GameObject.hpp"
 #include "common/Scene.hpp"
 #include "common/Graph.hpp"
+#include "common/Room.hpp"
 
 using namespace glm;
 
@@ -77,13 +78,17 @@ int main( void )
     
     ///// init a newscene
     Scene s;
-    Node plan = s.make_node(Plane);
-    s.scalenode(plan , glm::vec3(4.f));
+    Node sol;
+    makeRoom(s,10,8,3,glm::vec3(5.0f),sol);
+    //Node plan = s.make_node(Plane);
+    //s.scalenode(plan , glm::vec3(4.f));
     Node cube = s.make_node(Cube);
+    
     s.get_data(cube)->set_color(glm::vec3(0.1f , 0.3f, 1.f)); 
     s.scalenode(cube , glm::vec3(0.1f , 0.1f , 0.1f));
     s.translatenode(cube, glm::vec3(0.0 , 0.05, .0));
-    plan.addChild(cube);
+    sol.addChild(cube);
+
     glm::vec3 camera_initpos =  glm::vec3(0.f , 1.f , 2.f) +  s.get_data(s.get_node_list()[0])->getpos()  ;
     glm::vec3 camera_inittarget = normalize(s.get_data(s.get_node_list()[0])->getpos() - camera_initpos ); 
     Camera *camera = new Camera
@@ -110,7 +115,7 @@ int main( void )
         
         glm::mat4 vm = camera->getViewMatrix();
         glm::mat4 pm = camera->getProjectionMatrix();
-        s.drawscene(vm, pm , plan);
+        s.drawscene(vm, pm , sol);
     
         
         glfwSwapBuffers(window);
