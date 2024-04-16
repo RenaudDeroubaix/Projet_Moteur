@@ -34,6 +34,7 @@ public:
     void deletescene();
     void loadtexturesinscene();
     void resetmodelmatrix(Node & n);
+    void calculateBoundingBoxRecursive(Node& node);
     //////SCALE/////////////////////
     void scalenode(Node & node , glm::vec3 scale){ // pour scale tout un noeud et ses enfants
         std::vector<GameObject*>  children_data =  get_children_list(node);
@@ -58,6 +59,7 @@ public:
     }
   
     ///////////////////////////
+
     
     
    

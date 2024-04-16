@@ -656,6 +656,30 @@ common/Mesh.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TP.dir/build.make CMakeFiles/TP.dir/common/Mesh.cpp.s
 .PHONY : common/Mesh.cpp.s
 
+common/Physics.o: common/Physics.cpp.o
+.PHONY : common/Physics.o
+
+# target to build an object file
+common/Physics.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TP.dir/build.make CMakeFiles/TP.dir/common/Physics.cpp.o
+.PHONY : common/Physics.cpp.o
+
+common/Physics.i: common/Physics.cpp.i
+.PHONY : common/Physics.i
+
+# target to preprocess a source file
+common/Physics.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TP.dir/build.make CMakeFiles/TP.dir/common/Physics.cpp.i
+.PHONY : common/Physics.cpp.i
+
+common/Physics.s: common/Physics.cpp.s
+.PHONY : common/Physics.s
+
+# target to generate assembly for a file
+common/Physics.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TP.dir/build.make CMakeFiles/TP.dir/common/Physics.cpp.s
+.PHONY : common/Physics.cpp.s
+
 common/Plan.o: common/Plan.cpp.o
 .PHONY : common/Plan.o
 
@@ -703,30 +727,6 @@ common/Renderer.s: common/Renderer.cpp.s
 common/Renderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TP.dir/build.make CMakeFiles/TP.dir/common/Renderer.cpp.s
 .PHONY : common/Renderer.cpp.s
-
-common/Room.o: common/Room.cpp.o
-.PHONY : common/Room.o
-
-# target to build an object file
-common/Room.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TP.dir/build.make CMakeFiles/TP.dir/common/Room.cpp.o
-.PHONY : common/Room.cpp.o
-
-common/Room.i: common/Room.cpp.i
-.PHONY : common/Room.i
-
-# target to preprocess a source file
-common/Room.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TP.dir/build.make CMakeFiles/TP.dir/common/Room.cpp.i
-.PHONY : common/Room.cpp.i
-
-common/Room.s: common/Room.cpp.s
-.PHONY : common/Room.s
-
-# target to generate assembly for a file
-common/Room.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/TP.dir/build.make CMakeFiles/TP.dir/common/Room.cpp.s
-.PHONY : common/Room.cpp.s
 
 common/Scene.o: common/Scene.cpp.o
 .PHONY : common/Scene.o
@@ -905,15 +905,15 @@ help:
 	@echo "... common/Mesh.o"
 	@echo "... common/Mesh.i"
 	@echo "... common/Mesh.s"
+	@echo "... common/Physics.o"
+	@echo "... common/Physics.i"
+	@echo "... common/Physics.s"
 	@echo "... common/Plan.o"
 	@echo "... common/Plan.i"
 	@echo "... common/Plan.s"
 	@echo "... common/Renderer.o"
 	@echo "... common/Renderer.i"
 	@echo "... common/Renderer.s"
-	@echo "... common/Room.o"
-	@echo "... common/Room.i"
-	@echo "... common/Room.s"
 	@echo "... common/Scene.o"
 	@echo "... common/Scene.i"
 	@echo "... common/Scene.s"

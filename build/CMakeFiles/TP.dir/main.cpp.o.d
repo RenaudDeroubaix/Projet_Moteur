@@ -317,9 +317,11 @@ CMakeFiles/TP.dir/main.cpp.o: \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/GameObject.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/Renderer.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/texture.hpp \
+ /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/GOInfo.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/common/Scene.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/Graph.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/common/Plan.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/common/CubeInit.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/common/Mesh.hpp \
- /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/common/Room.hpp
+ /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/common/Room.hpp \
+ /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/common/Physics.hpp

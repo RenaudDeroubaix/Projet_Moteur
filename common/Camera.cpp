@@ -34,6 +34,8 @@ float Camera::getlastY(){return _lastY;}
 void Camera::setlastX(float x){_lastX = x;}
 void Camera::setlastY(float y){_lastY = y;}
 
+glm::vec3 Camera::getPos(){return _camera_position;}
+
 
 void Camera::set_camera_position(glm::vec3 pos){
     _camera_target = glm::normalize( pos - _camera_position);

@@ -54,6 +54,7 @@ public:
     void setlastX(float x);
     void setlastY(float y);
     
+    glm::vec3 getPos();
     void set_camera_position(glm::vec3 pos);
     void camera_translate(glm::vec3 translation);
     glm::vec3 right_vector();

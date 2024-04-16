@@ -22,7 +22,7 @@ public:
     static void onMouseMove(GLFWwindow* window, double xpos, double ypos); 
     
     void Input_Camera(Camera *c , float deltaTime);
-    void Input_GameObject(GameObject * go, float deltaTime);
+    void Input_GameObject(Camera *c , GameObject * go,  float deltaTime);
     
 };
 

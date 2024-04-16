@@ -5,6 +5,7 @@
 #include "common/Scene.hpp"
 #include "common/Graph.hpp"
 #include "common/Room.hpp"
+#include "common/Physics.hpp"
 
 using namespace glm;
 
@@ -78,15 +79,26 @@ int main( void )
     
     ///// init a newscene
     Scene s;
+    Physics p;
     Node sol;
     makeRoom(s,10,8,3,glm::vec3(5.0f),sol);
     //Node plan = s.make_node(Plane);
     //s.scalenode(plan , glm::vec3(4.f));
-    Node cube = s.make_node(Cube);
+    Node player = s.make_node(Cube);
     
-    s.get_data(cube)->set_color(glm::vec3(0.1f , 0.3f, 1.f)); 
-    s.scalenode(cube , glm::vec3(0.1f , 0.1f , 0.1f));
-    s.translatenode(cube, glm::vec3(0.0 , 0.05, .0));
+    
+    s.get_data(player)->set_color(glm::vec3(0.1f , 0.3f, 1.f)); 
+    s.scalenode(player , glm::vec3(0.1f , 0.1f , 0.1f));
+    s.translatenode(player, glm::vec3(0.0 , 0.05, .0));
+    sol.addChild(player);
+    s.get_data(player)->getgameObjectInfo().setHasPhysics(true);
+    s.get_data(player)->calculateBoundingBox();
+    s.get_data(player)->setMasse(40.f);
+
+    Node cube = s.make_node(Cube);
+    s.get_data(cube)->set_color(glm::vec3(0.9f , 0.3f, 1.f)); 
+    s.scalenode(cube , glm::vec3(0.3f , 0.3f , 0.3f));
+    s.translatenode(cube, glm::vec3(0.8 , 0.05, .0));
     sol.addChild(cube);
 
     glm::vec3 camera_initpos =  glm::vec3(0.f , 1.f , 2.f) +  s.get_data(s.get_node_list()[0])->getpos()  ;
@@ -101,6 +113,7 @@ int main( void )
     int nbFrames = 0;
     
     s.initscene();
+    s.calculateBoundingBoxRecursive(sol);
     s.loadtexturesinscene();
     
     do{
@@ -109,12 +122,15 @@ int main( void )
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         I_M.Input_Camera(camera , deltaTime);
-        I_M.Input_GameObject(s.get_data(cube) , deltaTime);
+        I_M.Input_GameObject(camera , s.get_data(player),  deltaTime);
         //camera->be_orbital(s.get_data(s.get_node_list()[0])->getpos() ,deltaTime ,0);
 
-        
+        p.applyForce(s , deltaTime);
+
         glm::mat4 vm = camera->getViewMatrix();
         glm::mat4 pm = camera->getProjectionMatrix();
+
+        
         s.drawscene(vm, pm , sol);
     
         

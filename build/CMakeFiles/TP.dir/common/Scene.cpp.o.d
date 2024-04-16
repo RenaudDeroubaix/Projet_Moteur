@@ -316,6 +316,7 @@ CMakeFiles/TP.dir/common/Scene.cpp.o: \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/GameObject.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/Renderer.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/texture.hpp \
+ /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/GOInfo.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/common/Plan.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/shader.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/common/CubeInit.hpp \

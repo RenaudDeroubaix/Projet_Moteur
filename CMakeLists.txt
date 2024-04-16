@@ -94,7 +94,11 @@ add_executable(TP
 	common/CubeInit.cpp
 	
 	common/Room.hpp
-	common/Room.cpp
+	
+	common/GOInfo.hpp
+	
+	common/Physics.hpp
+	common/Physics.cpp
 	
 	
 )

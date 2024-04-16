@@ -315,4 +315,5 @@ CMakeFiles/TP.dir/common/Mesh.cpp.o: \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/shader.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/GameObject.hpp \
  /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/Renderer.hpp \
- /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/texture.hpp
+ /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/texture.hpp \
+ /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/./common/GOInfo.hpp
