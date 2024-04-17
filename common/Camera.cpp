@@ -38,6 +38,8 @@ void Camera::setlastY(double y){_lastY = y;}
 glm::vec3 Camera::getEulerAngle(){return _angleEuler;}
 void Camera::setEulerAngle(glm::vec3 a){ _angleEuler = a;}
 
+glm::vec3 Camera::getPos(){return _camera_position;}
+
 
 void Camera::set_target(glm::vec3 p){
      set_pos(p + glm::vec3 (1 , 0 , 0));

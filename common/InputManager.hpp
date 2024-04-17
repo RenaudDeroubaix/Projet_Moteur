@@ -30,6 +30,8 @@ public:
     static unsigned int view;
     Camera* current_cam;
     
+    void Input_Camera(Camera *c , float deltaTime);
+    void Input_GameObject(Camera *c , GameObject * go,  float deltaTime);
     
 };
 

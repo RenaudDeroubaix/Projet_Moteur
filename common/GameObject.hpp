@@ -2,6 +2,7 @@
 #include "common/utils.hpp"
 #include "common/Renderer.hpp"
 
+#include "common/GOInfo.hpp"
 class GameObject {
 public:
     bool is_camera = false;
@@ -15,6 +16,9 @@ protected:
     glm::vec3 front = glm::vec3(0,0,1);
     
     
+    glm::vec3 minBoundingBox;
+    glm::vec3 maxBoundingBox;
+
     std::vector<glm::vec3> position;
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> tex_coords;
@@ -22,12 +26,23 @@ protected:
     
     glm::vec3 pos = glm::vec3(0.f);
     glm::vec3 color;
+    glm::vec3 pos;
+    glm::vec3 color = glm::vec3();
+    glm::vec3 vitesse = glm::vec3(0.f);
+    float masse=0.0;
+    
     glm::mat4 modelmat;
     
     Renderer renderer;
+    GOInfo gameObjectInfo = GOInfo();
 public:
     GameObject(){}
     GameObject(glm::vec3 p) : pos(p) {}
+
+    void calculateBoundingBox() ;
+    bool checkCollision(const GameObject& other) ;
+    glm::vec3 getMaxBB(){return maxBoundingBox;}
+    glm::vec3 getMinBB(){return minBoundingBox;}
     
     GLuint getprogID() const {return renderer.programID;}
     
@@ -60,9 +75,34 @@ public:
     glm::mat4 getmodelmat();
     void setmodelmat(glm::mat4 m){modelmat = m;}
 
+    void setpos(glm::vec3 p) ;
     void setscale(glm::vec3 s);
     void settranslate(glm::vec3 t);
     void setrotate(float angle ,glm::vec3 axe);
+
+    void setgameObjectInfo(GOInfo goi){ gameObjectInfo = goi; }
+    GOInfo& getgameObjectInfo(){ return gameObjectInfo ;}
+
+    glm::vec3 getVitesse(){return vitesse;}
+    void setVitesse(glm::vec3 d){
+        vitesse = d;
+        for (int i=0; i<3; i++){
+            vitesse[i] > 1? vitesse[i] = 0.1 : vitesse[i] < -1? vitesse[i] = -0.1: vitesse[i];
+        }
+    }
+    void addVitesse(glm::vec3 d){
+        vitesse+=d;
+        for (int i=0; i<3; i++){
+            vitesse[i] > 1? vitesse[i] = 0.1 : vitesse[i] < -1? vitesse[i] = -0.1: vitesse[i];
+        }
+     }
+    void reduceVitesse(float ps){
+        for (int i=0; i<3; i++){
+            vitesse[i] < -ps*2 ? vitesse[i] += ps*2: vitesse[i] > ps*2 ? vitesse[i] -= ps*2 : vitesse[i] = 0;
+        }
+    }
+    float getMasse(){return masse;}
+    void setMasse(float m){masse = m;}
 
     
     // void is_on_object(GameObject * go){

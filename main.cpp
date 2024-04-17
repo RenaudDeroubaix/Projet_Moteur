@@ -6,6 +6,7 @@
 #include "common/Scene.hpp"
 #include "common/Graph.hpp"
 #include "common/Room.hpp"
+#include "common/Physics.hpp"
 
 using namespace glm;
 
@@ -76,6 +77,7 @@ int main( void )
     ///// init a newscene
      
     Scene s;
+    Physics p;
     Node sol;
     makeRoom(s,10,8,3,glm::vec3(5.0f),sol);
     
@@ -102,9 +104,12 @@ int main( void )
     int nbFrames = 0;
     
     s.initscene();
-    s.loadtexturesinscene();   
+
    
     I_M.current_cam = static_cast<Camera*>(s.get_data(SecurityCam1));
+    s.calculateBoundingBoxRecursive(sol);
+    s.loadtexturesinscene();
+    
     do{
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         float currentFrame = glfwGetTime();
@@ -115,7 +120,7 @@ int main( void )
         
         glm::mat4 vm = I_M.current_cam->getViewMatrix();
         glm::mat4 pm = I_M.current_cam->getProjectionMatrix();
-        
+        p.applyForce(s , deltaTime);
         s.drawscene(vm, pm , sol);
         
         glfwSwapBuffers(window);
