@@ -25,8 +25,6 @@ protected:
     std::vector<unsigned short> indices;
     
     glm::vec3 pos = glm::vec3(0.f);
-    glm::vec3 color;
-    glm::vec3 pos;
     glm::vec3 color = glm::vec3();
     glm::vec3 vitesse = glm::vec3(0.f);
     float masse=0.0;

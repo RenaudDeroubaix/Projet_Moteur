@@ -84,7 +84,7 @@ add_executable(TP
 	common/Mesh.hpp
 	common/Mesh.cpp
 	
-    common/Camera.cpp
+    	common/Camera.cpp
 	common/Camera.hpp
 	
 	common/InputManager.cpp
@@ -99,9 +99,9 @@ add_executable(TP
 	
 	common/Physics.hpp
 	common/Physics.cpp
-	
-	common/Helper.cpp
-	common/Helper.hpp
+
+    common/Helper.cpp
+    common/Helper.hpp
 	
 	
 )

@@ -47,6 +47,7 @@ public:
     void seth(unsigned int h);
     glm::mat4 getViewMatrix();
     glm::mat4 getProjectionMatrix();
+
     float getlastX();
     float getlastY();
     void setlastX(double x);

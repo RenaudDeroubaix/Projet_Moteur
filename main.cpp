@@ -88,6 +88,10 @@ int main( void )
     s.get_data(cube)->set_color(glm::vec3(0.1f , 0.3f, 1.f)); 
     s.scalenode(cube , glm::vec3(0.1f , 0.1f , 0.1f));
     s.translatenode(cube, glm::vec3(0.0 , 0.05, .0));
+
+    s.get_data(cube)->getgameObjectInfo().setHasPhysics(true);
+    s.get_data(cube)->calculateBoundingBox();
+    s.get_data(cube)->setMasse(40.f);
     
     Node SecurityCam1 = s.make_node_camera(true,SCR_WIDTH , SCR_HEIGHT);
     Node SecurityCam2 = s.make_node_camera(false,SCR_WIDTH , SCR_HEIGHT);
@@ -117,10 +121,10 @@ int main( void )
         lastFrame = currentFrame;
         
         I_M.Input_GamePlay(s , s.get_data(cube) , deltaTime);
-        
+        p.applyForce(s , deltaTime);
         glm::mat4 vm = I_M.current_cam->getViewMatrix();
         glm::mat4 pm = I_M.current_cam->getProjectionMatrix();
-        p.applyForce(s , deltaTime);
+        
         s.drawscene(vm, pm , sol);
         
         glfwSwapBuffers(window);

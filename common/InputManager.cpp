@@ -116,20 +116,47 @@ void InputManager::Input_SecurityCam(GameObject * player , float limit_yaw , flo
 
 void InputManager::Input_GameObject(GameObject * go , float deltaTime)
 {
-    float playerSpeed = go->get_speed() * deltaTime;
-    
+    //Keyboard control camera
+   
+    float playerSpeed = 0.1 * deltaTime;
     //         if (isKeyHeld(GLFW_KEY_6))
     //             c->camera_translate(-cameraSpeed * c->target_vector());
     //         if (isKeyHeld(GLFW_KEY_EQUAL))
     //             c->camera_translate(cameraSpeed * c->target_vector());
-    if (isKeyHeld(GLFW_KEY_W))
-        go->settranslate(playerSpeed * go->get_front());
-    if (isKeyHeld( GLFW_KEY_S))
-        go->settranslate(-playerSpeed * go->get_front());
-    if (isKeyHeld(GLFW_KEY_D))
-        go->settranslate(playerSpeed * go->get_right());
-    if (isKeyHeld(GLFW_KEY_A))
-        go->settranslate(-playerSpeed * go->get_right());
+    bool b = true;
+    if (isKeyHeld(GLFW_KEY_W)){
+        go->addVitesse(glm::vec3(0.0 , 0.0 , -playerSpeed));
+        b = false;
+    }
+    if (isKeyHeld( GLFW_KEY_S)){
+        go->addVitesse(glm::vec3(0.f , 0.f , playerSpeed));
+        b = false;
+    }
+    if (isKeyHeld(GLFW_KEY_A)){
+        go->addVitesse(glm::vec3(playerSpeed , 0.f , 0.f));
+        b = false;
+    }
+    if (isKeyHeld(GLFW_KEY_D)){
+        go->addVitesse(glm::vec3(-playerSpeed, 0.f , 0.f));
+        b = false;
+    }/*
+    if (isKeyPressed(GLFW_KEY_SPACE)){
+        glm::vec3 translation=(go->getpos()- c->getPos()) *glm::vec3(-1);
+       
+        go->settranslate(translation); 
+        glm::vec3 direction = glm::normalize(c->target_vector());
+
+        float speed = 10.0f; 
+        glm::vec3 velocity = direction * speed * deltaTime;
+        go->setVitesse(velocity);
+        //std::cout << c->target_vector().x <<" "<< c->target_vector().y <<" "<<c->target_vector().z << std::endl;
+        
+        b = false;
+    }*/
+    if (b) {
+        //go->setVitesse(glm::vec3(0.0));
+        go->reduceVitesse(playerSpeed);
+    }
 }
 
 void InputManager::Input_ViewMode(Scene & s)
