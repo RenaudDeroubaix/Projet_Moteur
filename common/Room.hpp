@@ -7,12 +7,12 @@ void makeRoom(Scene &s, int longueur, int largeur, int hauteur, glm::vec3 scale,
     float pas_lo  = 1. /  (float)longueur;
 
     // Création des éléments de la salle centrés en 0.0
-    sol = s.make_node(Plane, longueur, largeur);
-    Node plafond = s.make_node(Plane, longueur, largeur);
-    Node mur1 = s.make_node(Plane, longueur, hauteur);
-    Node mur2 = s.make_node(Plane, longueur, hauteur);
-    Node mur3 = s.make_node(Plane, hauteur, largeur);
-    Node mur4 = s.make_node(Plane, hauteur, largeur);
+    sol = s.make_node_plan(longueur, largeur);
+    Node plafond = s.make_node_plan(longueur, largeur);
+    Node mur1 = s.make_node_plan(longueur, hauteur);
+    Node mur2 = s.make_node_plan(longueur, hauteur);
+    Node mur3 = s.make_node_plan(hauteur, largeur);
+    Node mur4 = s.make_node_plan(hauteur, largeur);
 
 
 

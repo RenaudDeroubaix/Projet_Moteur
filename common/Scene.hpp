@@ -4,29 +4,28 @@
 #include "common/GameObject.hpp"
 #include "Plan.hpp"
 #include "CubeInit.hpp"
+#include "Camera.hpp"
 #include "Mesh.hpp"
-
-typedef enum {Plane, Maillage, Cube} Object;
 
 class Scene {
     
 private:
-    std::vector<Node > node_list;
+    std::vector<Node> node_list;
+    std::vector<GameObject*> camera_list;
 
 public:
-    Scene(){}   
+    Scene(){} 
     
     std::vector<GameObject*> get_children_list(Node & n){return n.getDescendantsData();}
+    std::vector<Node> get_node_list(){return node_list;}
+    std::vector<GameObject*> get_camera_list(){return camera_list;}
     
-    
-    
-    std::vector<Node > get_node_list(){return node_list;}
-    
-    Node make_node(Object o);
-    Node make_node(Object o, int longeur, int largeur); 
+    Node make_node_camera(bool is_locked, unsigned int w , unsigned int h); // 1er parametre pour savoir si la camera peut yaw a 360 degree
+    Node make_node_plan(int longeur, int largeur);
+    Node make_node_cube();
     Node make_node_mesh(const std::string & path);
-    
     GameObject* get_data(Node & n){return n.getData();}
+    
 
     
     void initscene();
@@ -34,6 +33,7 @@ public:
     void deletescene();
     void loadtexturesinscene();
     void resetmodelmatrix(Node & n);
+    
     //////SCALE/////////////////////
     void scalenode(Node & node , glm::vec3 scale){ // pour scale tout un noeud et ses enfants
         std::vector<GameObject*>  children_data =  get_children_list(node);
