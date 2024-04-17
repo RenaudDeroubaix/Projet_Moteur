@@ -1,18 +1,29 @@
 #pragma once
 #include "common/utils.hpp"
 #include "common/Renderer.hpp"
+
 class GameObject {
-    
+public:
+    bool is_camera = false;
+    bool is_rendered = false;
 protected:
+   
+    
+    float object_speed = 1.;
+    glm::vec3 up = glm::vec3(0,1,0);
+    glm::vec3 right = glm::vec3(1,0,0);
+    glm::vec3 front = glm::vec3(0,0,1);
+    
+    
     std::vector<glm::vec3> position;
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> tex_coords;
     std::vector<unsigned short> indices;
     
-    glm::vec3 pos;
-    glm::vec3 color = glm::vec3();
-    
+    glm::vec3 pos = glm::vec3(0.f);
+    glm::vec3 color;
     glm::mat4 modelmat;
+    
     Renderer renderer;
 public:
     GameObject(){}
@@ -28,7 +39,21 @@ public:
     virtual void settexture(const std::string & path , GLuint textureIndex, const std::string & name_in_shader) = 0; 
     virtual void loadtextures() = 0;
     
+    void set_speed(float f) {object_speed = f;}
+    float get_speed(){return object_speed;}
     
+    glm::vec3 get_up(){return up;}
+    glm::vec3 get_right(){return right;}
+    glm::vec3 get_front(){return front;}
+
+    void set_front(glm::vec3 f)
+    {
+        front = f;
+        right = glm::cross(front , glm::vec3(0,1,0));
+        up = glm::cross(right , front);
+    }
+
+    void set_pos(glm::vec3 p){modelmat[3][0] = p[0]; modelmat[3][1] = p[1]; modelmat[3][2] = p[2];}
     void set_color(glm::vec3 c){color = c;}
     glm::vec3 getcolor(){return color;}
     glm::vec3 getpos();

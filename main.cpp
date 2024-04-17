@@ -1,3 +1,4 @@
+
 #include "common/utils.hpp"
 #include "common/InputManager.hpp"
 #include "common/Camera.hpp"
@@ -18,12 +19,9 @@ const unsigned int SCR_HEIGHT = 768;
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
-
-double InputManager::previousX = 0.0;
-double InputManager::previousY = 0.0;
-double InputManager::deltaX = 0.0;
-double InputManager::deltaY = 0.0;
-
+double InputManager::previousX = 0;
+double InputManager::previousY = 0;
+unsigned int InputManager::view = 0;
 /*******************************************************************************/
 
 int main( void )
@@ -39,14 +37,13 @@ int main( void )
     // Set the mouse at the center of the screen
     glfwPollEvents();
     // Open a window and create its OpenGL context
-    window = glfwCreateWindow( SCR_WIDTH, SCR_HEIGHT, "TP3", NULL, NULL);
+    window = glfwCreateWindow( SCR_WIDTH, SCR_HEIGHT, "Moteur_Camera", NULL, NULL);
     
     
     // Ensure we can capture the escape key being pressed below
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
     // Hide the mouse and enable unlimited mouvement
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);    
     if( window == NULL ){
         fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
         getchar();
@@ -77,46 +74,49 @@ int main( void )
     
     
     ///// init a newscene
+     
     Scene s;
     Node sol;
     makeRoom(s,10,8,3,glm::vec3(5.0f),sol);
-    //Node plan = s.make_node(Plane);
-    //s.scalenode(plan , glm::vec3(4.f));
-    Node cube = s.make_node(Cube);
     
+    
+   
+    
+    Node cube = s.make_node_cube();
     s.get_data(cube)->set_color(glm::vec3(0.1f , 0.3f, 1.f)); 
     s.scalenode(cube , glm::vec3(0.1f , 0.1f , 0.1f));
     s.translatenode(cube, glm::vec3(0.0 , 0.05, .0));
-    sol.addChild(cube);
+    
+    Node SecurityCam1 = s.make_node_camera(true,SCR_WIDTH , SCR_HEIGHT);
+    Node SecurityCam2 = s.make_node_camera(false,SCR_WIDTH , SCR_HEIGHT);
+    s.get_data(SecurityCam1)->set_pos(glm::vec3(-1.0 , 1 , -1 ));
+    s.get_data(SecurityCam2)->set_pos(glm::vec3(0 , 0.9 ,0));
 
-    glm::vec3 camera_initpos =  glm::vec3(0.f , 1.f , 2.f) +  s.get_data(s.get_node_list()[0])->getpos()  ;
-    glm::vec3 camera_inittarget = normalize(s.get_data(s.get_node_list()[0])->getpos() - camera_initpos ); 
-    Camera *camera = new Camera
-    (
-        SCR_WIDTH ,SCR_HEIGHT ,
-        camera_initpos, camera_inittarget
-    );
+    
+    sol.addChild(cube);
+    sol.addChild(SecurityCam1);
+    sol.addChild(SecurityCam2);
+
    
     double lastTime = glfwGetTime();
     int nbFrames = 0;
     
     s.initscene();
-    s.loadtexturesinscene();
-    
+    s.loadtexturesinscene();   
+   
+    I_M.current_cam = static_cast<Camera*>(s.get_data(SecurityCam1));
     do{
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        I_M.Input_Camera(camera , deltaTime);
-        I_M.Input_GameObject(s.get_data(cube) , deltaTime);
-        //camera->be_orbital(s.get_data(s.get_node_list()[0])->getpos() ,deltaTime ,0);
-
         
-        glm::mat4 vm = camera->getViewMatrix();
-        glm::mat4 pm = camera->getProjectionMatrix();
+        I_M.Input_GamePlay(s , s.get_data(cube) , deltaTime);
+        
+        glm::mat4 vm = I_M.current_cam->getViewMatrix();
+        glm::mat4 pm = I_M.current_cam->getProjectionMatrix();
+        
         s.drawscene(vm, pm , sol);
-    
         
         glfwSwapBuffers(window);
         glfwPollEvents();

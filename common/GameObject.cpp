@@ -1,6 +1,6 @@
 #include "GameObject.hpp"
 
-glm::vec3 GameObject::getpos() { return glm::vec3(modelmat[0][3] ,modelmat[1][3], modelmat[2][3]);}
+glm::vec3 GameObject::getpos() { return glm::vec3(modelmat[3][0] ,modelmat[3][1], modelmat[3][2]);}
 glm::mat4 GameObject::getmodelmat() { return modelmat;}
 
 void GameObject::setscale(glm::vec3 s)

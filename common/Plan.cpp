@@ -2,6 +2,7 @@
 
 Plan::Plan(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur) , l(largeur)
 {
+        is_rendered = true;
         float scale_plan =0.1;
         float x , y , z;
         float pas_h  = 1. /  (float)h;
