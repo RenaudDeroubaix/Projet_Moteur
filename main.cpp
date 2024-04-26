@@ -7,6 +7,7 @@
 #include "common/Graph.hpp"
 #include "common/Room.hpp"
 #include "common/Physics.hpp"
+#include "common/SceneManager.hpp"
 
 using namespace glm;
 
@@ -75,8 +76,9 @@ int main( void )
     
     
     ///// init a newscene
-     
+    SceneManager SM;
     Scene s;
+    SM.addSceneToList(&s);
     Physics p;
     Node sol;
     makeRoom(s,10,8,3,glm::vec3(5.0f),sol);
@@ -115,17 +117,20 @@ int main( void )
     s.loadtexturesinscene();
     
     do{
+        Scene& currentScene=SM.getCurrentScene();
+       // std::cout<<&s<<std::endl;
+       // std::cout<<&currentScene<<std::endl;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         
-        I_M.Input_GamePlay(s , s.get_data(cube) , deltaTime);
-        p.applyForce(s , deltaTime);
+        I_M.Input_GamePlay(currentScene , currentScene.get_data(cube) , deltaTime);
+        p.applyForce(currentScene , deltaTime);
         glm::mat4 vm = I_M.current_cam->getViewMatrix();
         glm::mat4 pm = I_M.current_cam->getProjectionMatrix();
         
-        s.drawscene(vm, pm , sol);
+        currentScene.drawscene(vm, pm , sol);
         
         glfwSwapBuffers(window);
         glfwPollEvents();

@@ -102,6 +102,12 @@ add_executable(TP
 
     common/Helper.cpp
     common/Helper.hpp
+    
+    common/SceneManager.hpp
+    
+    common/Event.hpp
+    common/Event.cpp
+    
 	
 	
 )

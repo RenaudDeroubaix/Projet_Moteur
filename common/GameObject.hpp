@@ -1,7 +1,7 @@
 #pragma once
 #include "common/utils.hpp"
 #include "common/Renderer.hpp"
-
+//#include "common/Event.hpp"
 #include "common/GOInfo.hpp"
 class GameObject {
 public:
@@ -33,6 +33,7 @@ protected:
     
     Renderer renderer;
     GOInfo gameObjectInfo = GOInfo();
+   // Event event;
 public:
     GameObject(){}
     GameObject(glm::vec3 p) : pos(p) {}
