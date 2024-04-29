@@ -34,13 +34,13 @@ void Physics::applyCollision(GameObject* go, std::vector<Node> & nodelist ,float
     }
 }*/
 
-void Physics::applyCollision(GameObject* go, std::vector<Node>& nodelist, float deltaTime) {
+void Physics::applyCollision(GameObject* go, std::vector<Node*>& nodelist, float deltaTime) {
     int i=0;
-    for (Node& n : nodelist) {
-        GameObject* otherGO = n.getData();
+    for (Node* n : nodelist) {
+        GameObject* otherGO = n->getData();
         
             
-        if (otherGO != go && go->checkCollision(*otherGO)) {
+        if (otherGO != go &&  go->checkCollision(*otherGO) && !otherGO->getgameObjectInfo().getIsEvent()) {
             // Collision détectée
             std::cout<< "colision detecter "<< i <<std::endl;
            
@@ -73,23 +73,23 @@ void Physics::applyCollision(GameObject* go, std::vector<Node>& nodelist, float 
                 sens = go->getpos().x < otherGO->getpos().x ? -1.0 : 1.0;
                 go->settranslate(glm::vec3(distanceToCollisionx * sens,0.0,0.0));
                 v.x = 0.0;
-                std::cout<<sens<<std::endl;
-                std::cout<<go->getpos().x<<std::endl;
-                std::cout<<otherGO->getpos().x<<std::endl;
+                //std::cout<<sens<<std::endl;
+                //std::cout<<go->getpos().x<<std::endl;
+                //std::cout<<otherGO->getpos().x<<std::endl;
             }
             else if(v.y != 0 && collisionAxe.y && distanceToCollisiony < distanceToCollisionx && distanceToCollisiony < distanceToCollisionz){
                 sens = go->getpos().y < otherGO->getpos().y ? -1.0 : 1.0;
                 go->settranslate(glm::vec3(0.0,distanceToCollisiony * sens,0.0));
                 v.y=0.0;
-                std::cout<<sens<<std::endl;
+                //std::cout<<sens<<std::endl;
             } 
             else if(v.z != 0 &&collisionAxe.z && distanceToCollisionz < distanceToCollisiony && distanceToCollisionz < distanceToCollisionx){
                 sens = go->getpos().z < otherGO->getpos().z ? -1.0 : 1.0;
                 go->settranslate(glm::vec3(0.0,0.0,distanceToCollisionz * sens));
                 v.z=0.0;
-                std::cout<<sens<<std::endl;
-                std::cout<<go->getpos().z<<std::endl;
-                std::cout<<otherGO->getpos().z<<std::endl;
+                //std::cout<<sens<<std::endl;
+                //std::cout<<go->getpos().z<<std::endl;
+                //std::cout<<otherGO->getpos().z<<std::endl;
                 
             }
             go->setVitesse(v);
@@ -102,8 +102,8 @@ void Physics::applyCollision(GameObject* go, std::vector<Node>& nodelist, float 
 
 //////FORCE///////
 void Physics::applyForce(Scene & s , float deltaTime){
-    std::vector<Node> nodelist =  s.get_node_list();
-    for (Node & n : nodelist){
+    std::vector<Node* > nodelist =  s.get_node_list();
+    for (Node * n : nodelist){
         GOInfo goi=s.get_data(n)->getgameObjectInfo();
         if(goi.getHasPhysics()&&s.get_data(n)->getVitesse()!=glm::vec3(0.0)){
             applyVitesse(s.get_data(n));

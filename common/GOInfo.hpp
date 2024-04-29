@@ -6,12 +6,12 @@ protected:
     //Par rapport au moteur phy
     bool moved_recently=false; 
 
-    bool has_physics=false;
+    bool has_physics=true;
     bool is_movable=false;
     bool is_pickable=false;
         
     //Type de GO
-    bool is_rendered=false;
+    bool is_rendered=true;
     bool is_camera=false;
     bool is_event=false;
 public:

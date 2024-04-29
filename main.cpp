@@ -24,6 +24,7 @@ float lastFrame = 0.0f;
 double InputManager::previousX = 0;
 double InputManager::previousY = 0;
 unsigned int InputManager::view = 0;
+
 /*******************************************************************************/
 
 int main( void )
@@ -80,43 +81,58 @@ int main( void )
     Scene s;
     SM.addSceneToList(&s);
     Physics p;
-    Node sol;
-    makeRoom(s,10,8,3,glm::vec3(5.0f),sol);
-    
-    
+    Node* sol = makeRoom(s,50,25,10,glm::vec3(5.0f));   
    
-    
-    Node cube = s.make_node_cube();
+    Node* cube = s.make_node_cube();
     s.get_data(cube)->set_color(glm::vec3(0.1f , 0.3f, 1.f)); 
-    s.scalenode(cube , glm::vec3(0.1f , 0.1f , 0.1f));
-    s.translatenode(cube, glm::vec3(0.0 , 0.05, .0));
-
+    float cubeScale=1.0;
+    s.scalenode(cube , glm::vec3(cubeScale));
+    s.translatenode(cube, glm::vec3(0.0 , cubeScale/2.0, .0));
+    Node* eventTpForward= s.make_node_event(typeEvent::TP_Scene_Forward, glm::vec3(0.0,0.05,0.0));
+    s.scalenode(eventTpForward , glm::vec3(0.1f , 0.1f , 0.1f));
+    s.translatenode(eventTpForward, glm::vec3(1.0 , 0.05, 1.0));
     s.get_data(cube)->getgameObjectInfo().setHasPhysics(true);
     s.get_data(cube)->calculateBoundingBox();
     s.get_data(cube)->setMasse(40.f);
-    
-    Node SecurityCam1 = s.make_node_camera(true,SCR_WIDTH , SCR_HEIGHT);
-    Node SecurityCam2 = s.make_node_camera(false,SCR_WIDTH , SCR_HEIGHT);
+    Node* SecurityCam1 = s.make_node_camera(true,SCR_WIDTH , SCR_HEIGHT);
+    Node* SecurityCam2 = s.make_node_camera(false,SCR_WIDTH , SCR_HEIGHT);
     s.get_data(SecurityCam1)->set_pos(glm::vec3(-1.0 , 1 , -1 ));
     s.get_data(SecurityCam2)->set_pos(glm::vec3(0 , 0.9 ,0));
-
-    
-    sol.addChild(cube);
-    sol.addChild(SecurityCam1);
-    sol.addChild(SecurityCam2);
+    sol->addChild(cube);
+    sol->addChild(eventTpForward);
+    sol->addChild(SecurityCam1);
+    sol->addChild(SecurityCam2);
 
    
     double lastTime = glfwGetTime();
     int nbFrames = 0;
     
     s.initscene();
-
    
     I_M.current_cam = static_cast<Camera*>(s.get_data(SecurityCam1));
     s.calculateBoundingBoxRecursive(sol);
     s.loadtexturesinscene();
+//////////////scene 2
+/*
+    Scene s2;
+    SM.addSceneToList(&s2);
+    Node sol2;
+    makeRoom(s,5,5,10,glm::vec3(5.0f),sol2);  
     
-    do{
+    Node SecurityCam1s2 = s2.make_node_camera(true,SCR_WIDTH , SCR_HEIGHT);
+    Node SecurityCam2s2 = s2.make_node_camera(false,SCR_WIDTH , SCR_HEIGHT);
+    s2.get_data(SecurityCam1s2)->set_pos(glm::vec3(-1.0 , 1 , -1 ));
+    s2.get_data(SecurityCam2s2)->set_pos(glm::vec3(0 , 0.9 ,0));
+
+    sol2.addChild(SecurityCam1s2);
+    sol2.addChild(SecurityCam2s2);
+   
+    s2.initscene();
+    s2.calculateBoundingBoxRecursive(sol2);
+    s2.loadtexturesinscene();
+    */
+    do{ 
+        SM.hasEventHappened(cube->getData());
         Scene& currentScene=SM.getCurrentScene();
        // std::cout<<&s<<std::endl;
        // std::cout<<&currentScene<<std::endl;
@@ -130,7 +146,7 @@ int main( void )
         glm::mat4 vm = I_M.current_cam->getViewMatrix();
         glm::mat4 pm = I_M.current_cam->getProjectionMatrix();
         
-        currentScene.drawscene(vm, pm , sol);
+        currentScene.drawscene(vm, pm , currentScene.get_node_list()[0]);
         
         glfwSwapBuffers(window);
         glfwPollEvents();

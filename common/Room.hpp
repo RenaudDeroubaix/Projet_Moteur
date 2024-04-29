@@ -1,18 +1,18 @@
 #include "common/utils.hpp"
 
-void makeRoom(Scene &s, int longueur, int largeur, int hauteur, glm::vec3 scale, Node &sol){
+Node * makeRoom(Scene &s, int longueur, int largeur, int hauteur, glm::vec3 scale){
     float scale_plan = 0.1;
-    float pas_h  = 1. /  (float)hauteur;
-    float pas_la  = 1. /  (float)largeur;
-    float pas_lo  = 1. /  (float)longueur;
+    // float pas_h  = 1. /  (float)hauteur;
+    // float pas_la  = 1. /  (float)largeur;
+    // float pas_lo  = 1. /  (float)longueur;
 
     // Création des éléments de la salle centrés en 0.0
-    sol = s.make_node_plan(longueur, largeur);
-    Node plafond = s.make_node_plan(longueur, largeur);
-    Node mur1 = s.make_node_plan(longueur, hauteur);
-    Node mur2 = s.make_node_plan(longueur, hauteur);
-    Node mur3 = s.make_node_plan(hauteur, largeur);
-    Node mur4 = s.make_node_plan(hauteur, largeur);
+    Node *sol = s.make_node_plan(longueur, largeur);
+    Node* plafond = s.make_node_plan(longueur, largeur);
+    Node* mur1 = s.make_node_plan(longueur, hauteur);
+    Node* mur2 = s.make_node_plan(longueur, hauteur);
+    Node* mur3 = s.make_node_plan(hauteur, largeur);
+    Node* mur4 = s.make_node_plan(hauteur, largeur);
 
 
 
@@ -32,11 +32,11 @@ void makeRoom(Scene &s, int longueur, int largeur, int hauteur, glm::vec3 scale,
     s.translatenode(mur4, glm::vec3((longueur-1)/2.0 * scale_plan, (hauteur- 1 )/2.0 * scale_plan, 0.0));
 
     // Ajout des enfants à sol
-    sol.addChild(plafond);
-    sol.addChild(mur1);
-    sol.addChild(mur2);
-    sol.addChild(mur3);
-    sol.addChild(mur4);
+    sol->addChild(plafond);
+    sol->addChild(mur1);
+    sol->addChild(mur2);
+    sol->addChild(mur3);
+    sol->addChild(mur4);
 
     // Scale de la salle entière
     s.scalenode(sol, scale);
@@ -50,4 +50,5 @@ void makeRoom(Scene &s, int longueur, int largeur, int hauteur, glm::vec3 scale,
     s.get_data(mur4)->set_color(glm::vec3(0.0f , 0.5f, 0.9f)); //bleu
 
     std::cout <<"fin make room" << std::endl;
+    return sol;
 }

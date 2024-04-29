@@ -1,6 +1,6 @@
 #pragma once
 #include "common/utils.hpp"
-#include "common/GameObject.hpp"
+
 
 typedef enum {TP_Scene_Forward, TP_Scene_Backward} typeEvent;
 
@@ -14,8 +14,7 @@ protected:
 public:
     Event(){}
     Event( typeEvent event, glm::vec3 p) :type_evenement(event), pos(p) {}
-
-    void changeSceneAndTP(GameObject& go,unsigned int& scene_i );
+    glm::vec3 getPos(){return pos;}
     typeEvent get_typeEvent();
 
 };

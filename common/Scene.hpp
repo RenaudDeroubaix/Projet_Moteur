@@ -10,49 +10,52 @@
 class Scene {
     
 private:
-    std::vector<Node> node_list;
+    std::vector<Node*> node_list;
     std::vector<GameObject*> camera_list;
+    std::vector<GameObject*> event_list;
 
 public:
     Scene(){} 
     
     std::vector<GameObject*> get_children_list(Node & n){return n.getDescendantsData();}
-    std::vector<Node> get_node_list(){return node_list;}
+    std::vector<Node*> get_node_list(){return node_list;}
     std::vector<GameObject*> get_camera_list(){return camera_list;}
+    std::vector<GameObject*> get_event_list(){return event_list;}
     
-    Node make_node_camera(bool is_locked, unsigned int w , unsigned int h); // 1er parametre pour savoir si la camera peut yaw a 360 degree
-    Node make_node_plan(int longeur, int largeur);
-    Node make_node_cube();
-    Node make_node_mesh(const std::string & path);
-    GameObject* get_data(Node & n){return n.getData();}
+    Node* make_node_camera(bool is_locked, unsigned int w , unsigned int h); // 1er parametre pour savoir si la camera peut yaw a 360 degree
+    Node* make_node_plan(int longeur, int largeur);
+    Node* make_node_cube();
+    Node* make_node_mesh(const std::string & path);
+    Node* make_node_event(typeEvent typeevent, glm::vec3 p);
+    GameObject* get_data(Node * n){return n->getData();}
     
 
     
     void initscene();
-    void drawscene(glm::mat4 & vm ,glm::mat4 & pm, Node & n);
+    void drawscene(glm::mat4 & vm ,glm::mat4 & pm, Node * n);
     void deletescene();
     void loadtexturesinscene();
-    void resetmodelmatrix(Node & n);
+    void resetmodelmatrix(Node * n);
     
-    void calculateBoundingBoxRecursive(Node& node);
+    void calculateBoundingBoxRecursive(Node* node);
     //////SCALE/////////////////////
-    void scalenode(Node & node , glm::vec3 scale){ // pour scale tout un noeud et ses enfants
-        std::vector<GameObject*>  children_data =  get_children_list(node);
+    void scalenode(Node * node , glm::vec3 scale){ // pour scale tout un noeud et ses enfants
+        std::vector<GameObject*>  children_data =  get_children_list(*node);
         for (GameObject* go : children_data){
             go->setscale(scale);
         }      
     }
 
     //////TRANSLATE////////////////
-    void translatenode(Node & node , glm::vec3 translate){ // pour translate tout un noeud et ses enfants
-        std::vector<GameObject*>  children_data =  get_children_list(node);
+    void translatenode(Node * node , glm::vec3 translate){ // pour translate tout un noeud et ses enfants
+        std::vector<GameObject*>  children_data =  get_children_list(*node);
         for (GameObject* go : children_data){
             go->settranslate(translate);
         }        
     }
     //////ROTATE//////////////////
-    void rotatenode(Node & node , float angle , glm::vec3 axe){ // pour scale tout les enfants du noeud recursivement
-        std::vector<GameObject*> children_data =  get_children_list(node);
+    void rotatenode(Node * node , float angle , glm::vec3 axe){ // pour scale tout les enfants du noeud recursivement
+        std::vector<GameObject*> children_data =  get_children_list(*node);
         for (GameObject* go : children_data){
             go->setrotate(angle , axe);
         }           

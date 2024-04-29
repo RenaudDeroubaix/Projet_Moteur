@@ -1,7 +1,7 @@
 #pragma once
 #include "common/utils.hpp"
 #include "common/Renderer.hpp"
-//#include "common/Event.hpp"
+#include "common/Event.hpp"
 #include "common/GOInfo.hpp"
 class GameObject {
 public:
@@ -33,7 +33,7 @@ protected:
     
     Renderer renderer;
     GOInfo gameObjectInfo = GOInfo();
-   // Event event;
+    Event event;
 public:
     GameObject(){}
     GameObject(glm::vec3 p) : pos(p) {}
@@ -82,11 +82,17 @@ public:
     void setgameObjectInfo(GOInfo goi){ gameObjectInfo = goi; }
     GOInfo& getgameObjectInfo(){ return gameObjectInfo ;}
 
+    void setEvent(Event ev){
+        event=ev;
+    }
+    Event getEvent(){return event;}
+
     glm::vec3 getVitesse(){return vitesse;}
+
     void setVitesse(glm::vec3 d){
         vitesse = d;
         for (int i=0; i<3; i++){
-            vitesse[i] > 1? vitesse[i] = 0.1 : vitesse[i] < -1? vitesse[i] = -0.1: vitesse[i];
+            vitesse[i] > 0.01? vitesse[i] = 0.01 : vitesse[i] < -0.01? vitesse[i] = -0.01: vitesse[i];
         }
     }
     void addVitesse(glm::vec3 d){
@@ -94,10 +100,11 @@ public:
         for (int i=0; i<3; i++){
             vitesse[i] > 1? vitesse[i] = 0.1 : vitesse[i] < -1? vitesse[i] = -0.1: vitesse[i];
         }
+        setVitesse (vitesse);
      }
     void reduceVitesse(float ps){
         for (int i=0; i<3; i++){
-            vitesse[i] < -ps*2 ? vitesse[i] += ps*2: vitesse[i] > ps*2 ? vitesse[i] -= ps*2 : vitesse[i] = 0;
+            vitesse[i] < -ps*4 ? vitesse[i] += ps*4 : vitesse[i] > ps*4 ? vitesse[i] -= ps*4 : vitesse[i] = 0;
         }
     }
     float getMasse(){return masse;}

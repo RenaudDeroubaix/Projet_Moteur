@@ -4,8 +4,8 @@
 
 class Node {
 private:
-    std::vector<Node> children;
-    std::vector<Node> parent;
+    std::vector<Node*> children;
+    Node* parent;
     GameObject* data;
 
 public:
@@ -13,9 +13,9 @@ public:
     ~Node(){}
     void add_data(GameObject* data) {this->data = data;}
     GameObject* getData() {return data;}
-    void addChild(Node & child) ;
-    void addParent(Node & p);
-    std::vector<Node> getDescendantsNode() ;
+    void addChild(Node * child)  ;
+    void addParent(Node * p) {parent = p ;}
+    std::vector<Node*> getDescendantsNode() ;
     std::vector<GameObject*> getDescendantsData() ;
 
     

@@ -10,22 +10,37 @@ class SceneManager {
 public:
 
 protected: 
+   Node root;
    unsigned int scene_i;
-   std::vector<Scene* > listScenes;
+   std::vector<Scene* > s;
 public:
     SceneManager(){scene_i=0;}
+
+    void changeSceneAndTP(GameObject* go, Event ev ){
+        ev.get_typeEvent()==typeEvent::TP_Scene_Forward ? scene_i++ : ev.get_typeEvent()==typeEvent::TP_Scene_Backward ? scene_i-- : scene_i ;
+        go->set_pos(ev.getPos());
+    }
    
-   void event(GameObject& go, Event ev){
+   void event(GameObject* go, Event ev){
         if(ev.get_typeEvent()==typeEvent::TP_Scene_Forward || ev.get_typeEvent()==typeEvent::TP_Scene_Backward ){
-            ev.changeSceneAndTP(go,scene_i);
+            changeSceneAndTP(go,ev);
         }
-        if(scene_i >= listScenes.size() || scene_i==-1){
+        if(scene_i >= s.size() || scene_i==-1){
             scene_i=0;
         }
    }
-   void addSceneToList(Scene* s){listScenes.push_back(s);}
-   Scene& getCurrentScene(){
-    return *listScenes[scene_i];
+
+   void hasEventHappened(GameObject* go){
+        for(GameObject* eventGO : s[scene_i]->get_event_list()){
+            if(go->checkCollision(*eventGO)){
+                event(go,eventGO->getEvent() );
+            }
+        }    
    }
+   void addSceneToList(Scene* scene){s.push_back(scene);}
+   Scene& getCurrentScene(){
+    return *s[scene_i];
+   }
+   Node getRoot(){return root;}
 
 };

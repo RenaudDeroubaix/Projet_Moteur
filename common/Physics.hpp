@@ -17,7 +17,7 @@ public:
 
     void applyGravity(GameObject* go ,float deltaTime);
 
-    void applyCollision(GameObject* go, std::vector<Node> & nodelist ,float deltaTime);
+    void applyCollision(GameObject* go, std::vector<Node*> & nodelist ,float deltaTime);
 
     //////FORCE///////
     void applyForce(Scene & s , float deltaTime);
