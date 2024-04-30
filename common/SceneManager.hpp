@@ -13,27 +13,36 @@ protected:
    Node root;
    unsigned int scene_i;
    std::vector<Scene* > s;
+   InputManager I_M;
 public:
     SceneManager(){scene_i=0;}
 
-    void changeSceneAndTP(GameObject* go, Event ev ){
+    void changeSceneAndTP(Node* node, Event ev ){
+        s[scene_i]->get_node_list()[0]->removeChild(node);
+        s[scene_i]->removeNodeFromNodeList(node);
         ev.get_typeEvent()==typeEvent::TP_Scene_Forward ? scene_i++ : ev.get_typeEvent()==typeEvent::TP_Scene_Backward ? scene_i-- : scene_i ;
-        go->set_pos(ev.getPos());
+        node->getData()->set_pos(ev.getPos());
     }
    
-   void event(GameObject* go, Event ev){
+   void event(Node* node, Event ev){
         if(ev.get_typeEvent()==typeEvent::TP_Scene_Forward || ev.get_typeEvent()==typeEvent::TP_Scene_Backward ){
-            changeSceneAndTP(go,ev);
-        }
-        if(scene_i >= s.size() || scene_i==-1){
-            scene_i=0;
+            changeSceneAndTP(node,ev);
+            if(scene_i >= s.size() || scene_i==-1){
+                scene_i=0;
+            }
+            s[scene_i]->get_node_list()[0]->addChild(node);
+             std::cout << s[scene_i]->get_node_list().size()<<std::endl;
+            s[scene_i]->get_node_list().push_back(node);
+            std::cout << s[scene_i]->get_node_list().size()<<std::endl;
+            s[scene_i]->setNodePlayer(node);
+            I_M.current_cam = static_cast<Camera*>(s[scene_i]->get_camera_list()[0]);
         }
    }
 
-   void hasEventHappened(GameObject* go){
+   void hasEventHappened(Node* n){
         for(GameObject* eventGO : s[scene_i]->get_event_list()){
-            if(go->checkCollision(*eventGO)){
-                event(go,eventGO->getEvent() );
+            if(n->getData()->checkCollision(*eventGO)){
+                event(n,eventGO->getEvent() );
             }
         }    
    }
@@ -42,5 +51,7 @@ public:
     return *s[scene_i];
    }
    Node getRoot(){return root;}
+
+   InputManager& getInputManager(){return I_M;}
 
 };

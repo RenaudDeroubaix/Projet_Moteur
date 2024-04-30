@@ -81,6 +81,7 @@ void Physics::applyCollision(GameObject* go, std::vector<Node*>& nodelist, float
                 sens = go->getpos().y < otherGO->getpos().y ? -1.0 : 1.0;
                 go->settranslate(glm::vec3(0.0,distanceToCollisiony * sens,0.0));
                 v.y=0.0;
+                go->getgameObjectInfo().setIsFalling(false);
                 //std::cout<<sens<<std::endl;
             } 
             else if(v.z != 0 &&collisionAxe.z && distanceToCollisionz < distanceToCollisiony && distanceToCollisionz < distanceToCollisionx){
@@ -104,12 +105,15 @@ void Physics::applyCollision(GameObject* go, std::vector<Node*>& nodelist, float
 void Physics::applyForce(Scene & s , float deltaTime){
     std::vector<Node* > nodelist =  s.get_node_list();
     for (Node * n : nodelist){
-        GOInfo goi=s.get_data(n)->getgameObjectInfo();
-        if(goi.getHasPhysics()&&s.get_data(n)->getVitesse()!=glm::vec3(0.0)){
-            applyVitesse(s.get_data(n));
-            applyGravity(s.get_data(n) ,deltaTime);
-            s.get_data(n)->calculateBoundingBox();
-            applyCollision(s.get_data(n), nodelist ,deltaTime);
+        GameObject* go=s.get_data(n);
+        GOInfo goi=go->getgameObjectInfo();
+        if(go->getVitesse() ==  glm::vec3(0.f) && !goi.getIsFalling()){goi.setMovedRecently(false);}
+        if(goi.getHasPhysics() && goi.getMovedRecently()){
+            applyVitesse(go);
+            applyGravity(go ,deltaTime);
+            go->calculateBoundingBox();
+            applyCollision(go, nodelist ,deltaTime);
+  
         }
         
     }    

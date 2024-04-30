@@ -7,6 +7,10 @@ void Node::addChild(Node * child)
     child->addParent(this);
 }
 
+ void Node::removeChild(Node* child){
+    children.erase(std::find(children.begin(),children.end(),child));
+ }
+
 // Obtenir la liste des noeuds descendants
     std::vector<Node*> Node::getDescendantsNode() {
         std::vector<Node*> descendants;

@@ -14,6 +14,7 @@ protected:
     bool is_rendered=true;
     bool is_camera=false;
     bool is_event=false;
+    bool is_falling=false;
 public:
 
     GOInfo() {}
@@ -56,4 +57,7 @@ public:
     void setIsEvent(bool value) { is_event = value; }
 
     bool getIsEvent() const { return is_event; }
+    void setIsFalling(bool value) { is_falling = value; }
+
+    bool getIsFalling() const { return is_falling; }
 };

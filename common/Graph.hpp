@@ -14,6 +14,7 @@ public:
     void add_data(GameObject* data) {this->data = data;}
     GameObject* getData() {return data;}
     void addChild(Node * child)  ;
+    void removeChild(Node* child);
     void addParent(Node * p) {parent = p ;}
     std::vector<Node*> getDescendantsNode() ;
     std::vector<GameObject*> getDescendantsData() ;

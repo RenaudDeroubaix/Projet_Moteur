@@ -112,32 +112,52 @@ void InputManager::Input_SecurityCam(GameObject * player , float limit_yaw , flo
     previousX = current_cam->getlastX();
     previousY = current_cam->getlastY();
     current_cam->update();
+    GameObject* c = static_cast<GameObject*>(current_cam);
+
+    player->set_front(c->get_front());
 }
 
 void InputManager::Input_GameObject(GameObject * go , float deltaTime)
 {
     //Keyboard control camera
    
-    float playerSpeed = 0.1 * deltaTime;
+    float playerSpeed = 0.2 * deltaTime;
     //         if (isKeyHeld(GLFW_KEY_6))
     //             c->camera_translate(-cameraSpeed * c->target_vector());
     //         if (isKeyHeld(GLFW_KEY_EQUAL))
     //             c->camera_translate(cameraSpeed * c->target_vector());
     bool b = true;
+    glm::vec3 front = go->get_front();
+    glm::vec3 right = go->get_right();
+    glm::vec3 up = go->get_up();
     if (isKeyHeld(GLFW_KEY_W)){
-        go->addVitesse(glm::vec3(0.0 , 0.0 , -playerSpeed));
+        go->addVitesse(front * playerSpeed);
+          //go->setVitesse( go->getVitesse()); 
+          go->getgameObjectInfo().setMovedRecently(true);
         b = false;
     }
     if (isKeyHeld( GLFW_KEY_S)){
-        go->addVitesse(glm::vec3(0.f , 0.f , playerSpeed));
+        go->addVitesse(front * -playerSpeed);
+          //go->setVitesse( go->getVitesse()); 
+          go->getgameObjectInfo().setMovedRecently(true);
         b = false;
     }
     if (isKeyHeld(GLFW_KEY_A)){
-        go->addVitesse(glm::vec3(playerSpeed , 0.f , 0.f));
+        go->addVitesse(right * -playerSpeed);
+         //go->setVitesse( go->getVitesse()); 
+         go->getgameObjectInfo().setMovedRecently(true);
         b = false;
     }
     if (isKeyHeld(GLFW_KEY_D)){
-        go->addVitesse(glm::vec3(-playerSpeed, 0.f , 0.f));
+        go->addVitesse(right * playerSpeed);
+        //go->setVitesse( go->getVitesse()); 
+        go->getgameObjectInfo().setMovedRecently(true);
+        b = false;
+    }
+    if (isKeyPressed(GLFW_KEY_SPACE)&&  !go->getgameObjectInfo().getIsFalling()){
+        go->addVitesse(up * deltaTime  * 15.f );
+        go->getgameObjectInfo().setMovedRecently(true);
+        go->getgameObjectInfo().setIsFalling(true);
         b = false;
     }/*
     if (isKeyPressed(GLFW_KEY_SPACE)){

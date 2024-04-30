@@ -92,15 +92,12 @@ public:
     void setVitesse(glm::vec3 d){
         vitesse = d;
         for (int i=0; i<3; i++){
-            vitesse[i] > 0.01? vitesse[i] = 0.01 : vitesse[i] < -0.01? vitesse[i] = -0.01: vitesse[i];
+            vitesse[i] > 0.02? vitesse[i] = 0.02 : vitesse[i] < -0.02? vitesse[i] = -0.02: vitesse[i];
         }
     }
     void addVitesse(glm::vec3 d){
-        vitesse+=d;
-        for (int i=0; i<3; i++){
-            vitesse[i] > 1? vitesse[i] = 0.1 : vitesse[i] < -1? vitesse[i] = -0.1: vitesse[i];
-        }
-        setVitesse (vitesse);
+        vitesse+=d; 
+          
      }
     void reduceVitesse(float ps){
         for (int i=0; i<3; i++){

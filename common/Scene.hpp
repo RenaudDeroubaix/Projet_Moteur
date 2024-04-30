@@ -11,14 +11,19 @@ class Scene {
     
 private:
     std::vector<Node*> node_list;
+    Node* player;
     std::vector<GameObject*> camera_list;
     std::vector<GameObject*> event_list;
 
 public:
     Scene(){} 
+    void setNodePlayer(Node* n){player=n;}
+    Node* getNodePlayer(){return player;}
+
+    void removeNodeFromNodeList(Node* n){node_list.erase(std::find(node_list.begin(),node_list.end(),n));}
     
     std::vector<GameObject*> get_children_list(Node & n){return n.getDescendantsData();}
-    std::vector<Node*> get_node_list(){return node_list;}
+    std::vector<Node*>& get_node_list(){return node_list;}
     std::vector<GameObject*> get_camera_list(){return camera_list;}
     std::vector<GameObject*> get_event_list(){return event_list;}
     
