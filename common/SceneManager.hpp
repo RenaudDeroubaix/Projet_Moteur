@@ -46,7 +46,7 @@ public:
 
    void hasEventHappened(Node* n){
         for(GameObject* eventGO : s[scene_i]->get_event_list()){
-            if(n->getData()->checkCollision(*eventGO)){
+            if(n==s[scene_i]->getNodePlayer() && n->getData()->checkCollision(*eventGO)){
                 event(n,eventGO->getEvent() );
             }
         }    
@@ -83,17 +83,17 @@ public:
 
    void makeScene(){
         switch(scene_i) {
-            case 0:
-                makeScene_0(s[scene_i], SCR_WIDTH, SCR_HEIGHT);
+            case 0: 
+                if(s[scene_i]->get_node_list().size()==0){makeScene_0(s[scene_i], SCR_WIDTH, SCR_HEIGHT);}
                 break;
             case 1:
-                makeScene_1(s[scene_i], SCR_WIDTH, SCR_HEIGHT);
+                if(s[scene_i]->get_node_list().size()==0){makeScene_1(s[scene_i], SCR_WIDTH, SCR_HEIGHT);}
                 break;
             case 2:
-            // makeScene_2(s[scene_i], SCR_WIDTH, SCR_HEIGHT);
+            // if(s[scene_i]->get_node_list().size()==0){makeScene_2(s[scene_i], SCR_WIDTH, SCR_HEIGHT);}
                 break;
             case 3:
-            // makeScene_3(s[scene_i], SCR_WIDTH, SCR_HEIGHT);
+            // if(s[scene_i]->get_node_list().size()==0){makeScene_3(s[scene_i], SCR_WIDTH, SCR_HEIGHT);}
                 break;
             default:
                 std::cerr << "Invalid scene number!" << std::endl;

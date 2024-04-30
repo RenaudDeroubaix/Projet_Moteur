@@ -108,6 +108,8 @@ add_executable(TP
     common/Event.hpp
     common/Event.cpp
     
+    common/SceneInit.hpp
+    
 	
 	
 )
