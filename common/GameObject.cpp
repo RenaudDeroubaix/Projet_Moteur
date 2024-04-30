@@ -7,14 +7,17 @@ glm::mat4 GameObject::getmodelmat() { return modelmat;}
 void GameObject::setscale(glm::vec3 s)
 {
     modelmat = glm::scale(glm::mat4(1.f) , s) * modelmat;
+
 }
 void GameObject::settranslate(glm::vec3 t)
 {
     modelmat = glm::translate(glm::mat4(1.f) , t) * modelmat;
+
 }
 void GameObject::setrotate(float angle ,glm::vec3 axe)
 {
-   modelmat =  glm::rotate( glm::mat4(1.f) ,glm::radians(angle) , axe) * modelmat;
+    modelmat =  glm::rotate( glm::mat4(1.f) ,glm::radians(angle) , axe) * modelmat;
+   
 }
 
 void GameObject::calculateBoundingBox() {

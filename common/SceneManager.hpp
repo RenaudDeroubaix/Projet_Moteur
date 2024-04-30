@@ -3,11 +3,15 @@
 #include "common/GameObject.hpp"
 #include "common/Scene.hpp"
 #include "common/Event.hpp"
-
+#include "common/SceneInit.hpp"
 
 
 class SceneManager {
 public:
+
+const unsigned int SCR_WIDTH = 1024;
+const unsigned int SCR_HEIGHT = 768;
+
 
 protected: 
    Node root;
@@ -30,6 +34,7 @@ public:
             if(scene_i >= s.size() || scene_i==-1){
                 scene_i=0;
             }
+            initScene();
             s[scene_i]->get_node_list()[0]->addChild(node);
              std::cout << s[scene_i]->get_node_list().size()<<std::endl;
             s[scene_i]->get_node_list().push_back(node);
@@ -56,17 +61,18 @@ public:
             go->update_champ_de_vision();
         }else{go->setVitesse(glm::vec3(0.f));}
        // go->checkCollision(Player)
-        // if ( go->checkCollision(Player))
-        // {
+       if ( go->checkCollision(*Player))
+        {
+            std::cout<<" le frotteur  du tram(laeticia)" << std::endl;
 
-
-        // }
+        }
 
 
     }
-
-   
    }
+
+   unsigned int getScene_i(){return scene_i;}
+    std::vector<Scene* >& getSceneList(){return s;}
    void addSceneToList(Scene* scene){s.push_back(scene);}
    Scene& getCurrentScene(){
     return *s[scene_i];
@@ -75,4 +81,23 @@ public:
 
    InputManager& getInputManager(){return I_M;}
 
+   void makeScene(){
+        switch(scene_i) {
+            case 0:
+                makeScene_0(s[scene_i], SCR_WIDTH, SCR_HEIGHT);
+                break;
+            case 1:
+                makeScene_1(s[scene_i], SCR_WIDTH, SCR_HEIGHT);
+                break;
+            case 2:
+            // makeScene_2(s[scene_i], SCR_WIDTH, SCR_HEIGHT);
+                break;
+            case 3:
+            // makeScene_3(s[scene_i], SCR_WIDTH, SCR_HEIGHT);
+                break;
+            default:
+                std::cerr << "Invalid scene number!" << std::endl;
+        }
+    }
+    void initScene(){makeScene();}
 };

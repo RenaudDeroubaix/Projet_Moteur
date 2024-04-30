@@ -9,13 +9,10 @@
 #include "common/Physics.hpp"
 #include "common/SceneManager.hpp"
 
+
 using namespace glm;
 
 GLFWwindow* window;
-
-// settings
-const unsigned int SCR_WIDTH = 1024;
-const unsigned int SCR_HEIGHT = 768;
 
 // timing
 float deltaTime = 0.0f;	// time between current frame and last frame
@@ -42,7 +39,7 @@ int main( void )
     // Set the mouse at the center of the screen
     glfwPollEvents();
     // Open a window and create its OpenGL context
-    window = glfwCreateWindow( SCR_WIDTH, SCR_HEIGHT, "Moteur_Camera", NULL, NULL);
+    window = glfwCreateWindow( SM.SCR_WIDTH, SM.SCR_HEIGHT, "Moteur_Camera", NULL, NULL);
     
     
     // Ensure we can capture the escape key being pressed below
@@ -81,7 +78,12 @@ int main( void )
     ///// init a newscene
     Scene s;
     SM.addSceneToList(&s);
+    SM.initScene();
     Physics p;
+
+    Scene s2;
+    SM.addSceneToList(&s2);
+ /*  
     Node* sol = makeRoom(s,50,25,10,glm::vec3(5.0f));   
    
     Node* cube = s.make_node_cube();
@@ -113,15 +115,12 @@ int main( void )
     sol->addChild(SecurityCam1);
     sol->addChild(SecurityCam2);
 
-   
-    double lastTime = glfwGetTime();
-    int nbFrames = 0;
-    
+ 
     s.initscene();
     s.calculateBoundingBoxRecursive(sol);
     s.loadtexturesinscene();
 //////////////scene 2
-/*
+
     Scene s2;
     s2.setNodePlayer(cube);
     SM.addSceneToList(&s2);
@@ -142,12 +141,15 @@ int main( void )
 
 
     s2.setNodePlayer(cube);
-*/
+*/ 
+    double lastTime = glfwGetTime();
+    int nbFrames = 0;
     I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene().get_camera_list()[0]);
 
     do{ 
-        SM.hasEventHappened(cube);
+        
         Scene& currentScene=SM.getCurrentScene();
+        SM.hasEventHappened(currentScene.getNodePlayer());
         //std::cout << &currentScene << std::endl;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         float currentFrame = glfwGetTime();

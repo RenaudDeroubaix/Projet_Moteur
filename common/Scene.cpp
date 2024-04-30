@@ -6,6 +6,7 @@ Node* Scene::make_node_plan(int longeur = 16, int largeur = 16)
     Node* n= new Node();
     GameObject* go = new Plan(glm::vec3(0.f) , longeur ,largeur);
     n->add_data(go);
+    go->calculateBoundingBox();
     node_list.push_back(n);
     return node_list[node_list.size() - 1];
 }
@@ -14,6 +15,7 @@ Node* Scene::make_node_npc()
     Node* n= new Node();
     GameObject* go = new CubeInit();
     go->getgameObjectInfo().setIsRendered(true);
+    go->calculateBoundingBox();
     n->add_data(go);
     node_list.push_back(n);
     npc_list.push_back(go);
@@ -23,6 +25,7 @@ Node* Scene::make_node_camera(bool is_locked, unsigned int w , unsigned int h)
 {
     Node* n= new Node();
     GameObject* go = new Camera(is_locked , w , h);
+    go->calculateBoundingBox();
     n->add_data(go);
     node_list.push_back(n);
     camera_list.push_back(go);
@@ -33,6 +36,7 @@ Node* Scene::make_node_event(typeEvent typeevent, glm::vec3 p){
     GameObject* go = new CubeInit();
     go->getgameObjectInfo().setIsEvent(true);
     go->getgameObjectInfo().setIsRendered(true);
+    go->calculateBoundingBox();
     Event ev(typeevent, p);
     go->setEvent(ev);
     go->set_color(glm::vec3(0.1,1.0,0.2));
@@ -47,6 +51,7 @@ Node* Scene::make_node_cube()
 {
     Node* n= new Node();
     GameObject* go = new CubeInit();
+    go->calculateBoundingBox();
     n->add_data(go);
     node_list.push_back(n);
     return node_list[node_list.size() - 1];
@@ -56,6 +61,7 @@ Node* Scene::make_node_mesh(const std::string & path)
 {
     Node* n= new Node();
     GameObject* go = new Mesh(path);
+    go->calculateBoundingBox();
     n->add_data(go);
     node_list.push_back(n);
     return node_list[node_list.size() - 1];
