@@ -4,9 +4,7 @@ void Physics::applyGravity(GameObject* go ,float deltaTime){
     float F = getForceDeGravite(go->getMasse());
     float gravite = -(F / go->getMasse()) * deltaTime * 0.1f  ;
     //std::cout<< gravite << std::endl;
-    go->addVitesse(glm::vec3(0.f, gravite , 0.f));  
-        
-    
+    go->addVitesse(glm::vec3(0.f, gravite , 0.f));    
     //std::cout<< "fin boucle gravity" <<std::endl;
     
 }
