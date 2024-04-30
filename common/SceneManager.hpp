@@ -46,6 +46,27 @@ public:
             }
         }    
    }
+   bool DetecterParNPC(GameObject * Player , float deltatime){
+    for (GameObject * go : s[scene_i]->get_npc_list())
+    {
+        if (Player->in_champ_de_vison(go)){
+            go->set_front(glm::normalize(Player->getpos() - go->getpos()));
+            go->addVitesse(go->get_front() * deltatime * 0.2f );
+            go->getgameObjectInfo().setMovedRecently(true);
+            go->update_champ_de_vision();
+        }else{go->setVitesse(glm::vec3(0.f));}
+       // go->checkCollision(Player)
+        // if ( go->checkCollision(Player))
+        // {
+
+
+        // }
+
+
+    }
+
+   
+   }
    void addSceneToList(Scene* scene){s.push_back(scene);}
    Scene& getCurrentScene(){
     return *s[scene_i];

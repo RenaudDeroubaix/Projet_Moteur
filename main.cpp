@@ -87,12 +87,20 @@ int main( void )
     Node* cube = s.make_node_cube();
     s.setNodePlayer(cube);
     s.get_data(cube)->set_color(glm::vec3(0.1f , 0.3f, 1.f)); 
+    s.scalenode(cube , glm::vec3(0.5f , 0.5f , 0.5f));
+
     float cubeScale=0.5;
     s.scalenode(cube , glm::vec3(cubeScale));
-    s.translatenode(cube, glm::vec3(0.0 , cubeScale/2.0, .0));
-    Node* eventTpForward= s.make_node_event(typeEvent::TP_Scene_Forward, glm::vec3(0.0,cubeScale/2.0,0.0));
-    s.scalenode(eventTpForward , glm::vec3(0.1f , 0.1f , 0.1f));
-    s.translatenode(eventTpForward, glm::vec3(1.0 , 0.05, 1.0));
+    s.translatenode(cube, glm::vec3(0.0 , cubeScale/2.0, -3.0));
+
+    Node* npc = s.make_node_npc();
+    ChampVision CV = ChampVision(s.get_data(npc)->getpos() , s.get_data(npc)->get_front() , 1.f * s.get_data(npc)->getscale()  , 3.f * s.get_data(npc)->getscale(), 1.f * s.get_data(npc)->getscale()); // rayon , hauteur , rayon au sol
+    s.get_data(npc)->setChampVision(CV);
+
+    s.get_data(npc)->set_color(glm::vec3(0.3f , 1.f, 0.5f)); 
+    s.scalenode(npc , glm::vec3(0.5f , 0.5f , 0.5f));
+    s.translatenode(npc, glm::vec3(1.0 , 0.25f, 1.0));
+
     s.get_data(cube)->getgameObjectInfo().setHasPhysics(true);
     s.get_data(cube)->calculateBoundingBox();
     s.get_data(cube)->setMasse(40.f);
@@ -101,7 +109,7 @@ int main( void )
     s.get_data(SecurityCam1)->set_pos(glm::vec3(-1.0 , 1 , -1 ));
     s.get_data(SecurityCam2)->set_pos(glm::vec3(0 , 0.9 ,0));
     sol->addChild(cube);
-    sol->addChild(eventTpForward);
+    sol->addChild(npc);
     sol->addChild(SecurityCam1);
     sol->addChild(SecurityCam2);
 
@@ -113,7 +121,7 @@ int main( void )
     s.calculateBoundingBoxRecursive(sol);
     s.loadtexturesinscene();
 //////////////scene 2
-
+/*
     Scene s2;
     s2.setNodePlayer(cube);
     SM.addSceneToList(&s2);
@@ -132,9 +140,10 @@ int main( void )
     s2.calculateBoundingBoxRecursive(sol2);
     s2.loadtexturesinscene();
 
-    I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene().get_camera_list()[0]);
 
     s2.setNodePlayer(cube);
+*/
+    I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene().get_camera_list()[0]);
 
     do{ 
         SM.hasEventHappened(cube);
@@ -146,7 +155,9 @@ int main( void )
         lastFrame = currentFrame;
         
         I_M.Input_GamePlay(currentScene , currentScene.getNodePlayer()->getData(), deltaTime);
+
         p.applyForce(currentScene , deltaTime);
+        SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTime);
         glm::mat4 vm = I_M.current_cam->getViewMatrix();
         glm::mat4 pm = I_M.current_cam->getProjectionMatrix();
         

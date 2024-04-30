@@ -117,8 +117,11 @@ public:
     Event getEvent(){return event;}
 
     glm::vec3 getVitesse(){return vitesse;}
+    void update_champ_de_vision(){
+        champ_de_vision = ChampVision(getpos() , get_front() ,champ_de_vision.r , champ_de_vision.h ,champ_de_vision.r_sol  );
+    }
     void setChampVision(ChampVision CV){
-        ChampVision = CV;
+        champ_de_vision = CV;
     }
     void setVitesse(glm::vec3 d){
         vitesse = d;
@@ -185,11 +188,11 @@ public:
             glm::vec4 P = modelmat * glm::vec4(point , 1.0f);
             glm::vec3 p = glm::vec3(P.x , P.y , P.z);
             
-            float cone_dist = glm::dot(p - go->champ_de_vision.origin,  go->champ_de_vision.direction);
-            if ((0 <= cone_dist) and (cone_dist <= go->champ_de_vision.h))
+            float dist = glm::length(p - go->champ_de_vision.origin);
+            if ((0 <= dist) and (dist <= go->champ_de_vision.h))
             {
-                float cone_radius = (cone_dist / go->champ_de_vision.h) * go->champ_de_vision.r;
-                float orth_distance = glm::length((p - go->champ_de_vision.origin) - cone_dist * go->champ_de_vision.direction);
+                float cone_radius = (dist / go->champ_de_vision.h) * go->champ_de_vision.r;
+                float orth_distance = glm::length((p - go->champ_de_vision.origin) - dist * go->champ_de_vision.direction);
                 is_point_inside_cone = (orth_distance < cone_radius);
             }
             

@@ -14,10 +14,9 @@ Node* Scene::make_node_npc()
     Node* n= new Node();
     GameObject* go = new CubeInit();
     go->getgameObjectInfo().setIsRendered(true);
-    ChampVision CV = ChampVision(go->getpos() , go->get_front() , 1.f * go->getscale()  , 1.f * go->getscale(), 1.f * go->getscale());
-    go->setChampVision(CV);
     n->add_data(go);
     node_list.push_back(n);
+    npc_list.push_back(go);
     return node_list[node_list.size() - 1];
 }
 Node* Scene::make_node_camera(bool is_locked, unsigned int w , unsigned int h) 

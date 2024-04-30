@@ -14,6 +14,7 @@ private:
     Node* player;
     std::vector<GameObject*> camera_list;
     std::vector<GameObject*> event_list;
+    std::vector<GameObject*> npc_list;
 
 public:
     Scene(){} 
@@ -24,8 +25,9 @@ public:
     
     std::vector<GameObject*> get_children_list(Node & n){return n.getDescendantsData();}
     std::vector<Node*>& get_node_list(){return node_list;}
-    std::vector<GameObject*> get_camera_list(){return camera_list;}
-    std::vector<GameObject*> get_event_list(){return event_list;}
+    std::vector<GameObject*>& get_camera_list(){return camera_list;}
+    std::vector<GameObject*>& get_event_list(){return event_list;}
+    std::vector<GameObject*>& get_npc_list(){return npc_list;}
     
     Node* make_node_camera(bool is_locked, unsigned int w , unsigned int h); // 1er parametre pour savoir si la camera peut yaw a 360 degree
     Node* make_node_plan(int longeur, int largeur);
