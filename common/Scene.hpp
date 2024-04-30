@@ -25,6 +25,7 @@ public:
     Node* make_node_camera(bool is_locked, unsigned int w , unsigned int h); // 1er parametre pour savoir si la camera peut yaw a 360 degree
     Node* make_node_plan(int longeur, int largeur);
     Node* make_node_cube();
+    Node* make_node_npc();
     Node* make_node_mesh(const std::string & path);
     Node* make_node_event(typeEvent typeevent, glm::vec3 p);
     GameObject* get_data(Node * n){return n->getData();}
