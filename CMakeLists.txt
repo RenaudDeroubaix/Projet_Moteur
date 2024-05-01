@@ -65,7 +65,9 @@ add_executable(TP
 	common/texture.hpp
 	common/vboindexer.cpp
 	common/vboindexer.hpp
-	
+	common/quaternion_utils.cpp
+    common/quaternion_utils.hpp
+
 	common/Renderer.cpp
 	common/Renderer.hpp
 	
@@ -84,7 +86,7 @@ add_executable(TP
 	common/Mesh.hpp
 	common/Mesh.cpp
 	
-    	common/Camera.cpp
+    common/Camera.cpp
 	common/Camera.hpp
 	
 	common/InputManager.cpp

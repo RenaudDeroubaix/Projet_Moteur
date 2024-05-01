@@ -54,6 +54,7 @@ protected:
     float masse=0.0;
     
     glm::mat4 modelmat;
+    glm::quat rotation;
     
     Renderer renderer;
     GOInfo gameObjectInfo = GOInfo();
@@ -103,10 +104,11 @@ public:
     
     void setmodelmat(glm::mat4 m){modelmat = m;}
 
-    void setpos(glm::vec3 p) ;
+    void setpos(glm::vec3 p);
     void setscale(glm::vec3 s);
     void settranslate(glm::vec3 t);
-    void setrotate(float angle ,glm::vec3 axe);
+    void setrotate(float angle , glm::vec3 axe);
+    void rotate(glm::vec3 euler);
 
     void setgameObjectInfo(GOInfo goi){ gameObjectInfo = goi; }
     GOInfo& getgameObjectInfo(){ return gameObjectInfo ;}

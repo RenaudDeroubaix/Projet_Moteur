@@ -15,6 +15,8 @@
 #include <glm/gtx/norm.hpp>
 #include <glm/gtx/string_cast.hpp>
 
+#include "quaternion_utils.hpp"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

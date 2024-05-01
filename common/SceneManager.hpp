@@ -55,21 +55,31 @@ public:
     for (GameObject * go : s[scene_i]->get_npc_list())
     {
         if (Player->in_champ_de_vison(go)){
-            go->set_front(glm::normalize(Player->getpos() - go->getpos()));
-            go->addVitesse(go->get_front() * deltatime * 0.2f );
+            
+            glm::vec3 lastfront = glm::normalize(Player->getpos() - go->getpos());
+            glm::quat rotation = RotationBetweenVectors(go->get_front() , lastfront);
+            //glm::quat rotation = RotateTowards( rotationprev , rotationlast , glm::radians(10.f));
+            glm::vec3 eulerangle = Helper::quatToEuler(rotation);
+            go->rotate(eulerangle);
+            
+            go->set_front(lastfront);
+            go->addVitesse(go->get_front() * deltatime * 0.15f );
+            
             go->getgameObjectInfo().setMovedRecently(true);
             go->update_champ_de_vision();
-        }else{go->setVitesse(glm::vec3(0.f));}
-       // go->checkCollision(Player)
+        }
+        else{go->setVitesse(glm::vec3(0.f));}
        if ( go->checkCollision(*Player))
         {
-            std::cout<<" le frotteur  du tram(laeticia)" << std::endl;
+            
+            std::cout<<"colision IA -- Joueur" << std::endl;
 
         }
 
 
     }
    }
+  
 
    unsigned int getScene_i(){return scene_i;}
     std::vector<Scene* >& getSceneList(){return s;}

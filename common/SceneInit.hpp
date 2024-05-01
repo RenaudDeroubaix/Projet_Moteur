@@ -27,7 +27,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(cube)->setMasse(40.f);
     Node* SecurityCam1 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT);
     Node* SecurityCam2 = s->make_node_camera(false,SCR_WIDTH , SCR_HEIGHT);
-    s->get_data(SecurityCam1)->set_pos(glm::vec3(-1.0 , 1 , -1 ));
+    s->get_data(SecurityCam1)->set_pos(glm::vec3(-2.5 , 1.3 , -2.5 ));
     s->get_data(SecurityCam2)->set_pos(glm::vec3(0 , 0.9 ,0));
     sol->addChild(cube);
     sol->addChild(npc);
@@ -49,7 +49,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     //s->deletescene();
 
     Node* sol = makeRoom(*s,50,50,10,glm::vec3(2.0f));  
-   float cubeScale=0.5;
+    float cubeScale=0.5;
     
     Node* SecurityCam1 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT);
     Node* SecurityCam2 = s->make_node_camera(false,SCR_WIDTH , SCR_HEIGHT);

@@ -15,6 +15,9 @@ protected:
     bool is_camera=false;
     bool is_event=false;
     bool is_falling=false;
+    
+    
+    
 public:
 
     GOInfo() {}
