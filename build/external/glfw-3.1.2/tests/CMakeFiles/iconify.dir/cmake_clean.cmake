@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/iconify.dir/__/deps/getopt.c.o"
+  "CMakeFiles/iconify.dir/__/deps/getopt.c.o.d"
   "CMakeFiles/iconify.dir/iconify.c.o"
+  "CMakeFiles/iconify.dir/iconify.c.o.d"
   "iconify"
   "iconify.pdb"
 )

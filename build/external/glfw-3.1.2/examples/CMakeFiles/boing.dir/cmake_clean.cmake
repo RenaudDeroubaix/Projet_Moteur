@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/boing.dir/boing.c.o"
+  "CMakeFiles/boing.dir/boing.c.o.d"
   "boing"
   "boing.pdb"
 )

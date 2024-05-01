@@ -1,4 +1,4 @@
-# Install script for directory: /home/orenu/Documents/Cours/OpenGl/Projet_Moteur/external
+# Install script for directory: /home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/external
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/orenu/Documents/Cours/OpenGl/Projet_Moteur/build/external/glfw-3.1.2/cmake_install.cmake")
+  include("/home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/build/external/glfw-3.1.2/cmake_install.cmake")
 
 endif()
 

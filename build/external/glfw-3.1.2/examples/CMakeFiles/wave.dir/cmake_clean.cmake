@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/wave.dir/wave.c.o"
+  "CMakeFiles/wave.dir/wave.c.o.d"
   "wave"
   "wave.pdb"
 )
