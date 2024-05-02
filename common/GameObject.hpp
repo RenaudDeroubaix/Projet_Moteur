@@ -38,7 +38,7 @@ protected:
     glm::vec3 up = glm::vec3(0,1,0);
     glm::vec3 right = glm::vec3(1,0,0);
     glm::vec3 front = glm::vec3(0,0,1);
-    
+    float scale_tex = 10.f ;
     
     glm::vec3 minBoundingBox;
     glm::vec3 maxBoundingBox;
@@ -67,7 +67,7 @@ public:
 
     void calculateBoundingBox() ;
     bool checkCollision(const GameObject& other);
-    
+    void set_scale_tex(float f){scale_tex = f;} 
     glm::vec3 getMaxBB(){return maxBoundingBox;}
     glm::vec3 getMinBB(){return minBoundingBox;}
     
