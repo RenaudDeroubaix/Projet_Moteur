@@ -42,12 +42,23 @@ Node * makeRoom(Scene &s, int longueur, int largeur, int hauteur, glm::vec3 scal
     s.scalenode(sol, scale);
 
     // Attribution des couleurs
-    s.get_data(sol)->set_color(glm::vec3(0.9f , 0.9f, 0.9f)); //blanc
-    s.get_data(plafond)->set_color(glm::vec3(0.5f , 0.0f, 0.9f)); //violet
-    s.get_data(mur1)->set_color(glm::vec3(0.9f , 0.0f, 0.0f)); //rouge
-    s.get_data(mur2)->set_color(glm::vec3(0.9f , 0.5f, 0.1f)); //orange
-    s.get_data(mur3)->set_color(glm::vec3(0.1f , 0.5f, 0.1f));  //vert
-    s.get_data(mur4)->set_color(glm::vec3(0.0f , 0.5f, 0.9f)); //bleu
+    s.get_data(sol)->set_color(glm::vec3(1.f)); //blanc
+    s.get_data(plafond)->set_color(glm::vec3(1.f)); //blanc
+    s.get_data(mur1)->set_color(glm::vec3(1.f)); //blanc
+    s.get_data(mur2)->set_color(glm::vec3(1.f)); //blanc
+    s.get_data(mur3)->set_color(glm::vec3(1.f)); //blanc
+    s.get_data(mur4)->set_color(glm::vec3(1.f)); //blanc
+    
+    // Attribution des textures
+    
+    s.get_data(sol)->settexture("../src/textures/ground.png" , s.get_data(sol)->getprogID() ,  "tex"); 
+    s.get_data(mur1)->settexture("../src/textures/wall1.png" , s.get_data(mur1)->getprogID() , "tex");
+    s.get_data(mur2)->settexture("../src/textures/wall1.png" , s.get_data(mur2)->getprogID() , "tex");
+    s.get_data(mur3)->settexture("../src/textures/wall1.png" , s.get_data(mur3)->getprogID() , "tex"); 
+    s.get_data(mur4)->settexture("../src/textures/wall1.png" , s.get_data(mur4)->getprogID() , "tex"); 
+    
+    
+    
 
     std::cout <<"fin make room" << std::endl;
     return sol;

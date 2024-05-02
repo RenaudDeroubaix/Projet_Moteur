@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/events.dir/__/deps/getopt.c.o"
-  "CMakeFiles/events.dir/__/deps/getopt.c.o.d"
   "CMakeFiles/events.dir/events.c.o"
-  "CMakeFiles/events.dir/events.c.o.d"
   "events"
   "events.pdb"
 )

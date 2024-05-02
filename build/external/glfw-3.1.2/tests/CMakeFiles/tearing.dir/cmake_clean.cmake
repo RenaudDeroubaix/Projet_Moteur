@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/tearing.dir/__/deps/getopt.c.o"
-  "CMakeFiles/tearing.dir/__/deps/getopt.c.o.d"
   "CMakeFiles/tearing.dir/tearing.c.o"
-  "CMakeFiles/tearing.dir/tearing.c.o.d"
   "tearing"
   "tearing.pdb"
 )

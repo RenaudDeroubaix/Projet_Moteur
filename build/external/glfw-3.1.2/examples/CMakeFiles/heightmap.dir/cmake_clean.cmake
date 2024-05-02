@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/heightmap.dir/__/deps/glad.c.o"
-  "CMakeFiles/heightmap.dir/__/deps/glad.c.o.d"
   "CMakeFiles/heightmap.dir/heightmap.c.o"
-  "CMakeFiles/heightmap.dir/heightmap.c.o.d"
   "heightmap"
   "heightmap.pdb"
 )

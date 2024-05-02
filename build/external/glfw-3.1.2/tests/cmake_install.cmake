@@ -1,4 +1,4 @@
-# Install script for directory: /home/e20170003790/Bureau/MASTER1/SEMESTRE_2/Projet_Moteur/external/glfw-3.1.2/tests
+# Install script for directory: /home/orenu/Documents/Cours/OpenGl/Projet_Moteur/external/glfw-3.1.2/tests
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

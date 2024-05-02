@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/gears.dir/gears.c.o"
-  "CMakeFiles/gears.dir/gears.c.o.d"
   "gears"
   "gears.pdb"
 )

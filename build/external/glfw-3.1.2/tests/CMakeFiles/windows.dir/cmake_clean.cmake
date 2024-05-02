@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/windows.dir/windows.c.o"
-  "CMakeFiles/windows.dir/windows.c.o.d"
   "windows"
   "windows.pdb"
 )

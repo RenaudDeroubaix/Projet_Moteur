@@ -3,24 +3,29 @@
 Plan::Plan(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur) , l(largeur)
 {
         is_rendered = true;
-        float scale_plan =0.1;
+        float scale_plan = 0.1;
         float x , y , z;
-        float pas_h  = 1. /  (float)h;
-        float pas_l  = 1. /  (float)l;
-        // Calcul des bornes pour le centrage
-        float half_width = (float)(largeur) * pas_l * 0.5f;
-        float half_height = (float)(hauteur) * pas_h * 0.5f;
+        pas_h  = 1. / (float)h;
+        pas_l  = 1. / (float)l;
+        float min = std::max(l , h); 
+       
         
-        for (int i = 0; i < h; i++) {
+        for (int i = 0; i < h ; i++) {
             for (int j = 0; j < l; j++) {
                 // Calcul de la position relative
                 x = (i - (float)(h - 1) * 0.5f ) * scale_plan + pos[0];
                 y = pos[1];
                 z = (j - (float)(l - 1) * 0.5f ) * scale_plan + pos[2];
+                
                 position.push_back(glm::vec3(x, y, z));
-                tex_coords.push_back(glm::vec2(pas_l * i , pas_h * j));
+                
             }
-        }              
+        }  
+        for (int i = 0; i < h ; i++) {
+            for (int j = 0; j <l ; j++) {
+            
+            }
+        }
         
         for (int i = 0; i < h - 1; i++ ){
             for (int j = 0 ; j < l - 1; j++ ){
@@ -31,6 +36,8 @@ Plan::Plan(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur
                 indices.push_back(i*l+(j+1));
                 indices.push_back((i+1)*l+(j+1));
                 indices.push_back((i+1)*l+j);
+                
+                
             }       
         }
     
@@ -55,7 +62,16 @@ void Plan::ResoMoins()
 
 void Plan::settexture( const std::string & path , GLuint textureIndex, const std::string & name_in_shader) 
 {
-renderer.stocktexture(path, textureIndex, name_in_shader); 
+    float max_pas = std::max( pas_h , pas_l);
+    for (int i = 0; i < h ; i++) {
+        for (int j = 0; j < l; j++) {
+            tex_coords.push_back(glm::vec2(i * pas_h * scale_tex  , j * pas_h * scale_tex ));
+            
+        }
+    }
+    
+    renderer.stocktexture(path, textureIndex, name_in_shader); 
+
 }
 void Plan::initobject() 
 {

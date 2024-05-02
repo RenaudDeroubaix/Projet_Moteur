@@ -40,7 +40,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(event, glm::vec3(1.5,cubeScale/6.0, 3.0));
     sol->addChild(event);
 
-
+    
     s->initscene();
     s->calculateBoundingBoxRecursive(sol);
     s->loadtexturesinscene();

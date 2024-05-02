@@ -1,4 +1,4 @@
-# Install script for directory: /home/e20170003790/Bureau/MASTER1/SEMESTRE_2/Projet_Moteur/external/glfw-3.1.2/src
+# Install script for directory: /home/orenu/Documents/Cours/OpenGl/Projet_Moteur/external/glfw-3.1.2/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -43,6 +43,6 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/e20170003790/Bureau/MASTER1/SEMESTRE_2/Projet_Moteur/build/external/glfw-3.1.2/src/libglfw3.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/orenu/Documents/Cours/OpenGl/Projet_Moteur/build/external/glfw-3.1.2/src/libglfw3.a")
 endif()
 
