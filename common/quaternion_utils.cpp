@@ -92,7 +92,7 @@ glm::quat RotateTowards(glm::quat q1, glm::quat q2, float maxAngle){
 	
 	float angle = glm::acos(cosTheta);
 	
-	// If there is only a 2° difference, and we are allowed 5°,
+	// If there is only a 2ï¿½ difference, and we are allowed 5ï¿½,
 	// then we arrived.
 	if (angle < maxAngle){
 		return q2;

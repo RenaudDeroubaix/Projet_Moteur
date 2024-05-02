@@ -54,19 +54,22 @@ public:
    bool DetecterParNPC(GameObject * Player , float deltatime){
     for (GameObject * go : s[scene_i]->get_npc_list())
     {
-        if (Player->in_champ_de_vison(go)){
-            
-            glm::vec3 lastfront = glm::normalize(Player->getpos() - go->getpos());
+        if (Player->in_champ_de_vision(go)){
+            glm::vec3 posAI = go->getpos();
+            glm::vec3 posPlayer = Player->getpos();
+            glm::vec3 lastfront = glm::normalize(glm::vec3(posPlayer.x, posAI.y, posPlayer.z) - posAI);
             glm::quat rotation = RotationBetweenVectors(go->get_front() , lastfront);
             //glm::quat rotation = RotateTowards( rotationprev , rotationlast , glm::radians(10.f));
             glm::vec3 eulerangle = Helper::quatToEuler(rotation);
-            go->rotate(eulerangle);
+            go->rotateeulerYaw(eulerangle);
             
             go->set_front(lastfront);
             go->addVitesse(go->get_front() * deltatime * 0.15f );
             
             go->getgameObjectInfo().setMovedRecently(true);
             go->update_champ_de_vision();
+            std::cout<< glm::to_string(rotation)<<std::endl;
+            std::cout<< glm::to_string(go->getmodelmat())<<std::endl;
         }
         else{go->setVitesse(glm::vec3(0.f));}
        if ( go->checkCollision(*Player))

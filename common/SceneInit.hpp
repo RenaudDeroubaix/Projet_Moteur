@@ -15,12 +15,13 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(cube, glm::vec3(0.0 , cubeScale/2.0, -3.0));
 
     Node* npc = s->make_node_npc();
-    ChampVision CV = ChampVision(s->get_data(npc)->getpos() , s->get_data(npc)->get_front() , 1.f * s->get_data(npc)->getscale()  , 3.f * s->get_data(npc)->getscale(), 1.f * s->get_data(npc)->getscale()); // rayon , hauteur , rayon au sol
+    ChampVision CV = ChampVision(s->get_data(npc)->getpos() , s->get_data(npc)->get_front() , 1.f * s->get_data(npc)->getscale()  , 10.f * s->get_data(npc)->getscale(), 1.f * s->get_data(npc)->getscale()); // rayon , hauteur , rayon au sol
     s->get_data(npc)->setChampVision(CV);
 
     s->get_data(npc)->set_color(glm::vec3(0.3f , 1.f, 0.5f)); 
-    s->scalenode(npc , glm::vec3(0.5f , 0.5f , 0.5f));
-    s->translatenode(npc, glm::vec3(1.0 , 0.25f, 1.0));
+    float npcScale=1.0;
+    //s->scalenode(npc , glm::vec3(npcScale , npcScale , npcScale));
+    s->translatenode(npc, glm::vec3(1.0 , npcScale/2.f, 1.0));
 
     s->get_data(cube)->getgameObjectInfo().setHasPhysics(true);
     s->get_data(cube)->calculateBoundingBox();

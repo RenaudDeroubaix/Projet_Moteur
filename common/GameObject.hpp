@@ -108,7 +108,7 @@ public:
     void setscale(glm::vec3 s);
     void settranslate(glm::vec3 t);
     void setrotate(float angle , glm::vec3 axe);
-    void rotate(glm::vec3 euler);
+    void rotateeulerYaw(glm::vec3 euler);
 
     void setgameObjectInfo(GOInfo goi){ gameObjectInfo = goi; }
     GOInfo& getgameObjectInfo(){ return gameObjectInfo ;}
@@ -181,8 +181,8 @@ public:
     //         }
     //     }
     // }
-    
-    bool in_champ_de_vison(GameObject* go)
+    /*
+    bool in_champ_de_vision(GameObject* go)
     {
         bool is_point_inside_cone = false;
         for (glm::vec3 point : position){
@@ -201,9 +201,31 @@ public:
             if (is_point_inside_cone) break;
         }
         return is_point_inside_cone;
+    }*/
+    bool in_champ_de_vision(GameObject* go)
+    {
+        bool is_point_inside_cylinder = false;
+        for (glm::vec3 point : position)
+        {
+            glm::vec4 P = modelmat * glm::vec4(point, 1.0f);
+            glm::vec3 p = glm::vec3(P.x, P.y, P.z);
             
-        
+            // Calcul de la distance entre le point et l'origine du cylindre
+            glm::vec3 direction_to_point = p - go->champ_de_vision.origin;
+            float dist_along_direction = glm::dot(direction_to_point, go->champ_de_vision.direction);
+            glm::vec3 closest_point_on_axis = go->champ_de_vision.origin + dist_along_direction * go->champ_de_vision.direction;
+            float dist_to_axis = glm::length(p - closest_point_on_axis);
+
+            // Vérification si le point est à l'intérieur du cylindre
+            if (dist_to_axis <= go->champ_de_vision.r && 0 <= dist_along_direction && dist_along_direction <= go->champ_de_vision.h)
+            {
+                is_point_inside_cylinder = true;
+                break;
+            }
+        }
+        return is_point_inside_cylinder;
     }
+
     void affichemodelmat(){
             std::cout<<"Model Matrix:"<< renderer.programID<<std::endl;
         for (int i = 0 ; i<4 ; i++){

@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
 
-C_INCLUDES = -I/home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/external/glfw-3.1.2/include/GLFW -I/home/deroubaix/Bureau/MASTER/Master_1/Semestre_2/Projet_Moteur/external/glew-1.13.0/include
+C_INCLUDES = -I/home/e20170003790/Bureau/MASTER1/SEMESTRE_2/Projet_Moteur/external/glfw-3.1.2/include/GLFW -I/home/e20170003790/Bureau/MASTER1/SEMESTRE_2/Projet_Moteur/external/glew-1.13.0/include
 
 C_FLAGS = 
 

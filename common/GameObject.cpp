@@ -20,10 +20,12 @@ void GameObject::setrotate(float angle ,glm::vec3 axe)
     modelmat =  glm::rotate(glm::mat4(1.f) ,glm::radians(angle) , axe) * modelmat;
    
 }
-void GameObject::rotate(glm::vec3 euler)
+void GameObject::rotateeulerYaw(glm::vec3 euler)
 {
     //modelmat = glm::rotate(modelmat , glm::radians(euler.x) , glm::vec3(1.f,0.f,0.f));
-      modelmat = glm::rotate(modelmat , euler.y , glm::vec3(0.f,1.f,0.f));
+     modelmat = glm::rotate(modelmat , euler.y , glm::vec3(0.f,1.f,0.f));
+    // modelmat = glm::rotate(modelmat , euler.y , glm::vec3(0.f,1.f,0.f));
+
     //modelmat = glm::rotate(modelmat ,glm::radians(euler.z), glm::vec3(0.f,0.f,1.f));
       //modelmat = glm::rotate(modelmat , glm::radians(euler.y) , glm::vec3(0.f,1.f,0.f));
 }
