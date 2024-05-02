@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/TP.dir/common/InputManager.cpp.o.d"
   "CMakeFiles/TP.dir/common/Mesh.cpp.o"
   "CMakeFiles/TP.dir/common/Mesh.cpp.o.d"
+  "CMakeFiles/TP.dir/common/Mur.cpp.o"
+  "CMakeFiles/TP.dir/common/Mur.cpp.o.d"
   "CMakeFiles/TP.dir/common/Physics.cpp.o"
   "CMakeFiles/TP.dir/common/Physics.cpp.o.d"
   "CMakeFiles/TP.dir/common/Plan.cpp.o"

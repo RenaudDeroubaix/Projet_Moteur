@@ -1,7 +1,7 @@
 #include "common/utils.hpp"
 
 Node * makeRoom(Scene &s, int longueur, int largeur, int hauteur, glm::vec3 scale){
-    float scale_plan = 0.1;
+    float scale_plan = 1.0;
     // float pas_h  = 1. /  (float)hauteur;
     // float pas_la  = 1. /  (float)largeur;
     // float pas_lo  = 1. /  (float)longueur;

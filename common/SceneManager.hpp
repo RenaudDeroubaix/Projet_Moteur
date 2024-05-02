@@ -9,8 +9,8 @@
 class SceneManager {
 public:
 
-const unsigned int SCR_WIDTH = 1024;
-const unsigned int SCR_HEIGHT = 768;
+const unsigned int SCR_WIDTH = 1280;
+const unsigned int SCR_HEIGHT = 720;
 
 
 protected: 
@@ -36,9 +36,9 @@ public:
             }
             initScene();
             s[scene_i]->get_node_list()[0]->addChild(node);
-             std::cout << s[scene_i]->get_node_list().size()<<std::endl;
+            //std::cout << s[scene_i]->get_node_list().size()<<std::endl;
             s[scene_i]->get_node_list().push_back(node);
-            std::cout << s[scene_i]->get_node_list().size()<<std::endl;
+            //std::cout << s[scene_i]->get_node_list().size()<<std::endl;
             s[scene_i]->setNodePlayer(node);
             I_M.current_cam = static_cast<Camera*>(s[scene_i]->get_camera_list()[0]);
         }
@@ -64,12 +64,12 @@ public:
             go->rotateeulerYaw(eulerangle);
             
             go->set_front(lastfront);
-            go->addVitesse(go->get_front() * deltatime * 0.15f );
+            go->addVitesse(go->get_front() * deltatime * 0.05f );
             
             go->getgameObjectInfo().setMovedRecently(true);
             go->update_champ_de_vision();
-            std::cout<< glm::to_string(rotation)<<std::endl;
-            std::cout<< glm::to_string(go->getmodelmat())<<std::endl;
+            //std::cout<< glm::to_string(rotation)<<std::endl;
+            //std::cout<< glm::to_string(go->getmodelmat())<<std::endl;
         }
         else{go->setVitesse(glm::vec3(0.f));}
        if ( go->checkCollision(*Player))

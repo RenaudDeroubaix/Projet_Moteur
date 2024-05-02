@@ -10,6 +10,15 @@ Node* Scene::make_node_plan(int longeur = 16, int largeur = 16)
     node_list.push_back(n);
     return node_list[node_list.size() - 1];
 }
+Node* Scene::make_node_mur(int longeur = 16, int largeur = 16) 
+{
+    Node* n= new Node();
+    GameObject* go = new Mur(glm::vec3(0.f) , longeur ,largeur);
+    n->add_data(go);
+    go->calculateBoundingBox();
+    node_list.push_back(n);
+    return node_list[node_list.size() - 1];
+}
 Node* Scene::make_node_npc() 
 {
     Node* n= new Node();

@@ -121,7 +121,7 @@ void InputManager::Input_GameObject(GameObject * go , float deltaTime)
 {
     //Keyboard control camera
    
-    float playerSpeed = 0.2 * deltaTime;
+    float playerSpeed =  0.2 *  deltaTime;
     //         if (isKeyHeld(GLFW_KEY_6))
     //             c->camera_translate(-cameraSpeed * c->target_vector());
     //         if (isKeyHeld(GLFW_KEY_EQUAL))
@@ -130,10 +130,11 @@ void InputManager::Input_GameObject(GameObject * go , float deltaTime)
     glm::vec3 front = go->get_front();
     glm::vec3 right = go->get_right();
     glm::vec3 up = go->get_up();
+
     if (isKeyHeld(GLFW_KEY_W)){
         go->addVitesse(front * playerSpeed);
           //go->setVitesse( go->getVitesse()); 
-          go->getgameObjectInfo().setMovedRecently(true);
+        go->getgameObjectInfo().setMovedRecently(true);
         b = false;
     }
     if (isKeyHeld( GLFW_KEY_S)){
@@ -155,7 +156,7 @@ void InputManager::Input_GameObject(GameObject * go , float deltaTime)
         b = false;
     }
     if (isKeyPressed(GLFW_KEY_SPACE)&&  !go->getgameObjectInfo().getIsFalling()){
-        go->addVitesse(up * deltaTime  * 15.f );
+        go->addVitesse(glm::vec3(0.f , 1.f ,0.f) * deltaTime  * 15.f );
         go->getgameObjectInfo().setMovedRecently(true);
         go->getgameObjectInfo().setIsFalling(true);
         b = false;

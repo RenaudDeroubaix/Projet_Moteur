@@ -70,7 +70,7 @@ void Physics::applyCollision(GameObject* go, std::vector<Node*>& nodelist, float
             if(v.x !=0 && collisionAxe.x && distanceToCollisionx < distanceToCollisiony && distanceToCollisionx < distanceToCollisionz){
                 sens = go->getpos().x < otherGO->getpos().x ? -1.0 : 1.0;
                 go->settranslate(glm::vec3(distanceToCollisionx * sens,0.0,0.0));
-                v.x = 0.0;
+                if (go->getgameObjectInfo().getIsFalling() ){v.x=-v.x;} else v.x=0.0;
                 //std::cout<<sens<<std::endl;
                 //std::cout<<go->getpos().x<<std::endl;
                 //std::cout<<otherGO->getpos().x<<std::endl;
@@ -85,7 +85,7 @@ void Physics::applyCollision(GameObject* go, std::vector<Node*>& nodelist, float
             else if(v.z != 0 &&collisionAxe.z && distanceToCollisionz < distanceToCollisiony && distanceToCollisionz < distanceToCollisionx){
                 sens = go->getpos().z < otherGO->getpos().z ? -1.0 : 1.0;
                 go->settranslate(glm::vec3(0.0,0.0,distanceToCollisionz * sens));
-                v.z=0.0;
+                if (go->getgameObjectInfo().getIsFalling() ){v.z=-v.z;} else v.z=0.0;
                 //std::cout<<sens<<std::endl;
                 //std::cout<<go->getpos().z<<std::endl;
                 //std::cout<<otherGO->getpos().z<<std::endl;
@@ -105,8 +105,8 @@ void Physics::applyForce(Scene & s , float deltaTime){
     for (Node * n : nodelist){
         GameObject* go=s.get_data(n);
         GOInfo goi=go->getgameObjectInfo();
-        if(go->getVitesse() ==  glm::vec3(0.f) && !goi.getIsFalling()){goi.setMovedRecently(false);}
-        if(goi.getHasPhysics() && goi.getMovedRecently()){
+        if(go->getVitesse() == glm::vec3(0.f) && !goi.getIsFalling()){goi.setMovedRecently(false);}
+        if(goi.getHasPhysics() && goi.getMovedRecently() ){
             applyVitesse(go);
             applyGravity(go ,deltaTime);
             go->calculateBoundingBox();

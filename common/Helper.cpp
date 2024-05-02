@@ -61,4 +61,8 @@ glm::vec3 Helper::quatToEuler(glm::quat _quat)
 }
 
 
-
+void Helper::setViewtowardFront(GameObject* go ){
+	Camera * c = static_cast<Camera*>(go);
+    glm::quat quatCam1=LookAt(go->get_front() , go->get_up());
+    c->setEulerAngle(Helper::quatToEuler(quatCam1));
+}

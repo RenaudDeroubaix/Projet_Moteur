@@ -15,7 +15,7 @@ using namespace glm;
 GLFWwindow* window;
 
 // timing
-float deltaTime = 0.0f;	// time between current frame and last frame
+float deltaTimeRendu = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
 double InputManager::previousX = 0;
@@ -23,6 +23,8 @@ double InputManager::previousY = 0;
 unsigned int InputManager::view = 0;
 
 /*******************************************************************************/
+
+
 
 int main( void )
 {
@@ -69,7 +71,7 @@ int main( void )
     //Accept fragment if it closer to the camera than the former one
     glDepthFunc(GL_LESS);
     //Cull triangles which normal is not towards the camera
-    //glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
     //glEnable(GL_CULL_BACK);
     //Create and compile our GLSL program from the shaders
    
@@ -145,7 +147,7 @@ int main( void )
     double lastTime = glfwGetTime();
     int nbFrames = 0;
     I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene().get_camera_list()[0]);
-
+    //glfwSwapInterval(0); //pour uncap les fps
     do{ 
         
         Scene& currentScene=SM.getCurrentScene();
@@ -153,13 +155,17 @@ int main( void )
         //std::cout << &currentScene << std::endl;
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
+        deltaTimeRendu = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        
-        I_M.Input_GamePlay(currentScene , currentScene.getNodePlayer()->getData(), deltaTime);
+        //std::cout <<"rendu : "<< 1/deltaTimeRendu << std::endl;
 
-        p.applyForce(currentScene , deltaTime);
-        SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTime);
+    
+       
+        I_M.Input_GamePlay(currentScene , currentScene.getNodePlayer()->getData(), deltaTimeRendu);
+        p.applyForce(currentScene , deltaTimeRendu);
+        SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu);
+       
+        
         glm::mat4 vm = I_M.current_cam->getViewMatrix();
         glm::mat4 pm = I_M.current_cam->getProjectionMatrix();
         
