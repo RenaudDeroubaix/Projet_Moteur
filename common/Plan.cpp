@@ -3,12 +3,11 @@
 Plan::Plan(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur) , l(largeur)
 {
         is_rendered = true;
-        float scale_plan = 0.1;
+        float scale_plan = 1.0;
         float x , y , z;
         pas_h  = 1. / (float)h;
         pas_l  = 1. / (float)l;
         float min = std::max(l , h); 
-       
         
         for (int i = 0; i < h ; i++) {
             for (int j = 0; j < l; j++) {
@@ -21,12 +20,7 @@ Plan::Plan(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur
                 
             }
         }  
-        for (int i = 0; i < h ; i++) {
-            for (int j = 0; j <l ; j++) {
-            
-            }
-        }
-        
+       
         for (int i = 0; i < h - 1; i++ ){
             for (int j = 0 ; j < l - 1; j++ ){
                 indices.push_back(i*l+j);
@@ -36,7 +30,7 @@ Plan::Plan(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur
                 indices.push_back(i*l+(j+1));
                 indices.push_back((i+1)*l+(j+1));
                 indices.push_back((i+1)*l+j);
-                
+               
                 
             }       
         }

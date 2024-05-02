@@ -78,49 +78,49 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     sol->addChild(obstacle1);
 
     ////////////Cloison
-    Node* cloison1= s->make_node_plan(8.0, 7.0);
+    Node* cloison1= s->make_node_mur(7.5, 6.0);
     s->rotatenode(cloison1, 90.f, glm::vec3(1.0, 0.0, 0.0));
-    s->translatenode(cloison1,glm::vec3(-15.0, 3.0 - 1.0 ,-18.0));
+    s->translatenode(cloison1,glm::vec3(-14.5,2.5  ,-18.0));
     sol->addChild(cloison1);
 
-    Node* cloison2= s->make_node_plan(16.0, 7.0);
+    Node* cloison2= s->make_node_mur(16.0, 6.0);
     s->rotatenode(cloison2, 90.f, glm::vec3(1.0, 0.0, 0.0));
-    s->translatenode(cloison2,glm::vec3(1.0, 3.0 - 1.0 ,-18.0));
+    s->translatenode(cloison2,glm::vec3(1.0, 2.5   ,-18.0));
     sol->addChild(cloison2);
 
-    Node* cloison3= s->make_node_plan(8.0, 2.5);
+    Node* cloison3= s->make_node_mur(8.0, 2.5);
     s->rotatenode(cloison3, 90.f, glm::vec3(1.0, 0.0, 0.0));
-    s->translatenode(cloison3,glm::vec3(-8.0, 5.5 - 1.0 ,-18.0));
+    s->translatenode(cloison3,glm::vec3(-8.0, 4.5  ,-18.0));
     sol->addChild(cloison3);
 
-    Node* cloison4= s->make_node_plan(10.0, 7.0);
+    Node* cloison4= s->make_node_mur(11, 6.0);
     s->rotatenode(cloison4, 90.f, glm::vec3(1.0, 0.0, 0.0));
-    s->translatenode(cloison4,glm::vec3(13.0, 3.0 - 1.0 ,10.0));
+    s->translatenode(cloison4,glm::vec3(13.5, 2.5   ,10.0));
     sol->addChild(cloison4);
 
-    Node* cloison5= s->make_node_plan(7.0, 14.0);
+    Node* cloison5= s->make_node_mur(6.0, 14.0);
     s->rotatenode(cloison5, 90.f, glm::vec3(0.0, 0.0, 1.0));
-    s->translatenode(cloison5,glm::vec3(8.5, 3.0 - 1.0 ,11.0));
+    s->translatenode(cloison5,glm::vec3(8.5, 2.5   ,11.0));
     sol->addChild(cloison5);
 
-    Node* cloison6= s->make_node_plan(7.0, 18.0);
+    Node* cloison6= s->make_node_mur(6.0, 18.0);
     s->rotatenode(cloison6, 90.f, glm::vec3(0.0, 0.0, 1.0));
-    s->translatenode(cloison6,glm::vec3(8.5, 3.0 - 1.0 ,-9.5));
+    s->translatenode(cloison6,glm::vec3(8.5, 2.5   ,-9.5));
     sol->addChild(cloison6);
 
-    Node* cloison7= s->make_node_plan(2.5, 18.0);
+    Node* cloison7= s->make_node_mur(2.5, 18.0);
     s->rotatenode(cloison7, 90.f, glm::vec3(0.0, 0.0, 1.0));
-    s->translatenode(cloison7,glm::vec3(8.5, 5.5 - 1.0 ,0.5));
+    s->translatenode(cloison7,glm::vec3(8.5, 4.5 ,0.5));
     sol->addChild(cloison7);
 
-    Node* cloison8= s->make_node_plan(7, 8.0);
+    Node* cloison8= s->make_node_mur(6.0, 8.0);
     s->rotatenode(cloison8, 90.f, glm::vec3(0.0, 0.0, 1.0));
-    s->translatenode(cloison8,glm::vec3(8.5, 3 - 1.0 ,27));
+    s->translatenode(cloison8,glm::vec3(8.5, 2.5   ,27));
     sol->addChild(cloison8);
 
-    Node* cloison9= s->make_node_plan(2.5, 8.0);
+    Node* cloison9= s->make_node_mur(2.5, 8.0);
     s->rotatenode(cloison9, 90.f, glm::vec3(0.0, 0.0, 1.0));
-    s->translatenode(cloison9,glm::vec3(8.5, 5.5 - 1.0 ,20.0));
+    s->translatenode(cloison9,glm::vec3(8.5, 4.5 ,20.0));
     sol->addChild(cloison9);
 
     float eventScale = 3.0;
