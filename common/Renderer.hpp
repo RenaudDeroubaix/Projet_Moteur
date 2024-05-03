@@ -5,7 +5,7 @@ class Renderer{
 public:
     GLuint VertexArrayID;
     GLuint vertexbuffer;
-    GLuint heightbuffer;
+    GLuint texbuffer;
     GLuint elementbuffer;
     GLuint programID;
     std::vector<GLuint> tex_id_list;

@@ -11,8 +11,8 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
     glBufferData(GL_ARRAY_BUFFER, position.size() * sizeof(glm::vec3), &(position)[0], GL_STATIC_DRAW);
     
-    glGenBuffers(1, &heightbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, heightbuffer);
+    glGenBuffers(1, &texbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, texbuffer);
     glBufferData(GL_ARRAY_BUFFER, tex_coords.size() * sizeof(glm::vec2), &(tex_coords)[0], GL_STATIC_DRAW);
     // Generate a buffer for the indices as well
     glGenBuffers(1, &elementbuffer);
@@ -33,11 +33,23 @@ void Renderer::draw()
         0,// stride
         (void*)0            // array buffer offset
     );
-    
+
     glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, heightbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
     glVertexAttribPointer(
         1,                  // attribute
+        3,                  // size
+        GL_FLOAT,           // type
+        GL_FALSE,           // normalized?
+        0,// stride
+        (void*)0            // array buffer offset
+    );
+    
+    glEnableVertexAttribArray(2);
+   
+    glBindBuffer(GL_ARRAY_BUFFER, texbuffer);
+    glVertexAttribPointer(
+        2,                  // attribute
         2,                  // size
         GL_FLOAT,           // type
         GL_FALSE,           // normalized?
@@ -56,6 +68,7 @@ void Renderer::draw()
     
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
     
     
 }
@@ -63,7 +76,7 @@ void Renderer::draw()
 void Renderer::deletebuffers() 
 {
     glDeleteBuffers(1, &vertexbuffer);
-    glDeleteBuffers(1, &heightbuffer);
+    glDeleteBuffers(1, &texbuffer);
     glDeleteBuffers(1, &elementbuffer);
     glDeleteVertexArrays(1, &VertexArrayID);
 }

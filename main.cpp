@@ -14,6 +14,8 @@ using namespace glm;
 
 GLFWwindow* window;
 
+std::vector<GLuint> programID_list;
+
 // timing
 float deltaTimeRendu = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
@@ -71,19 +73,23 @@ int main( void )
     //Accept fragment if it closer to the camera than the former one
     glDepthFunc(GL_LESS);
     //Cull triangles which normal is not towards the camera
-    glEnable(GL_CULL_FACE);
+    //glEnable(GL_CULL_FACE);
     //glEnable(GL_CULL_BACK);
     //Create and compile our GLSL program from the shaders
    
     
     
     ///// init a newscene
+    GLuint progID = LoadShaders( "../src/shaders/vertex_shader.glsl" , "../src/shaders/fragment_shader.glsl");
+    programID_list.push_back(progID);
     Scene s;
+    s.setprogIdList(programID_list);
     SM.addSceneToList(&s);
     SM.initScene();
     Physics p;
 
     Scene s2;
+    s2.setprogIdList(programID_list);
     SM.addSceneToList(&s2);
  /*  
     Node* sol = makeRoom(s,50,25,10,glm::vec3(5.0f));   
@@ -149,7 +155,7 @@ int main( void )
     I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene().get_camera_list()[0]);
     //glfwSwapInterval(0); //pour uncap les fps
     do{ 
-        
+        //std::cout<<"test"<<std::endl;
         Scene& currentScene=SM.getCurrentScene();
         SM.hasEventHappened(currentScene.getNodePlayer());
         //std::cout << &currentScene << std::endl;

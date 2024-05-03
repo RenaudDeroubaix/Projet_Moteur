@@ -16,11 +16,14 @@ private:
     std::vector<GameObject*> camera_list;
     std::vector<GameObject*> event_list;
     std::vector<GameObject*> npc_list;
+    std::vector<GLuint> programID_list;
 
 public:
     Scene(){} 
     void setNodePlayer(Node* n){player=n;}
     Node* getNodePlayer(){return player;}
+
+    void setprogIdList(std::vector<GLuint>& progID_list){programID_list = progID_list;}
 
     void removeNodeFromNodeList(Node* n){node_list.erase(std::find(node_list.begin(),node_list.end(),n));}
     
@@ -30,13 +33,13 @@ public:
     std::vector<GameObject*>& get_event_list(){return event_list;}
     std::vector<GameObject*>& get_npc_list(){return npc_list;}
     
-    Node* make_node_camera(bool is_locked, unsigned int w , unsigned int h); // 1er parametre pour savoir si la camera peut yaw a 360 degree
-    Node* make_node_plan(int longeur, int largeur);
-    Node* make_node_mur(int longeur, int largeur);
-    Node* make_node_cube();
-    Node* make_node_npc();
-    Node* make_node_mesh(const std::string & path);
-    Node* make_node_event(typeEvent typeevent, glm::vec3 p);
+    Node* make_node_camera(bool is_locked, unsigned int w , unsigned int h, unsigned int  indice_programID); // 1er parametre pour savoir si la camera peut yaw a 360 degree
+    Node* make_node_plan(int longeur, int largeur, unsigned int  indice_programID);
+    Node* make_node_mur(int longeur, int largeur, unsigned int  indice_programID);
+    Node* make_node_cube(unsigned int  indice_programID );
+    Node* make_node_npc(unsigned int  indice_programID );
+    Node* make_node_mesh(const std::string & path, unsigned int  indice_programID);
+    Node* make_node_event(typeEvent typeevent, glm::vec3 p, unsigned int  indice_programID);
     GameObject* get_data(Node * n){return n->getData();}
     
 
@@ -44,7 +47,7 @@ public:
     void initscene();
     void drawscene(glm::mat4 & vm ,glm::mat4 & pm, Node * n);
     void deletescene();
-    void loadtexturesinscene();
+    
     void resetmodelmatrix(Node * n);
     
     void calculateBoundingBoxRecursive(Node* node);

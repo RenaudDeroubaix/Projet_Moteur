@@ -69,7 +69,6 @@ public:
     void drawobject()  override;
     void deleteobject()  override;
     void settexture(const std::string & path , GLuint textureIndex, const std::string & name_in_shader) override;
-    void loadtextures()  override ;
     void update() {
         _rotation = glm::quat(_angleEuler);
 

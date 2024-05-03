@@ -72,14 +72,13 @@ public:
     glm::vec3 getMinBB(){return minBoundingBox;}
     
     GLuint getprogID() const {return renderer.programID;}
-    
+    void setprogId(GLuint programID){renderer.programID=programID;}
     virtual ~GameObject() = default;
     
     virtual void initobject() = 0;
     virtual void drawobject() = 0;
     virtual void deleteobject() = 0;
     virtual void settexture(const std::string & path , GLuint textureIndex, const std::string & name_in_shader) = 0; 
-    virtual void loadtextures() = 0;
     
     void set_speed(float f) {object_speed = f;}
     float get_speed(){return object_speed;}

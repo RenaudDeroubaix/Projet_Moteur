@@ -1,28 +1,31 @@
 #include "Scene.hpp"
 
 
-Node* Scene::make_node_plan(int longeur = 16, int largeur = 16) 
+Node* Scene::make_node_plan(int longeur , int largeur , unsigned int indice_programID ) 
 {
     Node* n= new Node();
     GameObject* go = new Plan(glm::vec3(0.f) , longeur ,largeur);
+    go->setprogId(programID_list[indice_programID]);
     n->add_data(go);
     go->calculateBoundingBox();
     node_list.push_back(n);
     return node_list[node_list.size() - 1];
 }
-Node* Scene::make_node_mur(int longeur = 16, int largeur = 16) 
+Node* Scene::make_node_mur(int longeur, int largeur ,unsigned int indice_programID) 
 {
     Node* n= new Node();
     GameObject* go = new Mur(glm::vec3(0.f) , longeur ,largeur);
+    go->setprogId(programID_list[indice_programID]);
     n->add_data(go);
     go->calculateBoundingBox();
     node_list.push_back(n);
     return node_list[node_list.size() - 1];
 }
-Node* Scene::make_node_npc() 
+Node* Scene::make_node_npc(unsigned int indice_programID) 
 {
     Node* n= new Node();
     GameObject* go = new CubeInit();
+    go->setprogId(programID_list[indice_programID]);
     go->getgameObjectInfo().setIsRendered(true);
     go->calculateBoundingBox();
     n->add_data(go);
@@ -30,19 +33,21 @@ Node* Scene::make_node_npc()
     npc_list.push_back(go);
     return node_list[node_list.size() - 1];
 }
-Node* Scene::make_node_camera(bool is_locked, unsigned int w , unsigned int h) 
+Node* Scene::make_node_camera(bool is_locked, unsigned int w , unsigned int h,unsigned int indice_programID) 
 {
     Node* n= new Node();
     GameObject* go = new Camera(is_locked , w , h);
+    go->setprogId(programID_list[indice_programID]);
     go->calculateBoundingBox();
     n->add_data(go);
     node_list.push_back(n);
     camera_list.push_back(go);
     return node_list[node_list.size() - 1];
 }   
-Node* Scene::make_node_event(typeEvent typeevent, glm::vec3 p){
+Node* Scene::make_node_event(typeEvent typeevent, glm::vec3 p,unsigned int indice_programID){
     Node* n= new Node();
     GameObject* go = new CubeInit();
+    go->setprogId(programID_list[indice_programID]);
     go->getgameObjectInfo().setIsEvent(true);
     go->getgameObjectInfo().setIsRendered(true);
     go->calculateBoundingBox();
@@ -56,20 +61,22 @@ Node* Scene::make_node_event(typeEvent typeevent, glm::vec3 p){
     return node_list[node_list.size() - 1];
 }
 
-Node* Scene::make_node_cube() 
+Node* Scene::make_node_cube(unsigned int indice_programID) 
 {
     Node* n= new Node();
     GameObject* go = new CubeInit();
+    go->setprogId(programID_list[indice_programID]);
     go->calculateBoundingBox();
     n->add_data(go);
     node_list.push_back(n);
     return node_list[node_list.size() - 1];
 }  
 
-Node* Scene::make_node_mesh(const std::string & path) 
+Node* Scene::make_node_mesh(const std::string & path, unsigned int indice_programID) 
 {
     Node* n= new Node();
     GameObject* go = new Mesh(path);
+    go->setprogId(programID_list[indice_programID]);
     go->calculateBoundingBox();
     n->add_data(go);
     node_list.push_back(n);
@@ -92,21 +99,16 @@ void Scene::initscene()
     }
     
 }
-void Scene::loadtexturesinscene()
-{
-    for(Node * n : node_list){
-        GameObject * go = n->getData();
-        if (go->is_rendered) go->loadtextures();
-    }
-    
-}
+
 void Scene::drawscene(glm::mat4 & vm ,glm::mat4 & pm , Node* n)
 {   
    
     auto l = get_children_list(*n);
+    //std::cout<<l.size()<<std::endl;
     for(GameObject* go : l){
         if (go->is_rendered) 
         {
+            //std::cout << go << std::endl;
             glUseProgram(go->getprogID());
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"viewmat"), 1 ,GL_FALSE, &vm[0][0]);
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"projmat"), 1 ,GL_FALSE, &pm[0][0]);

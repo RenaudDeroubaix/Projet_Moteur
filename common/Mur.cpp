@@ -68,7 +68,7 @@ renderer.stocktexture(path, textureIndex, name_in_shader);
 }
 void Mur::initobject() 
 {
-renderer.programID = LoadShaders( "../src/shaders/vertex_shader.glsl" , "../src/shaders/fragment_shader.glsl");
+    
 renderer.genbuffer(position , tex_coords , indices);
 //renderer.programID = LoadShaders( "../src/shaders/vertex_hm.glsl" , "../src/shaders/frag_hm.glsl");
 //renderer.genbuffer(position , tex_coords , indices);
@@ -76,7 +76,9 @@ renderer.genbuffer(position , tex_coords , indices);
 void Mur::drawobject() 
 {
 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+glUniform3fv(glGetUniformLocation(renderer.programID,"mesh_color"), 1 , &(this->getcolor())[0]);
 glUniformMatrix4fv(glGetUniformLocation(renderer.programID,"modelmat"), 1 , GL_FALSE, &(this->getmodelmat())[0][0]);
+renderer.loadtextures(); 
 renderer.draw(); 
 }
 
@@ -85,12 +87,7 @@ void Mur::deleteobject()
 renderer.deletebuffers(); 
 delete this;
 }
-void Mur::loadtextures() 
-{
-glUseProgram(renderer.programID);
-glUniform3fv(glGetUniformLocation(renderer.programID,"mesh_color"), 1 , &(this->getcolor())[0]);
-renderer.loadtextures(); 
-}
+
 
 
 

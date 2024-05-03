@@ -111,7 +111,6 @@ void Camera::drawobject()
 {}
 void Camera::deleteobject() 
 {delete this;}
-void Camera::loadtextures() 
-{}
+
 
 
