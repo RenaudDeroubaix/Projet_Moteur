@@ -2,7 +2,6 @@
 
 Plan::Plan(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur) , l(largeur)
 {
-        is_rendered = true;
         float scale_plan = 1.0;
         float x , y , z;
         pas_h  = 1. / (float)h;
@@ -78,6 +77,7 @@ void Plan::drawobject()
 {
 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 glUniform3fv(glGetUniformLocation(renderer.programID,"mesh_color"), 1 , &(this->getcolor())[0]);
+glUniform1f(glGetUniformLocation(renderer.programID,"shininess"), (this->getshininess()));
 glUniformMatrix4fv(glGetUniformLocation(renderer.programID,"modelmat"), 1 , GL_FALSE, &(this->getmodelmat())[0][0]);
 renderer.loadtextures(); 
 

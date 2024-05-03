@@ -28,9 +28,6 @@ struct ChampVision
 
 
 class GameObject {
-public:
-    bool is_camera = false;
-    bool is_rendered = false;
 protected:
    
     
@@ -50,6 +47,7 @@ protected:
     
     glm::vec3 pos = glm::vec3(0.f);
     glm::vec3 color = glm::vec3();
+    float shininess = 16.f;
     glm::vec3 vitesse = glm::vec3(0.f);
     float masse=0.0;
     
@@ -96,6 +94,8 @@ public:
 
     void set_pos(glm::vec3 p){modelmat[3][0] = p[0]; modelmat[3][1] = p[1]; modelmat[3][2] = p[2];}
     void set_color(glm::vec3 c){color = c;}
+    void set_shininess(float f){shininess = f;}
+    float getshininess(){return shininess;}
     float getscale(){return modelmat[1][1]; }
     glm::vec3 getcolor(){return color;}
     glm::vec3 getpos();

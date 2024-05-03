@@ -35,7 +35,7 @@ private:
     
     
 public:
-    Camera() : GameObject() {is_camera = true;}
+    Camera() : GameObject() {}
     
     Camera(bool b, unsigned int w ,unsigned int h);
     void setFOV(float fov);

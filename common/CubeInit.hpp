@@ -12,7 +12,6 @@ private:
 public:
     CubeInit() : GameObject() 
     {
-        is_rendered = true;
         std::vector<std::vector<unsigned short>> triangles; // Liste des triangles
         
         

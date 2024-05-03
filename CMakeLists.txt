@@ -115,6 +115,8 @@ add_executable(TP
     
     common/SceneInit.hpp
     
+     common/lumiere.hpp
+     common/lumiere.cpp
 	
 	
 )

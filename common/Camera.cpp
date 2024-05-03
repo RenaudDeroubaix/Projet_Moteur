@@ -3,7 +3,6 @@
 
 Camera::Camera(bool is_locked, unsigned int w ,unsigned int h) : GameObject()
 {
-    is_camera = true;
     _is_locked = is_locked;
     _SCR_WIDTH = w;
     _SCR_HEIGHT = h;

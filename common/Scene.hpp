@@ -4,6 +4,7 @@
 #include "common/GameObject.hpp"
 #include "Plan.hpp"
 #include "Mur.hpp"
+#include "lumiere.hpp"
 #include "CubeInit.hpp"
 #include "Camera.hpp"
 #include "Mesh.hpp"
@@ -17,6 +18,7 @@ private:
     std::vector<GameObject*> event_list;
     std::vector<GameObject*> npc_list;
     std::vector<GLuint> programID_list;
+    std::vector<GameObject*> light_list;
 
 public:
     Scene(){} 
@@ -32,12 +34,14 @@ public:
     std::vector<GameObject*>& get_camera_list(){return camera_list;}
     std::vector<GameObject*>& get_event_list(){return event_list;}
     std::vector<GameObject*>& get_npc_list(){return npc_list;}
+    std::vector<GameObject*>& get_light_list(){return light_list;}
     
     Node* make_node_camera(bool is_locked, unsigned int w , unsigned int h, unsigned int  indice_programID); // 1er parametre pour savoir si la camera peut yaw a 360 degree
     Node* make_node_plan(int longeur, int largeur, unsigned int  indice_programID);
     Node* make_node_mur(int longeur, int largeur, unsigned int  indice_programID);
     Node* make_node_cube(unsigned int  indice_programID );
     Node* make_node_npc(unsigned int  indice_programID );
+    Node* make_node_light();
     Node* make_node_mesh(const std::string & path, unsigned int  indice_programID);
     Node* make_node_event(typeEvent typeevent, glm::vec3 p, unsigned int  indice_programID);
     GameObject* get_data(Node * n){return n->getData();}
@@ -45,7 +49,7 @@ public:
 
     
     void initscene();
-    void drawscene(glm::mat4 & vm ,glm::mat4 & pm, Node * n);
+    void drawscene(Camera * c, Node * n);
     void deletescene();
     
     void resetmodelmatrix(Node * n);

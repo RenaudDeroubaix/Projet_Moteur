@@ -15,6 +15,7 @@ protected:
     bool is_camera=false;
     bool is_event=false;
     bool is_falling=false;
+    bool is_light=false;
     
     
     
@@ -60,7 +61,10 @@ public:
     void setIsEvent(bool value) { is_event = value; }
 
     bool getIsEvent() const { return is_event; }
+    
     void setIsFalling(bool value) { is_falling = value; }
 
     bool getIsFalling() const { return is_falling; }
+    void setIsLight(bool value){is_light = value;}
+    bool getIsLight() const { return is_light;}
 };
