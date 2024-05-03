@@ -1,71 +1,50 @@
 #include "HUD.hpp"
 
 
-void Hud::renderText(const char *text, float x, float y, float scale) {
-    // Initialisation de FreeType
-    FT_Library ft;
-    if (FT_Init_FreeType(&ft)) {
-        std::cerr << "Erreur: Impossible d'initialiser FreeType" << std::endl;
-        return;
+void RenderText(GLuint programID, GLuint VAO, GLuint VBO, std::map<GLchar, Character>& Characters, std::string text, float x, float y, float scale, glm::vec3 color) {
+    glUniform3f(glGetUniformLocation(programID, "textColor"), color.x, color.y, color.z);
+    glActiveTexture(GL_TEXTURE0);
+    glBindVertexArray(VAO);
+
+    for (auto c = text.begin(); c != text.end(); c++) {
+        Character ch = Characters[*c];
+
+        float xpos = x + ch.Bearing.x * scale;
+        float ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+
+        float w = ch.Size.x * scale;
+        float h = ch.Size.y * scale;
+
+        float vertices[6][4] = {
+            { xpos,     ypos + h,   0.0f, 0.0f },
+            { xpos,     ypos,       0.0f, 1.0f },
+            { xpos + w, ypos,       1.0f, 1.0f },
+
+            { xpos,     ypos + h,   0.0f, 0.0f },
+            { xpos + w, ypos,       1.0f, 1.0f },
+            { xpos + w, ypos + h,   1.0f, 0.0f }
+        };
+
+        glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        x += (ch.Advance >> 6) * scale;
     }
 
-    // Chargement de la police
-    FT_Face face;
-    if (FT_New_Face(ft, "../src/font/bebas-neue/BebasNeue-Regular.ttf", 0, &face)) {
-        std::cerr << "Erreur: Impossible de charger la police" << std::endl;
-        return;
-    }
-
-    // Configuration de la taille de la police
-    FT_Set_Pixel_Sizes(face, 0, 48);
-
-    // Configuration de la position et de la taille du texte
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glRasterPos2f(x, y);
-
-    // Rendu du texte caractère par caractère
-    for (const char *p = text; *p; p++) {
-        if (FT_Load_Char(face, *p, FT_LOAD_RENDER)) {
-            std::cerr << "Erreur: Impossible de charger le glyphe '" << *p << "'" << std::endl;
-            continue;
-        }
-        glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_RED,
-            face->glyph->bitmap.width,
-            face->glyph->bitmap.rows,
-            0,
-            GL_RED,
-            GL_UNSIGNED_BYTE,
-            face->glyph->bitmap.buffer
-        );
-
-        float x2 = x + face->glyph->bitmap_left * scale;
-        float y2 = y - face->glyph->bitmap_top * scale;
-        float w = face->glyph->bitmap.width * scale;
-        float h = face->glyph->bitmap.rows * scale;
-
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, 0); glVertex2f(x2, y2);
-        glTexCoord2f(0, 1); glVertex2f(x2, y2 + h);
-        glTexCoord2f(1, 1); glVertex2f(x2 + w, y2 + h);
-        glTexCoord2f(1, 0); glVertex2f(x2 + w, y2);
-        glEnd();
-
-        x += (face->glyph->advance.x >> 6) * scale;
-    }
-
-    // Libération des ressources FreeType
-    FT_Done_Face(face);
-    FT_Done_FreeType(ft);
-
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Hud::renderHUD(int SCREEN_WIDTH) {
+
+
+void Hud::renderHUD(int SCREEN_WIDTH, int SCREEN_HEIGHT, Camera* camera) {
+
     // Rendu du HUD
     // Dans cet exemple, affichez l'heure en bas à droite
-    time_t t = time(0);
+   /* time_t t = time(0);
     struct tm *now = localtime(&t);
     char buffer[80];
     strftime(buffer, sizeof(buffer), "%I:%M:%S %p", now);
@@ -74,5 +53,21 @@ void Hud::renderHUD(int SCREEN_WIDTH) {
     float textX = SCREEN_WIDTH - 150.0f; // Décaler de 150 pixels depuis la droite
     float textY = 50.0f; // Décaler de 50 pixels depuis le bas
 
-    renderText(buffer, textX, textY, textScale);
+    renderText(buffer, textX, textY, textScale);*/
+            // Activer le programme de shaders
+        // Activer le programme de shaders
+    std::cout << "render HUD ..." << std::endl;
+     
+    glUseProgram(programID);
+
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(SCREEN_WIDTH), 0.0f, static_cast<float>(SCREEN_HEIGHT));
+    GLint projectionLoc = glGetUniformLocation(programID, "projection");
+    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+    RenderText(programID, VAO, VBO, Characters, "Oren mange mon groin", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+    RenderText(programID, VAO, VBO, Characters, "Ca fonctionne", 540.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
+
+    // Désactiver le programme de shaders
+    glUseProgram(0);
+
+    std::cout << "render HUD OFF" << std::endl;
 }

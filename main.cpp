@@ -8,6 +8,7 @@
 #include "common/Room.hpp"
 #include "common/Physics.hpp"
 #include "common/SceneManager.hpp"
+#include "common/HUD.hpp"
 
 
 using namespace glm;
@@ -65,6 +66,8 @@ int main( void )
         glfwTerminate();
         return -1;
     }
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
    
     //Dark blue background
     glClearColor(0.8f, 0.8f, 0.8f, 0.0f);
@@ -81,6 +84,8 @@ int main( void )
     
     ///// init a newscene
     GLuint progID = LoadShaders( "../src/shaders/vertex_shader.glsl" , "../src/shaders/fragment_shader.glsl");
+    GLuint programIDHUD = LoadShaders( "../src/shaders/vertex_text.glsl" , "../src/shaders/frag_text.glsl");
+    Hud hud(programIDHUD);
     programID_list.push_back(progID);
     Scene s;
     s.setprogIdList(programID_list);
@@ -155,27 +160,24 @@ int main( void )
     I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene().get_camera_list()[0]);
     //glfwSwapInterval(0); //pour uncap les fps
     do{ 
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //std::cout<<"test"<<std::endl;
         Scene& currentScene=SM.getCurrentScene();
         SM.hasEventHappened(currentScene.getNodePlayer());
         //std::cout << &currentScene << std::endl;
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         float currentFrame = glfwGetTime();
         deltaTimeRendu = currentFrame - lastFrame;
         lastFrame = currentFrame;
         //std::cout <<"rendu : "<< 1/deltaTimeRendu << std::endl;
 
     
-       
         I_M.Input_GamePlay(currentScene , currentScene.getNodePlayer()->getData(), deltaTimeRendu);
         p.applyForce(currentScene , deltaTimeRendu);
-        SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu);
-       
-        
-        
-        
+        SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu);        
         currentScene.drawscene(I_M.current_cam , currentScene.get_node_list()[0]);
-        
+
+        //hud.renderHUD(SM.SCR_WIDTH,SM.SCR_HEIGHT, I_M.current_cam);
+
         glfwSwapBuffers(window);
         glfwPollEvents();
 
