@@ -76,6 +76,8 @@ renderer.genbuffer(position , tex_coords , indices);
 void Mur::drawobject() 
 {
 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+glUniform1f(glGetUniformLocation(renderer.programID,"shininess"), 1 , GL_FALSE, &(this->getshininess()));
+
 glUniformMatrix4fv(glGetUniformLocation(renderer.programID,"modelmat"), 1 , GL_FALSE, &(this->getmodelmat())[0][0]);
 renderer.draw(); 
 }

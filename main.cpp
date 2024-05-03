@@ -166,10 +166,9 @@ int main( void )
         SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu);
        
         
-        glm::mat4 vm = I_M.current_cam->getViewMatrix();
-        glm::mat4 pm = I_M.current_cam->getProjectionMatrix();
         
-        currentScene.drawscene(vm, pm , currentScene.get_node_list()[0]);
+        
+        currentScene.drawscene(I_M.current_cam , currentScene.get_node_list()[0]);
         
         glfwSwapBuffers(window);
         glfwPollEvents();
