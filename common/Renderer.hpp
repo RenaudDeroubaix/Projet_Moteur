@@ -18,6 +18,7 @@ public:
     ~Renderer(){}
     
     void genbuffer(std::vector<glm::vec3> & position , std::vector<glm::vec2> & tex_coords , std::vector<unsigned short> & indices) ;
+    void genbufferDynamic(std::vector<glm::vec3> & position , std::vector<glm::vec2> & tex_coords , std::vector<unsigned short> & indices) ;
     void draw() ;
     void deletebuffers() ;
     void stocktexture(const std::string & path , GLuint textureIndex, const std::string & name_in_shader) ;

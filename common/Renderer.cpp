@@ -19,6 +19,25 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &(indices)[0] , GL_STATIC_DRAW);
 }
+void Renderer::genbufferDynamic(std::vector<glm::vec3> & position , std::vector<glm::vec2> & tex_coords , std::vector<unsigned short> & indices)  
+{
+    indicesize = indices.size();
+    
+    glGenVertexArrays(1, &VertexArrayID);
+    glBindVertexArray(VertexArrayID);
+    
+    glGenBuffers(1, &vertexbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glBufferData(GL_ARRAY_BUFFER, position.size() * sizeof(glm::vec3), &(position)[0], GL_DYNAMIC_DRAW);
+    
+    glGenBuffers(1, &texbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, texbuffer);
+    glBufferData(GL_ARRAY_BUFFER, tex_coords.size() * sizeof(glm::vec2), &(tex_coords)[0], GL_DYNAMIC_DRAW);
+    // Generate a buffer for the indices as well
+    glGenBuffers(1, &elementbuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &(indices)[0] , GL_DYNAMIC_DRAW);
+}
 void Renderer::draw() 
 {
     // 1rst attribute buffer : vertices
@@ -65,7 +84,7 @@ void Renderer::draw()
         GL_UNSIGNED_SHORT, // type
         (void*)0           // element array buffer offset
     );
-    
+
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);

@@ -120,11 +120,13 @@ void Scene::drawscene(Camera* camera, Node* n)
         if (go->getgameObjectInfo().getIsRendered()) 
         {
             //std::cout << go << std::endl;
+            //go->initobject();
             glUseProgram(go->getprogID());
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"viewmat"), 1 ,GL_FALSE, &vm[0][0]);
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"projmat"), 1 ,GL_FALSE, &pm[0][0]);
             glUniformMatrix3fv(glGetUniformLocation(go->getprogID(),"pos_camera"), 1 ,GL_FALSE, &(camera_temp->getpos()[0]));
             go->drawobject();
+            glUseProgram(0);
         }
     }
 }
@@ -137,6 +139,12 @@ void Scene::deletescene()
             go->deleteobject();
         }
     }
+    node_list.clear();
+    camera_list.clear();
+    event_list.clear();
+    npc_list.clear();
+    programID_list.clear();
+    light_list.clear();
 }
 
 // Fonction récursive pour calculer les boîtes englobantes des enfants d'un nœud

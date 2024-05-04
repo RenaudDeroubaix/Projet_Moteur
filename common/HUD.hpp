@@ -12,11 +12,12 @@ struct Character {
 
 class Hud {
 private:
-    GLuint programID;
+    GLuint programIDHUD;
     std::map<GLchar, Character> Characters;
     unsigned int VAO, VBO;
+
 public:
-    Hud(GLuint pID): programID(pID) {
+    Hud(GLuint pID): programIDHUD(pID) {
         // Initialiser FreeType
         FT_Library ft;
         if (FT_Init_FreeType(&ft))
@@ -83,5 +84,6 @@ public:
         glDeleteBuffers(1, &VBO);
     }
 
-    void renderHUD(int SCREEN_WIDTH, int SCREEN_HEIGHT, Camera* camera);
+    void renderHUD(int SCREEN_WIDTH, int SCREEN_HEIGHT, unsigned int scene_i);
+    
 };

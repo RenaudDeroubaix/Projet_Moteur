@@ -66,8 +66,6 @@ int main( void )
         glfwTerminate();
         return -1;
     }
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
    
     //Dark blue background
     glClearColor(0.8f, 0.8f, 0.8f, 0.0f);
@@ -96,69 +94,12 @@ int main( void )
     Scene s2;
     s2.setprogIdList(programID_list);
     SM.addSceneToList(&s2);
- /*  
-    Node* sol = makeRoom(s,50,25,10,glm::vec3(5.0f));   
-   
-    Node* cube = s.make_node_cube();
-    s.setNodePlayer(cube);
-    s.get_data(cube)->set_color(glm::vec3(0.1f , 0.3f, 1.f)); 
-    s.scalenode(cube , glm::vec3(0.5f , 0.5f , 0.5f));
-
-    float cubeScale=0.5;
-    s.scalenode(cube , glm::vec3(cubeScale));
-    s.translatenode(cube, glm::vec3(0.0 , cubeScale/2.0, -3.0));
-
-    Node* npc = s.make_node_npc();
-    ChampVision CV = ChampVision(s.get_data(npc)->getpos() , s.get_data(npc)->get_front() , 1.f * s.get_data(npc)->getscale()  , 3.f * s.get_data(npc)->getscale(), 1.f * s.get_data(npc)->getscale()); // rayon , hauteur , rayon au sol
-    s.get_data(npc)->setChampVision(CV);
-
-    s.get_data(npc)->set_color(glm::vec3(0.3f , 1.f, 0.5f)); 
-    s.scalenode(npc , glm::vec3(0.5f , 0.5f , 0.5f));
-    s.translatenode(npc, glm::vec3(1.0 , 0.25f, 1.0));
-
-    s.get_data(cube)->getgameObjectInfo().setHasPhysics(true);
-    s.get_data(cube)->calculateBoundingBox();
-    s.get_data(cube)->setMasse(40.f);
-    Node* SecurityCam1 = s.make_node_camera(true,SCR_WIDTH , SCR_HEIGHT);
-    Node* SecurityCam2 = s.make_node_camera(false,SCR_WIDTH , SCR_HEIGHT);
-    s.get_data(SecurityCam1)->set_pos(glm::vec3(-1.0 , 1 , -1 ));
-    s.get_data(SecurityCam2)->set_pos(glm::vec3(0 , 0.9 ,0));
-    sol->addChild(cube);
-    sol->addChild(npc);
-    sol->addChild(SecurityCam1);
-    sol->addChild(SecurityCam2);
-
  
-    s.initscene();
-    s.calculateBoundingBoxRecursive(sol);
-    s.loadtexturesinscene();
-//////////////scene 2
-
-    Scene s2;
-    s2.setNodePlayer(cube);
-    SM.addSceneToList(&s2);
-    Node* sol2 = makeRoom(s2,50,50,10,glm::vec3(2.0f));  
-   
-    
-    Node* SecurityCam1s2 = s2.make_node_camera(true,SCR_WIDTH , SCR_HEIGHT);
-    Node* SecurityCam2s2 = s2.make_node_camera(false,SCR_WIDTH , SCR_HEIGHT);
-    s2.get_data(SecurityCam1s2)->set_pos(glm::vec3(-1.0 , 1 , -1 ));
-    s2.get_data(SecurityCam2s2)->set_pos(glm::vec3(0 , 0.9 ,0));
-
-    sol2->addChild(SecurityCam1s2);
-    sol2->addChild(SecurityCam2s2);
-   
-    s2.initscene();
-    s2.calculateBoundingBoxRecursive(sol2);
-    s2.loadtexturesinscene();
-
-
-    s2.setNodePlayer(cube);
-*/ 
     double lastTime = glfwGetTime();
     int nbFrames = 0;
     I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene().get_camera_list()[0]);
     //glfwSwapInterval(0); //pour uncap les fps
+
     do{ 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //std::cout<<"test"<<std::endl;
@@ -168,16 +109,22 @@ int main( void )
         float currentFrame = glfwGetTime();
         deltaTimeRendu = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        //std::cout <<"rendu : "<< 1/deltaTimeRendu << std::endl;
+        std::cout <<"rendu : "<< 1/deltaTimeRendu << std::endl;
 
     
         I_M.Input_GamePlay(currentScene , currentScene.getNodePlayer()->getData(), deltaTimeRendu);
         p.applyForce(currentScene , deltaTimeRendu);
         SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu);        
         currentScene.drawscene(I_M.current_cam , currentScene.get_node_list()[0]);
+        
 
-        //hud.renderHUD(SM.SCR_WIDTH,SM.SCR_HEIGHT, I_M.current_cam);
-
+        GLint oldVAO;
+        // Appeler glGetIntegerv en passant l'adresse de la variable oldVAO
+        glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &oldVAO);
+        //glBindFramebuffer(GL_FRAMEBUFFER, 0); 
+        hud.renderHUD(SM.SCR_WIDTH,SM.SCR_HEIGHT, SM.getScene_i());
+        glBindVertexArray(oldVAO);
+        
         glfwSwapBuffers(window);
         glfwPollEvents();
 
@@ -186,6 +133,7 @@ int main( void )
            glfwWindowShouldClose(window) == 0 );
 
     s.deletescene();
+    
     glfwTerminate();
     return 0;
 }
