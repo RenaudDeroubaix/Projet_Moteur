@@ -18,6 +18,7 @@ protected:
    unsigned int scene_i;
    std::vector<Scene* > s;
    InputManager I_M;
+   unsigned int gameState=0; // 1 = playable // 2=gameOver // 3=Victory
 public:
     SceneManager(){scene_i=0;}
 
@@ -74,8 +75,8 @@ public:
         else{go->setVitesse(glm::vec3(0.f));}
        if ( go->checkCollision(*Player))
         {
-            
-            std::cout<<"colision IA -- Joueur" << std::endl;
+            gameState=2;
+            //std::cout<<"colision IA -- Joueur" << std::endl;
 
         }
 
@@ -83,7 +84,7 @@ public:
     }
    }
   
-
+    unsigned int getGameState(){return gameState;}
    unsigned int getScene_i(){return scene_i;}
     std::vector<Scene* >& getSceneList(){return s;}
    void addSceneToList(Scene* scene){s.push_back(scene);}

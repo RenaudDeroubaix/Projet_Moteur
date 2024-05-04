@@ -121,8 +121,8 @@ add_executable(TP
      common/lumiere.hpp
      common/lumiere.cpp
 	
-	common/HUD.hpp
-     common/HUD.cpp
+	common/texteRender.hpp
+     common/texteRender.cpp
 	
 	
 	

@@ -10,14 +10,14 @@ struct Character {
     unsigned int Advance;   // Horizontal offset to advance to next glyph
 };
 
-class Hud {
+class texteRender {
 private:
-    GLuint programIDHUD;
+    GLuint programIDTXT;
     std::map<GLchar, Character> Characters;
     unsigned int VAO, VBO;
 
 public:
-    Hud(GLuint pID): programIDHUD(pID) {
+    texteRender(GLuint pID): programIDTXT(pID) {
         // Initialiser FreeType
         FT_Library ft;
         if (FT_Init_FreeType(&ft))
@@ -79,11 +79,11 @@ public:
         
     }
 
-    ~Hud() {
+    ~texteRender() {
         glDeleteVertexArrays(1, &VAO);
         glDeleteBuffers(1, &VBO);
     }
 
-    void renderHUD(int SCREEN_WIDTH, int SCREEN_HEIGHT, unsigned int scene_i);
+    void renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT, unsigned int scene_i, unsigned int gameState);
     
 };

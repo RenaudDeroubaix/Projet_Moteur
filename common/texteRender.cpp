@@ -1,4 +1,4 @@
-#include "HUD.hpp"
+#include "texteRender.hpp"
 
 
 void RenderText(GLuint programID, GLuint VAO, GLuint VBO, std::map<GLchar, Character>& Characters, std::string text, float x, float y, float scale, glm::vec3 color, glm::vec3 outlineColor, float outlineWidth) {
@@ -89,13 +89,13 @@ void RenderText(GLuint programID, GLuint VAO, GLuint VBO, std::map<GLchar, Chara
 
 
 
-void Hud::renderHUD(int SCREEN_WIDTH, int SCREEN_HEIGHT, unsigned int scene_i) {
+void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT, unsigned int scene_i, unsigned int gameState) {
 
-    // Rendu du HUD
+    // Rendu du texteRender
     // Dans cet exemple, affichez l'heure en bas à droite
     time_t t = time(0);
     struct tm *now = localtime(&t);
-    char buffer[80];
+    char buffer[30];
     strftime(buffer, sizeof(buffer), "%I:%M:%S %p", now);
 
     float textScale = 0.5f;
@@ -108,26 +108,31 @@ void Hud::renderHUD(int SCREEN_WIDTH, int SCREEN_HEIGHT, unsigned int scene_i) {
     // Couleur pour "REC"
     glm::vec3 color_rec(1.0f, 0.0f, 0.0f); // Rouge par défaut
     
-    //std::cout << "render HUD ..." << std::endl;
-    glUseProgram(programIDHUD);
+    //std::cout << "render texteRender ..." << std::endl;
+    glUseProgram(programIDTXT);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
     glDisable(GL_DEPTH_TEST);
     
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(SCREEN_WIDTH), 0.0f, static_cast<float>(SCREEN_HEIGHT));
-    GLint projectionLoc = glGetUniformLocation(programIDHUD, "projection");
+    GLint projectionLoc = glGetUniformLocation(programIDTXT, "projection");
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, &projection[0][0]);
-    RenderText(programIDHUD, VAO, VBO, Characters, buffer, textX, textY, textScale, color_text, color_contour,1.0f);
-    RenderText(programIDHUD, VAO, VBO, Characters, "CAM: ROOM " + std::to_string(scene_i), 100.0, SCREEN_HEIGHT - 100.0, 1.f, color_text, color_contour,1.0f);
 
-    RenderText(programIDHUD, VAO, VBO, Characters, "REC", SCREEN_WIDTH -200.0, SCREEN_HEIGHT - 100.0, 1.f, color_rec, color_contour,1.0f);
+    if(gameState == 0 || gameState == 1){
+        RenderText(programIDTXT, VAO, VBO, Characters, buffer, textX, textY, textScale, color_text, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "CAM: ROOM " + std::to_string(scene_i), 100.0, SCREEN_HEIGHT - 100.0, 1.f, color_text, color_contour,1.0f);
 
+        RenderText(programIDTXT, VAO, VBO, Characters, "REC", SCREEN_WIDTH -200.0, SCREEN_HEIGHT - 100.0, 1.f, color_rec, color_contour,1.0f);
+    }
+    else if(gameState == 2){
+        RenderText(programIDTXT, VAO, VBO, Characters, "GAMEOVER", 400  , SCREEN_HEIGHT/2.0  , 2.f, color_rec, color_contour,1.0f);
+    }
 
 
     // Désactiver le programme de shaders
     glUseProgram(0);
 
-    //std::cout << "render HUD OFF" << std::endl;
+    //std::cout << "render texteRender OFF" << std::endl;
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_BLEND);
 }
