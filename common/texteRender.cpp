@@ -89,7 +89,7 @@ void RenderText(GLuint programID, GLuint VAO, GLuint VBO, std::map<GLchar, Chara
 
 
 
-void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT, unsigned int scene_i, unsigned int gameState) {
+void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam_i, unsigned int scene_i, unsigned int gameState) {
 
     // Rendu du texteRender
     // Dans cet exemple, affichez l'heure en bas à droite
@@ -120,7 +120,7 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT, unsigned int sc
 
     if(gameState == 0 || gameState == 1){
         RenderText(programIDTXT, VAO, VBO, Characters, buffer, textX, textY, textScale, color_text, color_contour,1.0f);
-        RenderText(programIDTXT, VAO, VBO, Characters, "CAM: ROOM " + std::to_string(scene_i), 100.0, SCREEN_HEIGHT - 100.0, 1.f, color_text, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "CAM  #"+std::to_string(cam_i+1)+" : ROOM " + std::to_string(scene_i), 100.0, SCREEN_HEIGHT - 100.0, 1.f, color_text, color_contour,1.0f);
 
         RenderText(programIDTXT, VAO, VBO, Characters, "REC", SCREEN_WIDTH -200.0, SCREEN_HEIGHT - 100.0, 1.f, color_rec, color_contour,1.0f);
     }

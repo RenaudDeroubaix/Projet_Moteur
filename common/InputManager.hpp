@@ -22,7 +22,7 @@ public:
     //void Input_Camera(float deltaTime);
     void Input_SecurityCam(GameObject * go, float limit_yaw ,float limit_pitch ,float deltaTime);
     void Input_GameObject(GameObject * go, float deltaTime);
-    void Input_ViewMode(Scene & s);
+    void Input_ViewMode(Scene & s, GameObject* player);
     void Input_GamePlay(Scene & s , GameObject * go , float deltaTime);
 public:
     static double previousX;

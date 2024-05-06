@@ -52,10 +52,11 @@ public:
             }
         }    
    }
+
+
    bool DetecterParNPC(GameObject * Player , float deltatime){
     for (GameObject * go : s[scene_i]->get_npc_list())
     {
-        
         if (Player->in_champ_de_vision(go)){
             glm::vec3 posAI = go->getpos();
             glm::vec3 posPlayer = Player->getpos();
@@ -63,7 +64,7 @@ public:
             glm::quat rotation = RotationBetweenVectors(go->get_front() , lastfront);
             //glm::quat rotation = RotateTowards( rotationprev , rotationlast , glm::radians(10.f));
             glm::vec3 eulerangle = Helper::quatToEuler(rotation);
-            std::cout<<glm::to_string(eulerangle) << std::endl;
+            //std::cout<<glm::to_string(eulerangle) << std::endl;
             if ( fabs(eulerangle.y) > 0.02f ) go->setVitesse(go->get_front());
             go->rotateeulerYaw(eulerangle);
             
@@ -74,8 +75,30 @@ public:
             //std::cout<< glm::to_string(rotation)<<std::endl;
             //std::cout<< glm::to_string(go->getmodelmat())<<std::endl;
         }
+        else if (go->getEvent().get_typeEvent() == typeEvent::NPC_Checkpoint){
+            Event* ev = &go->getEvent();
+            glm::vec3 posAI = go->getpos(); //pos actuel du npc
+            glm::vec3 posCP = ev->get_posCP(); //pos de l'endroit ou il se dirige
+            float distanceToCP = glm::length(posCP - posAI);
+            if(distanceToCP < 0.05)//si proche alors on regarde le checkpoint suivant
+            {
+                ev->nextCP();
+                posCP = ev->get_posCP();
+                
+            }
+            glm::vec3 lastfront = glm::normalize(glm::vec3(posCP.x, posAI.y, posCP.z) - posAI);
+            glm::quat rotation = RotationBetweenVectors(go->get_front() , lastfront);
+            glm::vec3 eulerangle = Helper::quatToEuler(rotation);
+            if ( fabs(eulerangle.y) > 0.02f ) go->setVitesse(go->get_front());
+            go->rotateeulerYaw(eulerangle);
+            go->set_front(lastfront);
+            go->addVitesse(go->get_front() * deltatime * 0.05f);
+            go->getgameObjectInfo().setMovedRecently(true);
+            go->update_champ_de_vision();
+        }
         else{go->reduceVitesse(deltatime * 0.05f);}
-       if ( go->checkCollision(*Player))
+
+        if( go->checkCollision(*Player))
         {
             gameState=2;
             //std::cout<<"colision IA -- Joueur" << std::endl;

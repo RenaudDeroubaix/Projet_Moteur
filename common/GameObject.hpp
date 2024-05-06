@@ -115,7 +115,7 @@ public:
     void setEvent(Event ev){
         event=ev;
     }
-    Event getEvent(){return event;}
+    Event& getEvent(){return event;}
 
     glm::vec3 getVitesse(){return vitesse;}
     void update_champ_de_vision(){

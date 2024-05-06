@@ -41,16 +41,8 @@ int main( void )
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   
-    // Set the mouse at the center of the screen
-    glfwPollEvents();
     // Open a window and create its OpenGL context
     window = glfwCreateWindow( SM.SCR_WIDTH, SM.SCR_HEIGHT, "Moteur_Camera", NULL, NULL);
-    
-    
-    // Ensure we can capture the escape key being pressed below
-    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-    // Hide the mouse and enable unlimited mouvement
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);    
     if( window == NULL ){
         fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
         getchar();
@@ -58,6 +50,7 @@ int main( void )
         return -1;
     }
     glfwMakeContextCurrent(window);
+    
     // Initialize GLEW
     glewExperimental = true; // Needed for core profile
     if (glewInit() != GLEW_OK) {
@@ -66,7 +59,14 @@ int main( void )
         glfwTerminate();
         return -1;
     }
-   
+
+     // Ensure we can capture the escape key being pressed below
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    // Set the mouse at the center of the screen
+    glfwPollEvents();
+    glfwSetCursorPos(window, SM.SCR_WIDTH/2.0, SM.SCR_HEIGHT/2.0);
     //Dark blue background
     glClearColor(0.8f, 0.8f, 0.8f, 0.0f);
     //Enable depth test
@@ -123,7 +123,7 @@ int main( void )
         // Appeler glGetIntegerv en passant l'adresse de la variable oldVAO
         glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &oldVAO);
         //glBindFramebuffer(GL_FRAMEBUFFER, 0); 
-        //hud.renderTXT(SM.SCR_WIDTH,SM.SCR_HEIGHT, SM.getScene_i(),SM.getGameState());
+        hud.renderTXT(SM.SCR_WIDTH,SM.SCR_HEIGHT,I_M.view , SM.getScene_i(),SM.getGameState());
         glBindVertexArray(oldVAO);
         
         glfwSwapBuffers(window);
@@ -132,7 +132,9 @@ int main( void )
     } // Check if the ESC key was pressed or the window was closed
     while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
            glfwWindowShouldClose(window) == 0 );
-
+    glDeleteProgram(progID);
+    glDeleteProgram(programIDHUD);
+    
     s.deletescene();
     
     glfwTerminate();

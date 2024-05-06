@@ -3,7 +3,6 @@
 void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::vec3> & normals , std::vector<glm::vec2> & tex_coords , std::vector<unsigned short> & indices)  
 {
     indicesize = indices.size();
-    
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
     
@@ -22,6 +21,7 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
     glGenBuffers(1, &elementbuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &(indices)[0] , GL_STATIC_DRAW);
+
 }
 void Renderer::genbufferDynamic(std::vector<glm::vec3> & position , std::vector<glm::vec2> & tex_coords , std::vector<unsigned short> & indices)  
 {

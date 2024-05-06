@@ -180,27 +180,34 @@ void InputManager::Input_GameObject(GameObject * go , float deltaTime)
     }
 }
 
-void InputManager::Input_ViewMode(Scene & s)
+void InputManager::Input_ViewMode(Scene & s, GameObject* player)
 {
     if (isKeyPressed(GLFW_KEY_RIGHT))
     {
         view ++;
         view = view % s.get_camera_list().size();
-        current_cam = static_cast<Camera*>(s.get_camera_list()[view]); 
-        
+        GameObject* camera = s.get_camera_list()[view];
+        current_cam = static_cast<Camera*>(camera); 
+        camera->set_front(player->getpos()-camera->getpos());
+        current_cam->setEulerAngle(Helper::quatToEuler(LookAt(camera->get_front(),camera->get_up())));
         
     }
     if (isKeyPressed(GLFW_KEY_LEFT))
     {
-        view --;
+        if(view == 0){view = s.get_camera_list().size() - 1;}
+        else{view --;}
         view = view % s.get_camera_list().size();
-        current_cam = static_cast<Camera*>(s.get_camera_list()[view]); 
+        GameObject* camera = s.get_camera_list()[view];
+        current_cam = static_cast<Camera*>(camera); 
+        camera->set_front(player->getpos()-camera->getpos());
+        current_cam->setEulerAngle(Helper::quatToEuler(LookAt(camera->get_front(),camera->get_up())));
+        
     } 
 }
 
 void InputManager::Input_GamePlay(Scene & s , GameObject* player, float deltaTime )
 {
-    Input_ViewMode(s);
+    Input_ViewMode(s,player);
     Input_GameObject(player , deltaTime);
     Input_SecurityCam(player , 50.f, 50.f,deltaTime);
 }

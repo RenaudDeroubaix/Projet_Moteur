@@ -33,14 +33,14 @@ void Physics::applyCollision(GameObject* go, std::vector<Node> & nodelist ,float
 }*/
 
 void Physics::applyCollision(GameObject* go, std::vector<Node*>& nodelist, float deltaTime) {
-    int i=0;
+    //int i=0;
     for (Node* n : nodelist) {
         GameObject* otherGO = n->getData();
         
             
         if (otherGO != go &&  go->checkCollision(*otherGO) && !otherGO->getgameObjectInfo().getIsEvent()) {
             // Collision détectée
-            std::cout<< "colision detecter "<< i <<std::endl;
+           // std::cout<< "colision detecter "<< i <<std::endl;
            
             glm::vec3 collisionAxe;
             glm::vec3 goMax = go->getMaxBB() ;
@@ -94,7 +94,7 @@ void Physics::applyCollision(GameObject* go, std::vector<Node*>& nodelist, float
             go->setVitesse(v);
         }
         
-         i++;
+         //i++;
     }
 }
 

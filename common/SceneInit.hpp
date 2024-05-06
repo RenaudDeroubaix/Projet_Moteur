@@ -7,14 +7,14 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     //////////////ROOM 
     Node* sol = makeRoom(*s,36,60,6,glm::vec3(1.0f),0);   
     /////////////LIGHT 
-    Node* lumiere1 = s->make_node_light();
+ /*   Node* lumiere1 = s->make_node_light();
     sol->addChild(lumiere1);
     s->get_data(lumiere1)->set_pos(glm::vec3(0.f , 2.f , 16.f ));
 
     Node* lumiere2 = s->make_node_light();
     sol->addChild(lumiere2);
     s->get_data(lumiere2)->set_pos(glm::vec3(16.f , 4.0f , 0.f ));
-
+*/
     Node* lumiere1cube = s->make_node_cube(0);
     sol->addChild(lumiere1cube);
     s->get_data(lumiere1cube)->set_pos(glm::vec3(0.f , 2.f , 16.f ));
@@ -26,6 +26,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(lumiere2cube)->set_color(glm::vec3(1.f ));
     
    //////////////PLAYER
+    //Node* player = s->make_node_mesh("../src/maillages/turtle.off",0);
     Node* player = s->make_node_cube(0);
     s->setNodePlayer(player);
     s->get_data(player)->set_color(glm::vec3(0.1f , 0.1f, 1.f)); 
@@ -42,12 +43,21 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     Node* npc = s->make_node_npc(0);
     float npcScale=1.0;
     float npcHauteur=1.0;
+    
     s->get_data(npc)->set_front(glm::vec3(.0,0.0,-1.0));
     s->scalenode(npc , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
     s->translatenode(npc, glm::vec3(13.0 , (npcScale*npcHauteur)/2.f, 1.0));
     ChampVision CVnpc2 = ChampVision(s->get_data(npc)->getpos() , s->get_data(npc)->get_front() , 1.f * s->get_data(npc)->getscale()  , 60.f * s->get_data(npc)->getscale(), 1.f * s->get_data(npc)->getscale()); // rayon , hauteur , rayon au sol
     s->get_data(npc)->setChampVision(CVnpc2);
-    s->get_data(npc)->set_color(glm::vec3(0.8f , 0.1f, 0.1f)); 
+    s->get_data(npc)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
+
+    Event ev(typeEvent::NPC_Checkpoint);
+    std::vector<glm::vec3> cp_vec;
+    cp_vec.push_back(s->get_data(npc)->getpos());
+    cp_vec.push_back(glm::vec3(13.0 , (npcScale*npcHauteur)/2.f, -15.0));
+    ev.setCheckpoint(cp_vec);
+    s->get_data(npc)->setEvent(ev);
+
     sol->addChild(npc);
 
     ///////////////////// NPC bloque porte
