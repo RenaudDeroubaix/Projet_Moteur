@@ -125,7 +125,7 @@ renderer.stocktexture(path, textureIndex, name_in_shader);
 }
 void Mesh::initobject() 
 {
-renderer.genbuffer(position , tex_coords , indices);
+renderer.genbuffer(position , normals , tex_coords  ,indices);
 }
 void Mesh::drawobject() 
 {

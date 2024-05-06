@@ -5,7 +5,7 @@
 
 class Light : public GameObject{
 private: 
-    float radius;
+
     
 public:
     Light() : GameObject() {}    

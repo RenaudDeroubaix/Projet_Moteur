@@ -109,9 +109,10 @@ int main( void )
         float currentFrame = glfwGetTime();
         deltaTimeRendu = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        std::cout <<"rendu : "<< 1/deltaTimeRendu << std::endl;
+        std::cout <<"rendu : "<< 1.f/deltaTimeRendu << std::endl;
 
     
+       
         I_M.Input_GamePlay(currentScene , currentScene.getNodePlayer()->getData(), deltaTimeRendu);
         p.applyForce(currentScene , deltaTimeRendu);
         SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu);        
