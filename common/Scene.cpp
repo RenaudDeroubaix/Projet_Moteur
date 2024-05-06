@@ -56,6 +56,17 @@ Node* Scene::make_node_npc(unsigned int indice_programID)
     npc_list.push_back(go);
     return node_list[node_list.size() - 1];
 }
+Node* Scene::make_node_npc_mesh(const std::string & path, unsigned int indice_programID) 
+{
+    Node* n= new Node();
+    GameObject* go = new Mesh(path);
+    go->setprogId(programID_list[indice_programID]);
+    go->calculateBoundingBox();
+    n->add_data(go);
+    node_list.push_back(n);
+    npc_list.push_back(go);
+    return node_list[node_list.size() - 1];
+}
 Node* Scene::make_node_camera(bool is_locked, unsigned int w , unsigned int h,unsigned int indice_programID) 
 {
     Node* n= new Node();

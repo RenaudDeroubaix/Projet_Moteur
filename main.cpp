@@ -66,7 +66,7 @@ int main( void )
 
     // Set the mouse at the center of the screen
     glfwPollEvents();
-    glfwSetCursorPos(window, SM.SCR_WIDTH/2.0, SM.SCR_HEIGHT/2.0);
+    //glfwSetCursorPos(window, SM.SCR_WIDTH/2.0, SM.SCR_HEIGHT/2.0);
     //Dark blue background
     glClearColor(0.8f, 0.8f, 0.8f, 0.0f);
     //Enable depth test

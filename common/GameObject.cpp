@@ -2,7 +2,7 @@
 
 glm::vec3 GameObject::getpos() { return glm::vec3(modelmat[3][0] ,modelmat[3][1], modelmat[3][2]);}
 void GameObject::setpos(glm::vec3 p) {  modelmat[3][0]=p.x ,modelmat[3][1]=p.y, modelmat[3][2]=p.z;}
-glm::mat4 GameObject::getmodelmat() { return modelmat;}
+glm::mat4 GameObject::getmodelmat() const { return modelmat;}
 
 void GameObject::setscale(glm::vec3 s)
 {
@@ -47,6 +47,16 @@ void GameObject::calculateBoundingBox() {
 
 bool GameObject::checkCollision(const GameObject& other) {
         // Vérifier la collision entre les boîtes englobantes
+        /*
+        glm::vec4 maxBBworldPos = modelmat * glm::vec4(maxBoundingBox, 1.0f);
+        glm::vec4 minBBworldPos = modelmat * glm::vec4(minBoundingBox, 1.0f);
+        glm::mat4 modelmatOther= other.getmodelmat();
+        glm::vec4 maxBBworldPosOther = modelmatOther * glm::vec4(other.maxBoundingBox, 1.0f);
+        glm::vec4 minBBworldPosOther = modelmatOther * glm::vec4(other.minBoundingBox , 1.0f);
+        return (maxBBworldPos[0] >= minBBworldPosOther[0] && minBBworldPos[0] <= maxBBworldPosOther[0]) &&
+               (maxBBworldPos[1] >= minBBworldPosOther[1] && minBBworldPos[1] <= maxBBworldPosOther[1]) &&
+               (maxBBworldPos[2] >= minBBworldPosOther[2] && minBBworldPos[2] <= maxBBworldPosOther[2]);
+               */
         return (maxBoundingBox[0] >= other.minBoundingBox[0] && minBoundingBox[0] <= other.maxBoundingBox[0]) &&
                (maxBoundingBox[1] >= other.minBoundingBox[1] && minBoundingBox[1] <= other.maxBoundingBox[1]) &&
                (maxBoundingBox[2] >= other.minBoundingBox[2] && minBoundingBox[2] <= other.maxBoundingBox[2]);

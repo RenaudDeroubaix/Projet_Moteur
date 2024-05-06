@@ -99,7 +99,7 @@ public:
     float getscale(){return modelmat[1][1]; }
     glm::vec3 getcolor(){return color;}
     glm::vec3 getpos();
-    glm::mat4 getmodelmat();
+    glm::mat4 getmodelmat() const;
     
     void setmodelmat(glm::mat4 m){modelmat = m;}
 

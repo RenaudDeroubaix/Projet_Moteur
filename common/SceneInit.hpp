@@ -40,6 +40,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
 
     ///////////////////// premier NPC couloir haut
+    //Node* npc = s->make_node_npc_mesh("../src/maillages/octopus_toon.off",0);
     Node* npc = s->make_node_npc(0);
     float npcScale=1.0;
     float npcHauteur=1.0;
@@ -50,14 +51,14 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     ChampVision CVnpc2 = ChampVision(s->get_data(npc)->getpos() , s->get_data(npc)->get_front() , 1.f * s->get_data(npc)->getscale()  , 60.f * s->get_data(npc)->getscale(), 1.f * s->get_data(npc)->getscale()); // rayon , hauteur , rayon au sol
     s->get_data(npc)->setChampVision(CVnpc2);
     s->get_data(npc)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
-
+/*
     Event ev(typeEvent::NPC_Checkpoint);
     std::vector<glm::vec3> cp_vec;
     cp_vec.push_back(s->get_data(npc)->getpos());
     cp_vec.push_back(glm::vec3(13.0 , (npcScale*npcHauteur)/2.f, -15.0));
     ev.setCheckpoint(cp_vec);
     s->get_data(npc)->setEvent(ev);
-
+*/
     sol->addChild(npc);
 
     ///////////////////// NPC bloque porte
