@@ -1,6 +1,6 @@
 #include "Renderer.hpp"
 
-void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::vec2> & tex_coords , std::vector<unsigned short> & indices)  
+void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::vec3> & normals , std::vector<glm::vec2> & tex_coords , std::vector<unsigned short> & indices)  
 {
     indicesize = indices.size();
     
@@ -10,6 +10,10 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
     glGenBuffers(1, &vertexbuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
     glBufferData(GL_ARRAY_BUFFER, position.size() * sizeof(glm::vec3), &(position)[0], GL_STATIC_DRAW);
+    
+    glGenBuffers(1, &normalbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+    glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &(normals)[0], GL_STATIC_DRAW);
     
     glGenBuffers(1, &texbuffer);
     glBindBuffer(GL_ARRAY_BUFFER, texbuffer);
@@ -23,6 +27,7 @@ void Renderer::draw()
 {
     // 1rst attribute buffer : vertices
     //glUseProgram(programID);
+    
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
     glVertexAttribPointer(
@@ -30,12 +35,12 @@ void Renderer::draw()
         3,                  // size
         GL_FLOAT,           // type
         GL_FALSE,           // normalized?
-        0,// stride
+        0,                  // stride
         (void*)0            // array buffer offset
     );
-
+    
     glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
     glVertexAttribPointer(
         1,                  // attribute
         3,                  // size
@@ -46,7 +51,6 @@ void Renderer::draw()
     );
     
     glEnableVertexAttribArray(2);
-   
     glBindBuffer(GL_ARRAY_BUFFER, texbuffer);
     glVertexAttribPointer(
         2,                  // attribute
@@ -72,7 +76,6 @@ void Renderer::draw()
     
     
 }
-
 void Renderer::deletebuffers() 
 {
     glDeleteBuffers(1, &vertexbuffer);

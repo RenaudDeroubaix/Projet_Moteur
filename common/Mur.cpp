@@ -40,6 +40,17 @@ Mur::Mur(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur) 
                 indices.push_back(i*l+(j+1)); 
             }       
         }
+        
+         for (int i = 0 ; i < indices.size() ; i+=6){
+            glm::vec3 AB = position[indices[i+1]] - position[indices[i]]; 
+            glm::vec3 AC = position[indices[i+2]] - position[indices[i]];
+            glm::vec3 normal = glm::cross(AB, AC);
+            normals.push_back(normal);
+            AB = position[indices[i+4]] - position[indices[i+3]]; 
+            AC = position[indices[i+5]] - position[indices[i+3]];
+            normal = glm::cross(AB, AC);
+            normals.push_back(normal);
+        }
 
     
 }
@@ -68,7 +79,7 @@ renderer.stocktexture(path, textureIndex, name_in_shader);
 void Mur::initobject() 
 {
     
-renderer.genbuffer(position , tex_coords , indices);
+renderer.genbuffer(position , normals , tex_coords  ,indices);
 //renderer.programID = LoadShaders( "../src/shaders/vertex_hm.glsl" , "../src/shaders/frag_hm.glsl");
 //renderer.genbuffer(position , tex_coords , indices);
 }

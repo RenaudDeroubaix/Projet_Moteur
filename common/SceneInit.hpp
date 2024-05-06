@@ -6,9 +6,12 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
     //////////////ROOM 
     Node* sol = makeRoom(*s,36,60,6,glm::vec3(1.0f),0);   
-    
+    /////////////LIGHT 
     Node* lumiere1 = s->make_node_light();
     sol->addChild(lumiere1);
+    s->get_data(lumiere1)->set_pos(glm::vec3(0.f , 2.f , 0.f ));
+
+    
    //////////////PLAYER
     Node* player = s->make_node_cube(0);
     s->setNodePlayer(player);

@@ -1,5 +1,28 @@
 #include "Scene.hpp"
+void Scene::GenBufferLightInScene(std::vector<glm::vec3> & lightlist)
+{
+    
+    glGenBuffers(1, &lightbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, lightbuffer);
+    glBufferData(GL_ARRAY_BUFFER, lightlist.size() * sizeof(glm::vec3), &(lightlist)[0], GL_STATIC_DRAW);
+    
+}
 
+void Scene::RenderLightInScene()
+{
+    glEnableVertexAttribArray(3);
+    glBindBuffer(GL_ARRAY_BUFFER, lightbuffer);
+    glVertexAttribPointer(
+        3,                  // attribute
+        3,                  // size
+        GL_FLOAT,           // type
+        GL_FALSE,           // normalized?
+        0,                     // stride
+        (void*)0            // array buffer offset
+    ); 
+    
+    glDisableVertexAttribArray(3);
+}
 
 Node* Scene::make_node_plan(int longeur , int largeur , unsigned int indice_programID ) 
 {
@@ -87,7 +110,6 @@ Node* Scene::make_node_light()
     GameObject* go = new Light();
     n->add_data(go);
     light_list.push_back(go);
-    node_list.push_back(n);
     return node_list[node_list.size() - 1];
 }
 
@@ -101,6 +123,14 @@ void Scene::resetmodelmatrix(Node* n)
 
 void Scene::initscene()
 {
+    std::vector<glm::vec3> pos_dir_lights;
+    for(GameObject* light : light_list)
+    {
+        pos_dir_lights.push_back(light->getpos());
+       // pos_dir_lights.push_back(light->get_front());
+    }
+    GenBufferLightInScene(pos_dir_lights);
+    
     for(Node * n : node_list){
         GameObject * go = n->getData();
         if (go->getgameObjectInfo().getIsRendered()){go->initobject();}
@@ -116,18 +146,23 @@ void Scene::drawscene(Camera* camera, Node* n)
     
     auto l = get_children_list(*n);
     //std::cout<<l.size()<<std::endl;
+    RenderLightInScene();
     for(GameObject* go : l){
         if (go->getgameObjectInfo().getIsRendered()) 
         {
             //std::cout << go << std::endl;
             glUseProgram(go->getprogID());
+            
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"viewmat"), 1 ,GL_FALSE, &vm[0][0]);
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"projmat"), 1 ,GL_FALSE, &pm[0][0]);
             glUniformMatrix3fv(glGetUniformLocation(go->getprogID(),"pos_camera"), 1 ,GL_FALSE, &(camera_temp->getpos()[0]));
             go->drawobject();
+
         }
     }
+
 }
+
 void Scene::deletescene()
 {   
     for(Node * n : node_list){
@@ -137,6 +172,7 @@ void Scene::deletescene()
             go->deleteobject();
         }
     }
+     glDeleteBuffers(1, &lightbuffer);
 }
 
 // Fonction récursive pour calculer les boîtes englobantes des enfants d'un nœud

@@ -31,7 +31,7 @@ class GameObject {
 protected:
    
     
-    float object_speed = 1.;
+    float object_speed = 0.08;
     glm::vec3 up = glm::vec3(0,1,0);
     glm::vec3 right = glm::vec3(1,0,0);
     glm::vec3 front = glm::vec3(0,0,1);
@@ -127,15 +127,16 @@ public:
     void setVitesse(glm::vec3 d){
         vitesse = d;
         for (int i=0; i<3; i+=2){
-            vitesse[i] > 0.08? vitesse[i] = 0.08 : vitesse[i] < -0.08? vitesse[i] = -0.08: vitesse[i];
+            vitesse[i] > object_speed? vitesse[i] = object_speed : vitesse[i] < -object_speed ? vitesse[i] = -object_speed: vitesse[i];
         }
+
     }
     void addVitesse(glm::vec3 d){
         vitesse+=d; 
      }
     void reduceVitesse(float ps){
         for (int i=0; i<3; i+=2){
-            vitesse[i] < -ps*4 ? vitesse[i] += ps*4 : vitesse[i] > ps*4 ? vitesse[i] -= ps*4 : vitesse[i] = 0;
+            vitesse[i] < - ps*4 ? vitesse[i] += ps*4 : vitesse[i] > ps*4 ? vitesse[i] -= ps*4 : vitesse[i] = 0;
         }
     }
     float getMasse(){return masse;}

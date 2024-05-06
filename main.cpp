@@ -163,7 +163,7 @@ int main( void )
         float currentFrame = glfwGetTime();
         deltaTimeRendu = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        //std::cout <<"rendu : "<< 1/deltaTimeRendu << std::endl;
+        std::cout <<"rendu : "<< 1.f/deltaTimeRendu << std::endl;
 
     
        

@@ -29,9 +29,14 @@ Plan::Plan(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur
                 indices.push_back(i*l+(j+1));
                 indices.push_back((i+1)*l+(j+1));
                 indices.push_back((i+1)*l+j);
-               
-                
             }       
+        }
+        
+        for (int i = 0 ; i < indices.size() ; i+=3){
+            glm::vec3 AB = position[indices[i+1]] - position[indices[i]]; 
+            glm::vec3 AC = position[indices[i+2]] - position[indices[i]];
+            glm::vec3 normal = glm::cross(AB, AC);
+            normals.push_back(normal);
         }
 
     
@@ -69,7 +74,7 @@ void Plan::settexture( const std::string & path , GLuint textureIndex, const std
 }
 void Plan::initobject() 
 {
-renderer.genbuffer(position , tex_coords , indices);
+renderer.genbuffer(position , normals , tex_coords  ,indices);
 //renderer.programID = LoadShaders( "../src/shaders/vertex_hm.glsl" , "../src/shaders/frag_hm.glsl");
 //renderer.genbuffer(position , tex_coords , indices);
 }
@@ -80,7 +85,6 @@ glUniform3fv(glGetUniformLocation(renderer.programID,"mesh_color"), 1 , &(this->
 glUniform1f(glGetUniformLocation(renderer.programID,"shininess"), (this->getshininess()));
 glUniformMatrix4fv(glGetUniformLocation(renderer.programID,"modelmat"), 1 , GL_FALSE, &(this->getmodelmat())[0][0]);
 renderer.loadtextures(); 
-
 renderer.draw(); 
 }
 

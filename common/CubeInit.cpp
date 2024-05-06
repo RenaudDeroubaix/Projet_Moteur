@@ -5,11 +5,12 @@
 
 void CubeInit::settexture( const std::string & path , GLuint textureIndex, const std::string & name_in_shader) 
 {
+    
 renderer.stocktexture(path, textureIndex, name_in_shader); 
 }
 void CubeInit::initobject() 
 {
-renderer.genbuffer(position , tex_coords , indices);
+renderer.genbuffer(position , normals , tex_coords  ,indices);
 }
 void CubeInit::drawobject() 
 {
