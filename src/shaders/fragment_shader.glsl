@@ -18,7 +18,7 @@ out vec4 o_color;
 void main(){
     float specular=0.0;
     float diffuse=0.0;
-    float ambiante =0.1;
+    float ambiante =0.05;
 
     vec3 L = normalize((light_pos_worldspace.xyz - position_worldspace.xyz )); //OK
     diffuse = max(dot(normal_surface.xyz, L), 0.0); //
@@ -30,7 +30,7 @@ void main(){
 
     vec4 color_tex = texture(tex, tex_coord); 
     
-    vec3 color = vec3(ambiante) + vec3(diffuse) + vec3(specular) ;
+    vec3 color =mesh_color * color_tex.xyz + vec3(ambiante) + vec3(diffuse) + vec3(specular) ;
 
     o_color = vec4(color  , 1.f);
 }
