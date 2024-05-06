@@ -47,10 +47,10 @@ void Renderer::draw()
     // 1rst attribute buffer : vertices
     //glUseProgram(programID);
     
-    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
     glVertexAttribPointer(
-        0,                  // attribute
+        1,                  // attribute
         3,                  // size
         GL_FLOAT,           // type
         GL_FALSE,           // normalized?
@@ -58,27 +58,27 @@ void Renderer::draw()
         (void*)0            // array buffer offset
     );
     
-    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
     glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
     glVertexAttribPointer(
-        1,                  // attribute
+        2,                  // attribute
         3,                  // size
         GL_FLOAT,           // type
         GL_FALSE,           // normalized?
         0,// stride
         (void*)0            // array buffer offset
     );
-    
-    glEnableVertexAttribArray(2);
+    /*
+    glEnableVertexAttribArray(3);
     glBindBuffer(GL_ARRAY_BUFFER, texbuffer);
     glVertexAttribPointer(
-        2,                  // attribute
+        3,                  // attribute
         2,                  // size
         GL_FLOAT,           // type
         GL_FALSE,           // normalized?
         0,                     // stride
         (void*)0            // array buffer offset
-    );
+    );*/
     // Index buffer
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
     // Draw the triangles !
@@ -89,9 +89,9 @@ void Renderer::draw()
         (void*)0           // element array buffer offset
     );
 
-    glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
+    glDisableVertexAttribArray(3);
     
     
 }

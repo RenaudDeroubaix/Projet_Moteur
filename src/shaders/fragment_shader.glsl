@@ -16,18 +16,22 @@ in vec4 position_worldspace;
 out vec4 o_color;
 
 void main(){
+    float specular=0.0;
+    float diffuse=0.0;
+    float ambiante =0.1;
 
-    vec3 L = normalize((light_pos_worldspace.xyz - position_worldspace.xyz));
-    vec3 vue =  normalize((pos_camera - position_worldspace.xyz));
-    vec3 halfwayDir = normalize(L + vue);
-    
+    vec3 L = normalize((light_pos_worldspace.xyz - position_worldspace.xyz )); //OK
+    diffuse = max(dot(normal_surface.xyz, L), 0.0); //
+
+    vec3 R = reflect(-L , normal_surface.xyz); 
+    vec3 vue =  normalize(- position_worldspace.xyz );
+    float specAngle = max(dot(R, vue), 0.0);
+    specular = pow(specAngle, shininess);
+
     vec4 color_tex = texture(tex, tex_coord); 
     
-    float diffuse =  max(dot(L ,  normal_surface.xyz), 0.0) ;
-    float specular =  pow(max(dot(halfwayDir  , vue), 0.0) , shininess) ;
-    
+    vec3 color = vec3(ambiante) + vec3(diffuse) + vec3(specular) ;
 
-    
-    
-    o_color = vec4(mesh_color.x * color_tex.x , mesh_color.y * color_tex.y ,mesh_color.z * color_tex.z ,1.0) * (diffuse + specular) ;
+    o_color = vec4(color  , 1.f);
 }
+

@@ -13,7 +13,7 @@ private:
     
 public:
     Mur() : GameObject() {}
-    Mur(glm::vec3 p , int hauteur , int  largeur);
+    Mur(glm::vec3 p , int hauteur , int  largeur );
     void ResoPlus();
     void ResoMoins();
     

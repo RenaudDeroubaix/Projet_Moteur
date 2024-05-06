@@ -16,6 +16,7 @@ Plan::Plan(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur
                 z = (j - (float)(l - 1) * 0.5f ) * scale_plan + pos[2];
                 
                 position.push_back(glm::vec3(x, y, z));
+                normals.push_back(glm::vec3(0.f, 1.f , 0.f));
                 
             }
         }  
@@ -32,13 +33,7 @@ Plan::Plan(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur
             }       
         }
         
-        for (int i = 0 ; i < indices.size() ; i+=3){
-            glm::vec3 AB = position[indices[i+1]] - position[indices[i]]; 
-            glm::vec3 AC = position[indices[i+2]] - position[indices[i]];
-            glm::vec3 normal = glm::cross(AB, AC);
-            normals.push_back(normal);
-        }
-
+       
     
 }
 

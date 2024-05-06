@@ -109,7 +109,7 @@ int main( void )
         float currentFrame = glfwGetTime();
         deltaTimeRendu = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        std::cout <<"rendu : "<< 1.f/deltaTimeRendu << std::endl;
+        //std::cout <<"rendu : "<< 1.f/deltaTimeRendu << std::endl;
 
     
        
@@ -123,7 +123,7 @@ int main( void )
         // Appeler glGetIntegerv en passant l'adresse de la variable oldVAO
         glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &oldVAO);
         //glBindFramebuffer(GL_FRAMEBUFFER, 0); 
-        hud.renderTXT(SM.SCR_WIDTH,SM.SCR_HEIGHT, SM.getScene_i(),SM.getGameState());
+        //hud.renderTXT(SM.SCR_WIDTH,SM.SCR_HEIGHT, SM.getScene_i(),SM.getGameState());
         glBindVertexArray(oldVAO);
         
         glfwSwapBuffers(window);

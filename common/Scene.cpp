@@ -10,10 +10,10 @@ void Scene::GenBufferLightInScene(std::vector<glm::vec3> & lightlist)
 
 void Scene::RenderLightInScene()
 {
-    glEnableVertexAttribArray(3);
+    glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, lightbuffer);
     glVertexAttribPointer(
-        3,                  // attribute
+        0,                  // attribute
         3,                  // size
         GL_FLOAT,           // type
         GL_FALSE,           // normalized?
@@ -21,7 +21,7 @@ void Scene::RenderLightInScene()
         (void*)0            // array buffer offset
     ); 
     
-    glDisableVertexAttribArray(3);
+    glDisableVertexAttribArray(0);
 }
 
 Node* Scene::make_node_plan(int longeur , int largeur , unsigned int indice_programID ) 
@@ -110,6 +110,7 @@ Node* Scene::make_node_light()
     GameObject* go = new Light();
     n->add_data(go);
     light_list.push_back(go);
+    node_list.push_back(n);
     return node_list[node_list.size() - 1];
 }
 
@@ -146,18 +147,19 @@ void Scene::drawscene(Camera* camera, Node* n)
     
     auto l = get_children_list(*n);
     //std::cout<<l.size()<<std::endl;
-    RenderLightInScene();
+    
     for(GameObject* go : l){
         if (go->getgameObjectInfo().getIsRendered()) 
         {
             //std::cout << go << std::endl;
             //go->initobject();
             glUseProgram(go->getprogID());
-            
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"viewmat"), 1 ,GL_FALSE, &vm[0][0]);
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"projmat"), 1 ,GL_FALSE, &pm[0][0]);
             glUniformMatrix3fv(glGetUniformLocation(go->getprogID(),"pos_camera"), 1 ,GL_FALSE, &(camera_temp->getpos()[0]));
+            RenderLightInScene();
             go->drawobject();
+            
             glUseProgram(0);
         }
     }

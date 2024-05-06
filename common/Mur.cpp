@@ -1,7 +1,8 @@
 #include "Mur.hpp"
 
-Mur::Mur(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur) , l(largeur)
+Mur::Mur(glm::vec3 p , int hauteur , int  largeur ) : GameObject(p) , h(hauteur) , l(largeur)
 {
+    float epaisseur = 0.1;
         float scale_plan = 1.0;
         float x , y , z;
         pas_h  = 1. / (float)h;
@@ -17,9 +18,24 @@ Mur::Mur(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur) 
                 z = (j - (float)(l - 1) * 0.5f ) * scale_plan + pos[2];
                 
                 position.push_back(glm::vec3(x, y, z));
+                normals.push_back(glm::vec3(0.f, 1.f ,0.f));
                 
             }
         }  
+         for (int i = 0; i < h ; i++) {
+            for (int j = 0; j < l; j++) {
+                // Calcul de la position relative
+                x = (i - (float)(h - 1) * 0.5f ) * scale_plan + pos[0];
+                y = pos[1];
+                z = (j - (float)(l - 1) * 0.5f ) * scale_plan + pos[2];
+                
+                position.push_back(glm::vec3(x, y-epaisseur, z));
+                normals.push_back(glm::vec3(0.f, -1.f ,0.f));
+                
+            }
+        }  
+
+
        
         for (int i = 0; i < h - 1; i++ ){
             for (int j = 0 ; j < l - 1; j++ ){
@@ -31,27 +47,17 @@ Mur::Mur(glm::vec3 p , int hauteur , int  largeur) : GameObject(p) , h(hauteur) 
                 indices.push_back((i+1)*l+(j+1));
                 indices.push_back((i+1)*l+j);
 
-                indices.push_back(i*l+j);
-                indices.push_back((i+1)*l+j);
-                indices.push_back(i*l+(j+1));
+                indices.push_back(i*l+j + position.size()/2);
+                indices.push_back((i+1)*l+j+ position.size()/2);
+                indices.push_back(i*l+(j+1)+ position.size()/2);
 
-                indices.push_back((i+1)*l+j);
-                indices.push_back((i+1)*l+(j+1));
-                indices.push_back(i*l+(j+1)); 
+                indices.push_back((i+1)*l+j+ position.size()/2);
+                indices.push_back((i+1)*l+(j+1)+ position.size()/2);
+                indices.push_back(i*l+(j+1)+ position.size()/2); 
             }       
         }
         
-         for (int i = 0 ; i < indices.size() ; i+=6){
-            glm::vec3 AB = position[indices[i+1]] - position[indices[i]]; 
-            glm::vec3 AC = position[indices[i+2]] - position[indices[i]];
-            glm::vec3 normal = glm::cross(AB, AC);
-            normals.push_back(normal);
-            AB = position[indices[i+4]] - position[indices[i+3]]; 
-            AC = position[indices[i+5]] - position[indices[i+3]];
-            normal = glm::cross(AB, AC);
-            normals.push_back(normal);
-        }
-
+        
     
 }
 
