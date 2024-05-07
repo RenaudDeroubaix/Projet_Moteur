@@ -37,8 +37,11 @@ protected:
     glm::vec3 front = glm::vec3(0,0,1);
     float scale_tex = 10.f ;
     
-    glm::vec3 minBoundingBox;
-    glm::vec3 maxBoundingBox;
+    glm::vec3 minBoundingBox_Original;
+    glm::vec3 maxBoundingBox_Original;
+
+    glm::vec3 minBoundingBox_Updated;
+    glm::vec3 maxBoundingBox_Updated;
 
     std::vector<glm::vec3> position;
     std::vector<glm::vec3> normals;
@@ -64,10 +67,11 @@ public:
     GameObject(glm::vec3 p) : pos(p) {}
 
     void calculateBoundingBox() ;
+    void updateBoundingBox() ;
     bool checkCollision(const GameObject& other);
     void set_scale_tex(float f){scale_tex = f;} 
-    glm::vec3 getMaxBB(){return maxBoundingBox;}
-    glm::vec3 getMinBB(){return minBoundingBox;}
+    glm::vec3 getMaxBB(){return maxBoundingBox_Updated;}
+    glm::vec3 getMinBB(){return minBoundingBox_Updated;}
     
     GLuint getprogID() const {return renderer.programID;}
     void setprogId(GLuint programID){renderer.programID=programID;}

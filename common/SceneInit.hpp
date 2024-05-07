@@ -106,8 +106,8 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(obstacle1, glm::vec3(-6.0 , obstacle1Scale/2.0, 16.0));
     sol->addChild(obstacle1);
 
-    Node* obstacle2 = s->make_node_cube(0);
-    s->get_data(obstacle2)->set_color(glm::vec3(0.8f , 0.8f, 0.1f)); 
+  //  Node* obstacle2 = s->make_node_cube(0);
+  //  s->get_data(obstacle2)->set_color(glm::vec3(0.8f , 0.8f, 0.1f)); 
 
     ////////////Cloison
     Node* cloison1= s->make_node_mur(7.5, 6.0, 0);

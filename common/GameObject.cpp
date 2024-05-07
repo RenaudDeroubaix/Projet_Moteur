@@ -36,13 +36,40 @@ void GameObject::calculateBoundingBox() {
 
         // Calcul des positions extrêmes
         for (glm::vec3 localPos : position) {
-            glm::vec4 worldPos = modelmat * glm::vec4(localPos, 1.0f);
-            minPos = glm::min(minPos, glm::vec3(worldPos));
-            maxPos = glm::max(maxPos, glm::vec3(worldPos));
+            //glm::vec4 worldPos = modelmat * glm::vec4(localPos, 1.0f);
+            minPos = glm::min(minPos, glm::vec3(localPos));
+            maxPos = glm::max(maxPos, glm::vec3(localPos));
         }
 
-        minBoundingBox = minPos;
-        maxBoundingBox = maxPos;
+        minBoundingBox_Original = minPos;
+        maxBoundingBox_Original = maxPos;
+
+        minBoundingBox_Updated = minPos;
+        maxBoundingBox_Updated = maxPos;
+}
+void GameObject::updateBoundingBox() {
+        glm::vec3 minPos = glm::vec3( modelmat * glm::vec4(minBoundingBox_Original,1.0) );
+        glm::vec3 maxPos = glm::vec3( modelmat * glm::vec4(maxBoundingBox_Original,1.0) );
+        glm::vec3 corners[8] = {
+            glm::vec3(minPos.x, minPos.y, minPos.z),
+            glm::vec3(maxPos.x, minPos.y, minPos.z),
+            glm::vec3(minPos.x, maxPos.y, minPos.z),
+            glm::vec3(maxPos.x, maxPos.y, minPos.z),
+            glm::vec3(minPos.x, minPos.y, maxPos.z),
+            glm::vec3(maxPos.x, minPos.y, maxPos.z),
+            glm::vec3(minPos.x, maxPos.y, maxPos.z),
+            glm::vec3(maxPos.x, maxPos.y, maxPos.z)
+        };
+
+        glm::vec3 newMin = corners[0];
+        glm::vec3 newMax = corners[0];
+
+        for (int i = 1; i < 8; ++i) {
+            newMin = glm::min(newMin, corners[i]);
+            newMax = glm::max(newMax, corners[i]);
+        }
+        minBoundingBox_Updated = newMin;
+        maxBoundingBox_Updated = newMax;
 }
 
 bool GameObject::checkCollision(const GameObject& other) {
@@ -56,8 +83,9 @@ bool GameObject::checkCollision(const GameObject& other) {
         return (maxBBworldPos[0] >= minBBworldPosOther[0] && minBBworldPos[0] <= maxBBworldPosOther[0]) &&
                (maxBBworldPos[1] >= minBBworldPosOther[1] && minBBworldPos[1] <= maxBBworldPosOther[1]) &&
                (maxBBworldPos[2] >= minBBworldPosOther[2] && minBBworldPos[2] <= maxBBworldPosOther[2]);
-               */
-        return (maxBoundingBox[0] >= other.minBoundingBox[0] && minBoundingBox[0] <= other.maxBoundingBox[0]) &&
-               (maxBoundingBox[1] >= other.minBoundingBox[1] && minBoundingBox[1] <= other.maxBoundingBox[1]) &&
-               (maxBoundingBox[2] >= other.minBoundingBox[2] && minBoundingBox[2] <= other.maxBoundingBox[2]);
+           */    
+               
+        return (maxBoundingBox_Updated[0] >= other.minBoundingBox_Updated[0] && minBoundingBox_Updated[0] <= other.maxBoundingBox_Updated[0]) &&
+               (maxBoundingBox_Updated[1] >= other.minBoundingBox_Updated[1] && minBoundingBox_Updated[1] <= other.maxBoundingBox_Updated[1]) &&
+               (maxBoundingBox_Updated[2] >= other.minBoundingBox_Updated[2] && minBoundingBox_Updated[2] <= other.maxBoundingBox_Updated[2]);
     }

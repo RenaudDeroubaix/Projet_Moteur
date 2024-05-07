@@ -229,6 +229,9 @@ void Scene::calculateBoundingBoxRecursive(Node* node) {
     std::vector<GameObject*> children = get_children_list(*node);
 
     for (GameObject* child : children) {
-        child->calculateBoundingBox();
+        if(child->getgameObjectInfo().getIsCamera() == false){
+            child->calculateBoundingBox();
+            child->updateBoundingBox();
         }
+    }
 }
