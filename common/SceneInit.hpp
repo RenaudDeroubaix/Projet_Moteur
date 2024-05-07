@@ -7,23 +7,38 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     //////////////ROOM 
     Node* sol = makeRoom(*s,36,60,6,glm::vec3(1.0f),0);   
     /////////////LIGHT 
-    Node* lumiere1 = s->make_node_light();
-    sol->addChild(lumiere1);
-    s->get_data(lumiere1)->set_pos(glm::vec3(0.f , 2.f , 16.f ));
-
-    Node* lumiere2 = s->make_node_light();
+//     Node* lumiere1 = s->make_node_light(0);
+//     sol->addChild(lumiere1);
+//     s->get_data(lumiere1)->set_pos(glm::vec3(-0.f , 2.f , -0.f ));
+    
+//     Node* lumiere2 = s->make_node_light(0);
+//     sol->addChild(lumiere2);
+//     s->get_data(lumiere2)->set_pos(glm::vec3(-10.f , 4.f , 20.f ));
+//     s->get_data(lumiere2)->set_color(glm::vec3(0.6f , 1.f , 0.6f)); 
+    
+    
+    Node* lumiere2 = s->make_node_light(0);
     sol->addChild(lumiere2);
-    s->get_data(lumiere2)->set_pos(glm::vec3(16.f , 4.0f , 0.f ));
+    s->get_data(lumiere2)->set_pos(glm::vec3(-15.f , 4.f , 10.f ));
+    s->get_data(lumiere2)->set_color(glm::vec3(0.6f , 1.f , 0.6f));    
+     Node* lumiere1 = s->make_node_light(0);
+     sol->addChild(lumiere1);
+     s->get_data(lumiere1)->set_pos(glm::vec3(15.f , 4.f , -10.f ));
+     s->get_data(lumiere1)->set_color(glm::vec3(0.6f , 1.f , 0.6f)); 
+    
+//     Node* lumiere2 = s->make_node_light();
+//     sol->addChild(lumiere2);
+//     s->get_data(lumiere2)->set_pos(glm::vec3(16.f , 4.0f , 0.f ));
+// 
+    Node* lumiere2cube = s->make_node_cube(0);
+    sol->addChild(lumiere2cube);
+    s->get_data(lumiere2cube)->set_pos(glm::vec3(15.f , 4.f , -10.f ));
+    s->get_data(lumiere2cube)->set_color(glm::vec3(1.f ));
 
     Node* lumiere1cube = s->make_node_cube(0);
     sol->addChild(lumiere1cube);
-    s->get_data(lumiere1cube)->set_pos(glm::vec3(0.f , 2.f , 16.f ));
+    s->get_data(lumiere1cube)->set_pos(glm::vec3(-15.f , 4.f , 10.f ));
     s->get_data(lumiere1cube)->set_color(glm::vec3(1.f ));
-
-    Node* lumiere2cube = s->make_node_cube(0);
-    sol->addChild(lumiere2cube);
-    s->get_data(lumiere2cube)->set_pos(glm::vec3(16.f , 4.0f , 0.f ));
-    s->get_data(lumiere2cube)->set_color(glm::vec3(1.f ));
     
    //////////////PLAYER
     Node* player = s->make_node_cube(0);
@@ -144,15 +159,15 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(cloison9,glm::vec3(8.5, 4.5 ,20.0));
     sol->addChild(cloison9);
 
-    s->get_data(cloison1)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
-    s->get_data(cloison2)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
-    s->get_data(cloison3)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
-    s->get_data(cloison4)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
-    s->get_data(cloison5)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
-    s->get_data(cloison6)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
-    s->get_data(cloison7)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
-    s->get_data(cloison8)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
-    s->get_data(cloison9)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
+    s->get_data(cloison1)->set_color(glm::vec3(1.f)); 
+    s->get_data(cloison2)->set_color(glm::vec3(1.f)); 
+    s->get_data(cloison3)->set_color(glm::vec3(1.f)); 
+    s->get_data(cloison4)->set_color(glm::vec3(1.f));
+    s->get_data(cloison5)->set_color(glm::vec3(1.f));
+    s->get_data(cloison6)->set_color(glm::vec3(1.f));
+    s->get_data(cloison7)->set_color(glm::vec3(1.f)); 
+    s->get_data(cloison8)->set_color(glm::vec3(1.f));
+    s->get_data(cloison9)->set_color(glm::vec3(1.f)); 
 
     float eventScale = 3.0;
     Node* eventPorte=s->make_node_event(typeEvent::TP_Scene_Forward,glm::vec3(0.f,playerScale/2.0,0.f), 0);

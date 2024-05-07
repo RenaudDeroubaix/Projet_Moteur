@@ -29,7 +29,7 @@ Mur::Mur(glm::vec3 p , int hauteur , int  largeur ) : GameObject(p) , h(hauteur)
                 y = pos[1];
                 z = (j - (float)(l - 1) * 0.5f ) * scale_plan + pos[2];
                 
-                position.push_back(glm::vec3(x, y-epaisseur, z));
+                position.push_back(glm::vec3(x, y+epaisseur, z));
                 normals.push_back(glm::vec3(0.f, -1.f ,0.f));
                 
             }
