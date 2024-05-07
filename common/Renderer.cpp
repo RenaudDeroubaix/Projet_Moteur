@@ -48,14 +48,6 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &(indices)[0] , GL_STATIC_DRAW);
     
-   
- 
-    
-    
-    
-    
-    
-    
     
 }
 void Renderer::genbufferDynamic(std::vector<glm::vec3> & position , std::vector<glm::vec2> & tex_coords , std::vector<unsigned short> & indices)  
@@ -79,42 +71,7 @@ void Renderer::genbufferDynamic(std::vector<glm::vec3> & position , std::vector<
 }
 void Renderer::draw() 
 {
-    // 1rst attribute buffer : vertices
-//     glUseProgram(programID);
-//     
-//     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-//     glVertexAttribPointer(
-//         1,                  // attribute
-//         3,                  // size
-//         GL_FLOAT,           // type
-//         GL_FALSE,           // normalized?
-//         0,                  // stride
-//         (void*)0            // array buffer offset
-//     );
-//     
-//     glEnableVertexAttribArray(2);
-//     glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
-//     glVertexAttribPointer(
-//         2,                  // attribute
-//         3,                  // size
-//         GL_FLOAT,           // type
-//         GL_FALSE,           // normalized?
-//         0,// stride
-//         (void*)0            // array buffer offset
-//     );
-//     
-//     glEnableVertexAttribArray(3);
-//     glBindBuffer(GL_ARRAY_BUFFER, texbuffer);
-//     glVertexAttribPointer(
-//         3,                  // attribute
-//         2,                  // size
-//         GL_FLOAT,           // type
-//         GL_FALSE,           // normalized?
-//         0,                     // stride
-//         (void*)0            // array buffer offset
-//     );
-
-    // Index buffer
+  
     
     glBindVertexArray(VertexArrayID);
     // Draw the triangles !

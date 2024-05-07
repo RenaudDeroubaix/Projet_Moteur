@@ -31,7 +31,7 @@ void main(){
     
         if (diffuse > 0){
             vec3 R = normalize(reflect( -L , o_normal_worldspace.xyz)); 
-            vec3 vue =  normalize((-  o_position_screenspace.xyz));
+            vec3 vue =  normalize((-  o_normal_worldspace.xyz));
             float specAngle = max(dot(R, vue), 0.0);
             specular = pow(specAngle, shininess);
         }   

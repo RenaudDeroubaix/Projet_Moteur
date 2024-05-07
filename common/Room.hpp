@@ -21,10 +21,10 @@ Node * makeRoom(Scene &s, int longueur, int largeur, int hauteur, glm::vec3 scal
     s.rotatenode(plafond, 180, glm::vec3(0.0, 0.0, 1.0));
     s.translatenode(plafond, glm::vec3(0.0, (hauteur - 1 ) * scale_plan, 0.0));
 
-    s.rotatenode(mur1, 90.f, glm::vec3(1.0, 0.0, 0.0));
-    s.rotatenode(mur2, -90.f, glm::vec3(1.0, 0.0, 0.0));
-    s.rotatenode(mur3, 90.f, glm::vec3(0.0, 0.0, 1.0));
-    s.rotatenode(mur4, -90.f, glm::vec3(0.0, 0.0, 1.0));
+    s.rotatenode(mur1, -90.f, glm::vec3(1.0, 0.0, 0.0));
+    s.rotatenode(mur2, 90.f, glm::vec3(1.0, 0.0, 0.0));
+    s.rotatenode(mur3, -90.f, glm::vec3(0.0, 0.0, 1.0));
+    s.rotatenode(mur4, 90.f, glm::vec3(0.0, 0.0, 1.0));
 
     s.translatenode(mur1, glm::vec3(0.0, (hauteur- 1 )/2.0 * scale_plan , (largeur-1 )/2.0 * scale_plan ));
     s.translatenode(mur2, glm::vec3(0.0, (hauteur- 1 )/2.0 * scale_plan, -(largeur-1 )/2.0 * scale_plan));
