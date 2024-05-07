@@ -13,7 +13,6 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
     glBindVertexArray(VertexArrayID);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
     glBufferData(GL_ARRAY_BUFFER, position.size() * sizeof(glm::vec3), &(position)[0], GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
     glVertexAttribPointer(
         0,                  // attribute
         3,                  // size
@@ -25,7 +24,6 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
     
     glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &(normals)[0], GL_STATIC_DRAW);
-    glEnableVertexAttribArray(1);
     glVertexAttribPointer(
         1,                  // attribute
         3,                  // size
@@ -37,7 +35,6 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
     
     glBindBuffer(GL_ARRAY_BUFFER, texbuffer);
     glBufferData(GL_ARRAY_BUFFER, tex_coords.size() * sizeof(glm::vec2), &(tex_coords)[0], GL_STATIC_DRAW);
-    glEnableVertexAttribArray(2);
     glVertexAttribPointer(
         2,                  // attribute
         2,                  // size
@@ -118,19 +115,23 @@ void Renderer::draw()
 //     );
 
     // Index buffer
+    
     glBindVertexArray(VertexArrayID);
     // Draw the triangles !
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
+
     glDrawElements(
         GL_TRIANGLES,      // mode
         indicesize,    // count
         GL_UNSIGNED_SHORT, // type
         (void*)0           // element array buffer offset
     );
-    
-//     glDisableVertexAttribArray(0);
-//     glDisableVertexAttribArray(1);
-//     glDisableVertexAttribArray(2);
-//     glDisableVertexAttribArray(3);
+   
+     glDisableVertexAttribArray(0);
+     glDisableVertexAttribArray(1);
+     glDisableVertexAttribArray(2);
     
     
 }

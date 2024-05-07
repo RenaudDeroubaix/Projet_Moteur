@@ -4,7 +4,6 @@
 layout(location = 0) in vec3 vertices_position_modelspace;
 layout(location = 1) in vec3 normals;
 layout(location = 2) in vec2 uv_coords;
-layout(location = 3) in vec3 light_pos;
 
 
 //layout(location = 4) in vec3 light_dir;
@@ -13,8 +12,6 @@ uniform mat4 modelmat;
 uniform mat4 viewmat;
 uniform mat4 projmat;
 
-out vec4 o_light_pos;
-out vec3 o_light_color;
 out vec4 o_position_worldspace;
 out vec4 o_position_screenspace;
 out vec4 o_normal_worldspace;
@@ -29,7 +26,6 @@ void main(){
     gl_Position = MVP * vec4(vertices_position_modelspace , 1.f);
     o_position_screenspace = MVP * vec4(vertices_position_modelspace , 1.f);
     o_position_worldspace  =  modelmat * vec4(vertices_position_modelspace , 1.f);
-    o_light_pos  =   vec4(light_pos, 0.f);
     //o_light_color = light_color;
     o_normal_worldspace =  normalize( modelmat *vec4(normals, 0.f));
     o_tex_coord = uv_coords;

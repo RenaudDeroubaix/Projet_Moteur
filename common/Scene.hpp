@@ -12,7 +12,6 @@
 class Scene {
     
 private:
-    GLuint lightbuffer;
     std::vector<Node*> node_list;
     Node* player;
     std::vector<GameObject*> camera_list;
@@ -48,8 +47,7 @@ public:
     GameObject* get_data(Node * n){return n->getData();}
     
 
-    void GenBufferLightInScene(std::vector<glm::vec3> & lightlist);
-    void RenderLightInScene();
+    void SendLightInShader();
     void initscene();
     void drawscene(Camera * c, Node * n);
     void deletescene();
