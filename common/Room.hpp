@@ -19,11 +19,11 @@ Node * makeRoom(Scene &s, int longueur, int largeur, int hauteur, glm::vec3 scal
 
     // Rotation et translation des éléments
     s.rotatenode(plafond, 180, glm::vec3(0.0, 0.0, 1.0));
-    s.translatenode(plafond, glm::vec3(0.0, (hauteur- 1 ) * scale_plan, 0.0));
+    s.translatenode(plafond, glm::vec3(0.0, (hauteur - 1 ) * scale_plan, 0.0));
 
-    s.rotatenode(mur1, 90.f, glm::vec3(1.0, 0.0, 0.0));
+    s.rotatenode(mur1, -90.f, glm::vec3(1.0, 0.0, 0.0));
     s.rotatenode(mur2, 90.f, glm::vec3(1.0, 0.0, 0.0));
-    s.rotatenode(mur3, 90.f, glm::vec3(0.0, 0.0, 1.0));
+    s.rotatenode(mur3, -90.f, glm::vec3(0.0, 0.0, 1.0));
     s.rotatenode(mur4, 90.f, glm::vec3(0.0, 0.0, 1.0));
 
     s.translatenode(mur1, glm::vec3(0.0, (hauteur- 1 )/2.0 * scale_plan , (largeur-1 )/2.0 * scale_plan ));
@@ -51,7 +51,8 @@ Node * makeRoom(Scene &s, int longueur, int largeur, int hauteur, glm::vec3 scal
     
     // Attribution des textures
     std::cout << "set texture .. "<< std::endl;
-    s.get_data(sol)->settexture("../src/textures/ground.png" , s.get_data(sol)->getprogID() ,  "tex"); 
+    s.get_data(sol)->settexture("../src/textures/ground.png" , s.get_data(sol)->getprogID() ,"tex"); 
+    s.get_data(plafond)->settexture("../src/textures/wall1.png" , s.get_data(plafond)->getprogID() ,"tex"); 
     s.get_data(mur1)->settexture("../src/textures/wall1.png" , s.get_data(mur1)->getprogID() , "tex");
     s.get_data(mur2)->settexture("../src/textures/wall1.png" , s.get_data(mur2)->getprogID() , "tex");
     s.get_data(mur3)->settexture("../src/textures/wall1.png" , s.get_data(mur3)->getprogID() , "tex"); 

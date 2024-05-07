@@ -80,6 +80,7 @@ glUniform3fv(glGetUniformLocation(renderer.programID,"mesh_color"), 1 , &(this->
 glUniform1f(glGetUniformLocation(renderer.programID,"shininess"), (this->getshininess()));
 glUniformMatrix4fv(glGetUniformLocation(renderer.programID,"modelmat"), 1 , GL_FALSE, &(this->getmodelmat())[0][0]);
 renderer.loadtextures(); 
+
 renderer.draw(); 
 }
 

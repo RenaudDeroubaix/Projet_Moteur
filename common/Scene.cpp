@@ -1,28 +1,29 @@
 #include "Scene.hpp"
-void Scene::GenBufferLightInScene(std::vector<glm::vec3> & lightlist)
+void Scene::SendLightInShader()
 {
-    
-    glGenBuffers(1, &lightbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, lightbuffer);
-    glBufferData(GL_ARRAY_BUFFER, lightlist.size() * sizeof(glm::vec3), &(lightlist)[0], GL_STATIC_DRAW);
+    for (int i = 0 ; i < light_list.size() ; i++ ){
+        GLuint lightposlocation = glGetUniformLocation(light_list[i]->getprogID() , std::string("light_pos["+ std::to_string(i)+"]").c_str());
+        GLuint lightcollocation = glGetUniformLocation(light_list[i]->getprogID() , std::string("light_col["+ std::to_string(i)+"]").c_str());
+        glUniform3fv(lightposlocation , 1 , &(light_list[i]->getpos())[0]);
+        glUniform3fv(lightcollocation , 1 , &(light_list[i]->getcolor())[0]);
+    }
+     glUniform1i(glGetUniformLocation(light_list[0]->getprogID() , "numberOfLight") , light_list.size());
     
 }
-
-void Scene::RenderLightInScene()
-{
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, lightbuffer);
-    glVertexAttribPointer(
-        0,                  // attribute
-        3,                  // size
-        GL_FLOAT,           // type
-        GL_FALSE,           // normalized?
-        0,                     // stride
-        (void*)0            // array buffer offset
-    ); 
-    
-    glDisableVertexAttribArray(0);
-}
+// void Scene::RenderLightInScene()
+// {
+//         glEnableVertexAttribArray(3);
+//         glBindVertexArray(lightbuffer[0]);
+//         glDrawArrays(
+//         GL_POINTS,      // mode
+//         0,    
+//         light_list.size()         
+//         );
+//         glDisableVertexAttribArray(2);
+//         glBindVertexArray(0);
+//    
+// 
+// }
 
 Node* Scene::make_node_plan(int longeur , int largeur , unsigned int indice_programID ) 
 {
@@ -145,13 +146,19 @@ Node* Scene::make_node_mesh(const std::string & path, unsigned int indice_progra
     node_list.push_back(n);
     return node_list[node_list.size() - 1];
 }
-Node* Scene::make_node_light()
+Node* Scene::make_node_light(unsigned int indice_programID)
 {
     Node* n= new Node();
     GameObject* go = new Light();
+    go->getgameObjectInfo().setIsRendered(false);
+    go->setprogId(programID_list[indice_programID]);
     n->add_data(go);
-    light_list.push_back(go);
-    node_list.push_back(n);
+    if (light_list.size() <  20) {
+        light_list.push_back(go);
+        node_list.push_back(n);
+    }else {
+     std::cout<< "max light set to 20"<<std::endl;   
+    }
     return node_list[node_list.size() - 1];
 }
 
@@ -162,21 +169,20 @@ void Scene::resetmodelmatrix(Node* n)
         go->setmodelmat(glm::mat4(1.f));
     }
 }
-
+ 
 void Scene::initscene()
 {
-    std::vector<glm::vec3> pos_dir_lights;
-    for(GameObject* light : light_list)
-    {
-        pos_dir_lights.push_back(light->getpos());
-       // pos_dir_lights.push_back(light->get_front());
-    }
-    GenBufferLightInScene(pos_dir_lights);
-    
+
+
     for(Node * n : node_list){
         GameObject * go = n->getData();
-        if (go->getgameObjectInfo().getIsRendered()){go->initobject();}
+        if (go->getgameObjectInfo().getIsRendered()){go->initobject();
+
+            glBindVertexArray(0);}
     }
+    //
+     
+
     
 }
 
@@ -185,22 +191,23 @@ void Scene::drawscene(Camera* camera, Node* n)
     GameObject *camera_temp = static_cast<GameObject*>(camera); 
     glm::mat4 vm = camera->getViewMatrix();
     glm::mat4 pm = camera->getProjectionMatrix();
-    
+         //RenderLightInScene();
+
     auto l = get_children_list(*n);
     //std::cout<<l.size()<<std::endl;
     
     for(GameObject* go : l){
         if (go->getgameObjectInfo().getIsRendered()) 
         {
+
             //std::cout << go << std::endl;
-            //go->initobject();
             glUseProgram(go->getprogID());
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"viewmat"), 1 ,GL_FALSE, &vm[0][0]);
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"projmat"), 1 ,GL_FALSE, &pm[0][0]);
-            glUniformMatrix3fv(glGetUniformLocation(go->getprogID(),"pos_camera"), 1 ,GL_FALSE, &(camera_temp->getpos()[0]));
-            RenderLightInScene();
+            glUniformMatrix3fv(glGetUniformLocation(go->getprogID(),"pos_camera_worldspace"), 1 ,GL_FALSE, &(camera_temp->getpos()[0]));
             go->drawobject();
-            
+            SendLightInShader();
+            glBindVertexArray(0);
             glUseProgram(0);
         }
     }
