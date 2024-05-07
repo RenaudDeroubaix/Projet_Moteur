@@ -59,11 +59,14 @@ public:
             s[scene_i]->setNodePlayer(node);
             I_M.current_cam = static_cast<Camera*>(s[scene_i]->get_camera_list()[0]);
         }
+        else if( ev.get_typeEvent()==typeEvent::Pickable ){//pour le moment Pickable == victory
+            gameState = 3;
+        }
    }
 
    void hasEventHappened(Node* n){
         for(GameObject* eventGO : s[scene_i]->get_event_list()){
-            if(n==s[scene_i]->getNodePlayer() && n->getData()->checkCollision(*eventGO)){
+            if(n==s[scene_i]->getNodePlayer() && n->getData()->checkCollision(*eventGO)){ //eventGO->getEvent() != typeEvent::NO_Event && 
                 event(n,eventGO->getEvent() );
             }
         }    

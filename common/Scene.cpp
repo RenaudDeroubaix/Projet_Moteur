@@ -79,6 +79,20 @@ Node* Scene::make_node_camera(bool is_locked, unsigned int w , unsigned int h,un
     camera_list.push_back(go);
     return node_list[node_list.size() - 1];
 }   
+Node* Scene::make_node_event(typeEvent typeevent,unsigned int indice_programID){
+    Node* n= new Node();
+    GameObject* go = new CubeInit();
+    go->setprogId(programID_list[indice_programID]);
+    go->getgameObjectInfo().setIsEvent(true);
+    go->calculateBoundingBox();
+    Event ev(typeevent);
+    go->setEvent(ev);
+    go->set_color(glm::vec3(0.1,1.0,0.2));
+    n->add_data(go);
+    node_list.push_back(n);
+    event_list.push_back(go);
+    return node_list[node_list.size() - 1];
+}
 Node* Scene::make_node_event(typeEvent typeevent, glm::vec3 p,unsigned int indice_programID){
     Node* n= new Node();
     GameObject* go = new CubeInit();

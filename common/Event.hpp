@@ -2,7 +2,7 @@
 #include "common/utils.hpp"
 
 
-typedef enum {NO_Event,TP_Scene_Forward, TP_Scene_Backward,NPC_Checkpoint,Next_Camera,Previous_Camera} typeEvent;
+typedef enum {NO_Event,TP_Scene_Forward, TP_Scene_Backward, NPC_Checkpoint, Next_Camera, Previous_Camera, Pickable} typeEvent;
 
 class Event {
 public:

@@ -183,6 +183,9 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(eventPorte, glm::vec3(17.4, eventScale/2.0 ,20.0));
     sol->addChild(eventPorte);
 
+    Node* eventVictoire=s->make_node_event(typeEvent::Pickable,0);
+    sol->addChild(eventVictoire);
+
     s->initscene();
     s->calculateBoundingBoxRecursive(sol);
 }

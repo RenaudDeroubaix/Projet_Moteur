@@ -105,7 +105,9 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam
     glm::vec3 color_contour(1.f,1.0f,1.0f);
 
     // Couleur pour "REC"
-    glm::vec3 color_rec(1.0f, 0.0f, 0.0f); // Rouge par défaut
+    glm::vec3 color_rec(1.0f, 0.0f, 0.0f); 
+    // Couleur pour "Victory"
+    glm::vec3 color_V(0.1f, 0.8f, 0.1f);
     
     //std::cout << "render texteRender ..." << std::endl;
     glUseProgram(programIDTXT);
@@ -129,6 +131,9 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam
     }
     else if(gameState == 2){
         RenderText(programIDTXT, VAO, VBO, Characters, "GAMEOVER", 400  , SCREEN_HEIGHT/2.0  , 2.f, color_rec, color_contour,1.0f);
+    }
+    else if(gameState == 3){
+        RenderText(programIDTXT, VAO, VBO, Characters, "Victory", 400  , SCREEN_HEIGHT/2.0  , 2.f, color_V, color_contour,1.0f);
     }
 
 
