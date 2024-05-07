@@ -30,7 +30,23 @@ public:
     }
    
    void event(Node* node, Event ev){
-        if(ev.get_typeEvent()==typeEvent::TP_Scene_Forward || ev.get_typeEvent()==typeEvent::TP_Scene_Backward ){
+        if(ev.get_typeEvent()==typeEvent::Previous_Camera){
+            //std::cout << &I_M.current_cam <<std::endl;
+            if(I_M.current_cam == static_cast<Camera*>(s[scene_i]->get_camera_list()[ev.getCP_i()])){//get_CP_i = camera number dans al liste de cam de la scene dans le cas prev et next_camera
+                I_M.current_cam = static_cast<Camera*>(s[scene_i]->get_camera_list()[ev.getCP_i()-1]);//std::cout << &I_M.current_cam <<std::endl;
+                I_M.current_cam->set_front(s[scene_i]->getNodePlayer()->getData()->getpos()-I_M.current_cam->getpos());
+                I_M.current_cam->setEulerAngle(Helper::quatToEuler(LookAt(I_M.current_cam->get_front(),I_M.current_cam->get_up())));
+            }
+        }
+        else if(ev.get_typeEvent()==typeEvent::Next_Camera){
+            //std::cout << &I_M.current_cam <<std::endl;
+            if(I_M.current_cam == static_cast<Camera*>(s[scene_i]->get_camera_list()[ev.getCP_i()])){
+                I_M.current_cam = static_cast<Camera*>(s[scene_i]->get_camera_list()[ev.getCP_i()+1]);//std::cout << &I_M.current_cam <<std::endl;
+                I_M.current_cam->set_front(s[scene_i]->getNodePlayer()->getData()->getpos()-I_M.current_cam->getpos());
+                I_M.current_cam->setEulerAngle(Helper::quatToEuler(LookAt(I_M.current_cam->get_front(),I_M.current_cam->get_up())));
+            }
+        }
+        else if(ev.get_typeEvent()==typeEvent::TP_Scene_Forward || ev.get_typeEvent()==typeEvent::TP_Scene_Backward ){
             changeSceneAndTP(node,ev);
             if(scene_i >= s.size() || scene_i==-1){
                 scene_i=0;
@@ -139,4 +155,6 @@ public:
         }
     }
     void initScene(){makeScene();}
+    void resetCurrentScene(){s[scene_i]->set_reset_s(false);scene_i=0;makeScene_0(s[scene_i], SCR_WIDTH, SCR_HEIGHT);;gameState=0;}
+
 };

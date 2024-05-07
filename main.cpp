@@ -114,6 +114,13 @@ int main( void )
     
        
         I_M.Input_GamePlay(currentScene , currentScene.getNodePlayer()->getData(), deltaTimeRendu);
+        if(currentScene.get_reset_s()){
+            SM.resetCurrentScene();
+            currentScene=SM.getCurrentScene();
+            //std::cout << SM.getScene_i() << std::endl;
+            I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene().get_camera_list()[0]);
+        }
+        
         p.applyForce(currentScene , deltaTimeRendu);
         SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu);        
         currentScene.drawscene(I_M.current_cam , currentScene.get_node_list()[0]);

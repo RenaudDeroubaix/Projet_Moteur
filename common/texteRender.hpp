@@ -85,5 +85,6 @@ public:
     }
 
     void renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam_i, unsigned int scene_i, unsigned int gameState);
+
     
 };

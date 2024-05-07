@@ -20,6 +20,7 @@ private:
     std::vector<GameObject*> npc_list;
     std::vector<GLuint> programID_list;
     std::vector<GameObject*> light_list;
+    bool reset_s=false;
 
 public:
     Scene(){} 
@@ -46,6 +47,7 @@ public:
     Node* make_node_light();
     Node* make_node_mesh(const std::string & path, unsigned int  indice_programID);
     Node* make_node_event(typeEvent typeevent, glm::vec3 p, unsigned int  indice_programID);
+    Node* make_node_event(typeEvent typeevent,int longeur,int largeur, unsigned int cam_i, unsigned int  indice_programID);
     GameObject* get_data(Node * n){return n->getData();}
     
 
@@ -54,6 +56,12 @@ public:
     void initscene();
     void drawscene(Camera * c, Node * n);
     void deletescene();
+    void resetscene();
+    void reset(){
+        reset_s=true;
+    }
+    bool get_reset_s(){return reset_s;}
+    void set_reset_s(bool value){reset_s = value;}
     
     void resetmodelmatrix(Node * n);
     

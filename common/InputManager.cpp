@@ -203,6 +203,10 @@ void InputManager::Input_ViewMode(Scene & s, GameObject* player)
         current_cam->setEulerAngle(Helper::quatToEuler(LookAt(camera->get_front(),camera->get_up())));
         
     } 
+    if (isKeyPressed(GLFW_KEY_R))
+    {
+        s.reset();      
+    } 
 }
 
 void InputManager::Input_GamePlay(Scene & s , GameObject* player, float deltaTime )

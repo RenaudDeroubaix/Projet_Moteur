@@ -56,7 +56,7 @@ protected:
     
     Renderer renderer;
     GOInfo gameObjectInfo = GOInfo();
-    Event event;
+    Event event = Event();
     ChampVision champ_de_vision;
     
 public:

@@ -94,6 +94,22 @@ Node* Scene::make_node_event(typeEvent typeevent, glm::vec3 p,unsigned int indic
     return node_list[node_list.size() - 1];
 }
 
+Node* Scene::make_node_event(typeEvent typeevent,int longeur, int largeur, unsigned int cam_i,unsigned int indice_programID){
+    Node* n= new Node();
+    GameObject* go = new Plan(glm::vec3(0.f) , longeur ,largeur);
+    go->setprogId(programID_list[indice_programID]);
+    go->getgameObjectInfo().setIsEvent(true);
+    go->getgameObjectInfo().setIsRendered(false);
+    go->calculateBoundingBox();
+    Event ev(typeevent, cam_i);
+    go->setEvent(ev);
+    go->set_color(glm::vec3(0.1,1.0,0.2));
+    n->add_data(go);
+    node_list.push_back(n);
+    event_list.push_back(go);
+    return node_list[node_list.size() - 1];
+}
+
 Node* Scene::make_node_cube(unsigned int indice_programID) 
 {
     Node* n= new Node();
@@ -185,6 +201,20 @@ void Scene::deletescene()
             glDeleteProgram(go->getprogID());
             go->deleteobject();
         }
+    }
+    node_list.clear();
+    camera_list.clear();
+    event_list.clear();
+    npc_list.clear();
+    programID_list.clear();
+    light_list.clear();
+}
+void Scene::resetscene()
+{   
+    for(Node * n : node_list){
+        GameObject * go = n->getData();
+        go->deleteobject();
+        
     }
     node_list.clear();
     camera_list.clear();

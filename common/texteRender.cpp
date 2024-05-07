@@ -88,7 +88,6 @@ void RenderText(GLuint programID, GLuint VAO, GLuint VBO, std::map<GLchar, Chara
 
 
 
-
 void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam_i, unsigned int scene_i, unsigned int gameState) {
 
     // Rendu du texteRender
@@ -113,6 +112,11 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
     glDisable(GL_DEPTH_TEST);
+    GLint renderModeLocation = glGetUniformLocation(programIDTXT, "renderMode");
+
+    // Set the value of renderMode
+    int mode = 0; // 0 for text, 1 for plane
+    glUniform1i(renderModeLocation, mode);
     
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(SCREEN_WIDTH), 0.0f, static_cast<float>(SCREEN_HEIGHT));
     GLint projectionLoc = glGetUniformLocation(programIDTXT, "projection");
@@ -121,7 +125,6 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam
     if(gameState == 0 || gameState == 1){
         RenderText(programIDTXT, VAO, VBO, Characters, buffer, textX, textY, textScale, color_text, color_contour,1.0f);
         RenderText(programIDTXT, VAO, VBO, Characters, "CAM  #"+std::to_string(cam_i+1)+" : ROOM " + std::to_string(scene_i), 100.0, SCREEN_HEIGHT - 100.0, 1.f, color_text, color_contour,1.0f);
-
         RenderText(programIDTXT, VAO, VBO, Characters, "REC", SCREEN_WIDTH -200.0, SCREEN_HEIGHT - 100.0, 1.f, color_rec, color_contour,1.0f);
     }
     else if(gameState == 2){
