@@ -31,7 +31,7 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
         sizeof(glm::vec3),                  // stride
         (void*)0       // array buffer offset
     );
-    /*
+    
     glBindBuffer(GL_ARRAY_BUFFER, texbuffer);
     glBufferData(GL_ARRAY_BUFFER, tex_coords.size() * sizeof(glm::vec2), &(tex_coords)[0], GL_STATIC_DRAW);
     glVertexAttribPointer(
@@ -42,7 +42,7 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
         sizeof(glm::vec2),                  // stride
         (void*)0       // array buffer offset
     );
-    */
+    
     // Generate a buffer for the indices as well
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &(indices)[0] , GL_STATIC_DRAW);
@@ -76,7 +76,7 @@ void Renderer::draw()
     // Draw the triangles !
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-    //glEnableVertexAttribArray(2);
+    glEnableVertexAttribArray(2);
 
     glDrawElements(
         GL_TRIANGLES,      // mode
@@ -87,7 +87,7 @@ void Renderer::draw()
    
      glDisableVertexAttribArray(0);
      glDisableVertexAttribArray(1);
-     //glDisableVertexAttribArray(2);
+     glDisableVertexAttribArray(2);
     
     
 }

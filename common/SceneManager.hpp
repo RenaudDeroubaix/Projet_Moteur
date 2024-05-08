@@ -33,7 +33,8 @@ public:
         if(ev.get_typeEvent()==typeEvent::Previous_Camera){
             //std::cout << &I_M.current_cam <<std::endl;
             if(I_M.current_cam == static_cast<Camera*>(s[scene_i]->get_camera_list()[ev.getCP_i()])){//get_CP_i = camera number dans al liste de cam de la scene dans le cas prev et next_camera
-                I_M.current_cam = static_cast<Camera*>(s[scene_i]->get_camera_list()[ev.getCP_i()-1]);//std::cout << &I_M.current_cam <<std::endl;
+                I_M.current_cam = static_cast<Camera*>(s[scene_i]->get_camera_list()[ev.getCP_i()-1]);
+                I_M.view--;//std::cout << &I_M.current_cam <<std::endl;
                 I_M.current_cam->set_front(s[scene_i]->getNodePlayer()->getData()->getpos()-I_M.current_cam->getpos());
                 I_M.current_cam->setEulerAngle(Helper::quatToEuler(LookAt(I_M.current_cam->get_front(),I_M.current_cam->get_up())));
             }
@@ -42,6 +43,7 @@ public:
             //std::cout << &I_M.current_cam <<std::endl;
             if(I_M.current_cam == static_cast<Camera*>(s[scene_i]->get_camera_list()[ev.getCP_i()])){
                 I_M.current_cam = static_cast<Camera*>(s[scene_i]->get_camera_list()[ev.getCP_i()+1]);//std::cout << &I_M.current_cam <<std::endl;
+                I_M.view++;
                 I_M.current_cam->set_front(s[scene_i]->getNodePlayer()->getData()->getpos()-I_M.current_cam->getpos());
                 I_M.current_cam->setEulerAngle(Helper::quatToEuler(LookAt(I_M.current_cam->get_front(),I_M.current_cam->get_up())));
             }
@@ -99,7 +101,7 @@ public:
             glm::vec3 posAI = go->getpos(); //pos actuel du npc
             glm::vec3 posCP = ev->get_posCP(); //pos de l'endroit ou il se dirige
             float distanceToCP = glm::length(posCP - posAI);
-            if(distanceToCP < 0.05)//si proche alors on regarde le checkpoint suivant
+            if(distanceToCP < 0.15)//si proche alors on regarde le checkpoint suivant
             {
                 ev->nextCP();
                 posCP = ev->get_posCP();

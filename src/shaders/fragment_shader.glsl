@@ -20,7 +20,7 @@ out vec4 o_color;
 void main(){
     float specular=0.0;
     float diffuse=0.0;
-    float ambiante =0.1;
+    float ambiante =0.3;
     vec3 radiance = vec3(0.0);
     vec4 color_tex = texture(tex, o_tex_coord); 
     
