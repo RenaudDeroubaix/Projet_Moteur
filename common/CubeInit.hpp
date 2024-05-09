@@ -35,14 +35,14 @@ public:
         };
         
         normals = {
-            glm::normalize(glm::vec3(-0.5f, -0.5f, 0.5f)), // 0
-            glm::normalize(glm::vec3(0.5f, -0.5f, 0.5f)),  // 1
-            glm::normalize(glm::vec3(0.5f, 0.5f, 0.5f)),   // 2
-            glm::normalize(glm::vec3(-0.5f, 0.5f, 0.5f)),  // 3
-            glm::normalize(glm::vec3(-0.5f, -0.5f, -0.5f)),  // 4
-            glm::normalize(glm::vec3(0.5f, -0.5f, -0.5f)),   // 5
-            glm::normalize(glm::vec3(0.5f, 0.5f, -0.5f)),   // 6
-            glm::normalize(glm::vec3(-0.5f, 0.5f, -0.5f))   // 7
+            glm::normalize(-glm::vec3(-0.5f, -0.5f, 0.5f)), // 0
+            glm::normalize(-glm::vec3(0.5f, -0.5f, 0.5f)),  // 1
+            glm::normalize(-glm::vec3(0.5f, 0.5f, 0.5f)),   // 2
+            glm::normalize(-glm::vec3(-0.5f, 0.5f, 0.5f)),  // 3
+            glm::normalize(-glm::vec3(-0.5f, -0.5f, -0.5f)),  // 4
+            glm::normalize(-glm::vec3(0.5f, -0.5f, -0.5f)),   // 5
+            glm::normalize(-glm::vec3(0.5f, 0.5f, -0.5f)),   // 6
+            glm::normalize(-glm::vec3(-0.5f, 0.5f, -0.5f))   // 7
         };
         
     }

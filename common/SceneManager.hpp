@@ -75,7 +75,7 @@ public:
             //std::cout<< glm::to_string(go->getmodelmat())<<std::endl;
         }
         else{go->reduceVitesse(deltatime * 0.05f);}
-       if ( go->checkCollision(*Player))
+        if ( go->checkCollision(*Player))
         {
             gameState=2;
             //std::cout<<"colision IA -- Joueur" << std::endl;
@@ -84,6 +84,25 @@ public:
 
 
     }
+   }
+   
+   void set_light_on_off(GameObject* camera)
+   {
+        camera->update_champ_de_vision();
+        Scene * scene = s[scene_i];
+        for (Node* light :  scene->get_node_light_list())
+        {
+            GameObject * cubelight = scene->get_data(light);
+            bool b = I_M.Input_light_on_off()
+            if (cubelight->getgameObjectInfo().getIsRendered() and cubelight->in_champ_de_vision(camera) and b)
+                
+            {
+                std::cout<< "ici"<<std::endl;
+                GameObject * l = light->getDescendantsData()[1];
+                
+                l->getgameObjectInfo().setIsLightOn(!l->getgameObjectInfo().getIsLightOn());
+            }
+        }
    }
   
     unsigned int getGameState(){return gameState;}

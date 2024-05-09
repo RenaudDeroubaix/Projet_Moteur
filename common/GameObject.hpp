@@ -9,9 +9,9 @@ struct ChampVision
     
     glm::vec3 origin;
     glm::vec3 direction;
-    float r;
-    float h;
-    float r_sol;
+    float r = 1.f;
+    float h = 20.f;
+    float r_sol = 0.f;
     
     ChampVision(){}
     
@@ -118,9 +118,11 @@ public:
     Event getEvent(){return event;}
 
     glm::vec3 getVitesse(){return vitesse;}
+    
     void update_champ_de_vision(){
-        champ_de_vision = ChampVision(getpos() , get_front() ,champ_de_vision.r , champ_de_vision.h ,champ_de_vision.r_sol  );
+        champ_de_vision = ChampVision(getpos() , get_front() , champ_de_vision.r , champ_de_vision.h ,champ_de_vision.r_sol  );
     }
+    
     void setChampVision(ChampVision CV){
         champ_de_vision = CV;
     }

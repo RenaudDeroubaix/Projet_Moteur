@@ -24,6 +24,7 @@ public:
     void Input_GameObject(GameObject * go, float deltaTime);
     void Input_ViewMode(Scene & s);
     void Input_GamePlay(Scene & s , GameObject * go , float deltaTime);
+    bool Input_light_on_off();
 public:
     static double previousX;
     static double previousY;

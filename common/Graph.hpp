@@ -5,8 +5,8 @@
 class Node {
 private:
     std::vector<Node*> children;
-    Node* parent;
-    GameObject* data;
+    Node* parent = nullptr;
+    GameObject* data = nullptr;
 
 public:
     Node(){}
@@ -16,6 +16,7 @@ public:
     void addChild(Node * child)  ;
     void removeChild(Node* child);
     void addParent(Node * p) {parent = p ;}
+    GameObject* getparent() {return parent->getData();}
     std::vector<Node*> getDescendantsNode() ;
     std::vector<GameObject*> getDescendantsData() ;
 
