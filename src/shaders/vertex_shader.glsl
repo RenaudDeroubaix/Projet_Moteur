@@ -24,10 +24,10 @@ void main(){
 
     mat4 MVP = projmat * viewmat * modelmat ;
     gl_Position = MVP * vec4(vertices_position_modelspace , 1.f);
-    o_position_screenspace = MVP * vec4(vertices_position_modelspace , 1.f);
+    o_position_screenspace =  viewmat * modelmat * vec4(vertices_position_modelspace , 1.f);
     o_position_worldspace  =  modelmat * vec4(vertices_position_modelspace , 1.f);
     //o_light_color = light_color;
-    o_normal_worldspace =  normalize( modelmat *vec4(normals, 0.f));
+    o_normal_worldspace =  normalize( modelmat * vec4(normals, 0.f));
     o_tex_coord = uv_coords;
     
     // TODO : Output position of the vertex, in clip space : MVP * position

@@ -43,7 +43,7 @@ public:
     Node* make_node_cube(unsigned int  indice_programID );
     Node* make_node_npc(unsigned int  indice_programID );
     Node* make_node_npc_mesh(const std::string & path, unsigned int  indice_programID);
-    Node* make_node_light(unsigned int indice_programID);
+    Node* make_node_light(bool is_directional ,  unsigned int indice_programID);
     Node* make_node_mesh(const std::string & path, unsigned int  indice_programID);
     Node* make_node_event(typeEvent typeevent, unsigned int  indice_programID);
     Node* make_node_event(typeEvent typeevent, glm::vec3 p, unsigned int  indice_programID);

@@ -4,26 +4,16 @@ void Scene::SendLightInShader()
     for (int i = 0 ; i < light_list.size() ; i++ ){
         GLuint lightposlocation = glGetUniformLocation(light_list[i]->getprogID() , std::string("light_pos["+ std::to_string(i)+"]").c_str());
         GLuint lightcollocation = glGetUniformLocation(light_list[i]->getprogID() , std::string("light_col["+ std::to_string(i)+"]").c_str());
+        GLuint lightdirlocation = glGetUniformLocation(light_list[i]->getprogID() , std::string("light_dir["+ std::to_string(i)+"]").c_str());
         glUniform3fv(lightposlocation , 1 , &(light_list[i]->getpos())[0]);
         glUniform3fv(lightcollocation , 1 , &(light_list[i]->getcolor())[0]);
+        glUniform3fv(lightdirlocation , 1 , &(light_list[i]->get_front())[0]);
+        glUniform1i(glGetUniformLocation(light_list[i]->getprogID(), std::string("is_directional["+ std::to_string(i)+"]").c_str()) , (int)(light_list[i]->getgameObjectInfo().getIsLightDirectional()));
+        glUniform1f(glGetUniformLocation(light_list[i]->getprogID(), std::string("radius["+ std::to_string(i)+"]").c_str()) , static_cast<Light*>(light_list[i])->get_radius());
     }
-     glUniform1i(glGetUniformLocation(light_list[0]->getprogID() , "numberOfLight") , light_list.size());
+    glUniform1i(glGetUniformLocation(light_list[0]->getprogID() , "numberOfLight") , light_list.size());
     
 }
-// void Scene::RenderLightInScene()
-// {
-//         glEnableVertexAttribArray(3);
-//         glBindVertexArray(lightbuffer[0]);
-//         glDrawArrays(
-//         GL_POINTS,      // mode
-//         0,    
-//         light_list.size()         
-//         );
-//         glDisableVertexAttribArray(2);
-//         glBindVertexArray(0);
-//    
-// 
-// }
 
 Node* Scene::make_node_plan(int longeur , int largeur , unsigned int indice_programID ) 
 {
@@ -146,18 +136,19 @@ Node* Scene::make_node_mesh(const std::string & path, unsigned int indice_progra
     node_list.push_back(n);
     return node_list[node_list.size() - 1];
 }
-Node* Scene::make_node_light(unsigned int indice_programID)
+Node* Scene::make_node_light(bool is_directional ,unsigned int indice_programID)
 {
     Node* n= new Node();
     GameObject* go = new Light();
     go->getgameObjectInfo().setIsRendered(false);
+    go->getgameObjectInfo().setIsLightDirectional(is_directional);
     go->setprogId(programID_list[indice_programID]);
     n->add_data(go);
     if (light_list.size() <  20) {
         light_list.push_back(go);
         node_list.push_back(n);
     }else {
-     std::cout<< "max light set to 20"<<std::endl;   
+        std::cout<< "max light set to 20"<<std::endl;   
     }
     return node_list[node_list.size() - 1];
 }

@@ -316,16 +316,29 @@ void makeScene_3(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(protection , glm::vec3(0.0,-0.51,0.0));
     sol->addChild(protection);
     /////////////LIGHT 
-    Node* lumiere1 = s->make_node_light(0);
-    sol->addChild(lumiere1);
-    s->get_data(lumiere1)->set_pos(glm::vec3(-0.f , 2.f , -0.f ));
-    s->get_data(lumiere1)->set_color(glm::vec3(1.f , 1.f , 1.f)); 
-
     
-    Node* lumiere2 = s->make_node_light(0);
-    sol->addChild(lumiere2);
-    s->get_data(lumiere2)->set_pos(glm::vec3(-10.f , 4.f , 20.f ));
-    s->get_data(lumiere2)->set_color(glm::vec3(1.f , 1.f , 1.f)); 
+    /////// light1
+    Node* lumiere1 = s->make_node_light(false , 0);
+    sol->addChild(lumiere1);
+    s->get_data(lumiere1)->set_pos(glm::vec3(10.f , 4.f , -20.f));
+    s->get_data(lumiere1)->set_color(glm::vec3(1.f , 0.1f , 0.1f)); 
+    Node* lumiere1cube = s->make_node_cube(0);
+    sol->addChild(lumiere1cube);
+    s->get_data(lumiere1cube)->set_pos(glm::vec3(10.f , 4.f , -20.f));
+    s->get_data(lumiere1cube)->set_color(glm::vec3(1.f , 0.3f , 0.3f));
+    /////// light2
+    Node* lumiere2 = s->make_node_light(false , 0);
+    s->get_data(lumiere2)->set_pos(glm::vec3(-5.f , 4.f , 20.f));
+    s->get_data(lumiere2)->set_color(glm::vec3(0.3f , 1.f , 0.3f)); 
+    Node* lumiere2cube = s->make_node_cube(0);
+    sol->addChild(lumiere2cube);
+    s->get_data(lumiere2cube)->set_pos(glm::vec3(-5.f , 4.f , 20.f));
+    s->get_data(lumiere2cube)->set_color(glm::vec3(0.3f , 1.0f , 0.3f));
+    
+    Node* lumiere3 = s->make_node_light(true , 0);
+    sol->addChild(lumiere3);
+    s->get_data(lumiere3)->set_color(glm::vec3(1.f)); 
+    s->get_data(lumiere3)->set_front(glm::normalize(glm::vec3(0.f ,-1.f , -1.f )));
     
     
     //Node* lumiere2 = s->make_node_light(0);
@@ -345,15 +358,11 @@ void makeScene_3(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 //     sol->addChild(lumiere2);
 //     s->get_data(lumiere2)->set_pos(glm::vec3(16.f , 4.0f , 0.f ));
 // 
-    Node* lumiere2cube = s->make_node_cube(0);
-    sol->addChild(lumiere2cube);
-    s->get_data(lumiere2cube)->set_pos(glm::vec3(-0.f , 2.f , -0.f ));
-    s->get_data(lumiere2cube)->set_color(glm::vec3(1.f ));
-
-    Node* lumiere1cube = s->make_node_cube(0);
-    sol->addChild(lumiere1cube);
-    s->get_data(lumiere1cube)->set_pos(glm::vec3(-10.f , 4.f , 20.f ));
-    s->get_data(lumiere1cube)->set_color(glm::vec3(1.f ));
+   
+//     Node* lumiere1cube = s->make_node_cube(0);
+//     sol->addChild(lumiere1cube);
+//     s->get_data(lumiere1cube)->set_pos(glm::vec3(-10.f , 4.f , 20.f ));
+//     s->get_data(lumiere1cube)->set_color(glm::vec3(1.f ));
     
    //////////////PLAYER
     Node* player = s->make_node_mesh("../src/maillages/Cubone/pkm.off",0);
