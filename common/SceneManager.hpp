@@ -149,24 +149,7 @@ public:
         }
    }
    
-   void set_light_on_off(GameObject* camera)
-   {
-        camera->update_champ_de_vision();
-        Scene * scene = s[scene_i];
-        for (Node* light :  scene->get_node_light_list())
-        {
-            GameObject * cubelight = scene->get_data(light);
-            
-            if (cubelight->getgameObjectInfo().getIsRendered() and cubelight->in_champ_de_vision(camera) and I_M.Input_light_on_off())
-                
-            {
-                std::cout<< "ici"<<std::endl;
-                GameObject * l = light->getDescendantsData()[1];
-                
-                l->getgameObjectInfo().setIsLightOn(!l->getgameObjectInfo().getIsLightOn());
-            }
-        }
-   }
+
   
     unsigned int getGameState(){return gameState;}
    unsigned int getScene_i(){return scene_i;}
