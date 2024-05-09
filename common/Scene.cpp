@@ -1,17 +1,32 @@
 #include "Scene.hpp"
 void Scene::SendLightInShader()
 {
+    glUniform1i(glGetUniformLocation(get_data(light_list[0])->getprogID() , "numberOfLight") , light_list.size());
+
     for (int i = 0 ; i < light_list.size() ; i++ ){
-        GLuint lightposlocation = glGetUniformLocation(light_list[i]->getprogID() , std::string("light_pos["+ std::to_string(i)+"]").c_str());
-        GLuint lightcollocation = glGetUniformLocation(light_list[i]->getprogID() , std::string("light_col["+ std::to_string(i)+"]").c_str());
-        GLuint lightdirlocation = glGetUniformLocation(light_list[i]->getprogID() , std::string("light_dir["+ std::to_string(i)+"]").c_str());
-        glUniform3fv(lightposlocation , 1 , &(light_list[i]->getpos())[0]);
-        glUniform3fv(lightcollocation , 1 , &(light_list[i]->getcolor())[0]);
-        glUniform3fv(lightdirlocation , 1 , &(light_list[i]->get_front())[0]);
-        glUniform1i(glGetUniformLocation(light_list[i]->getprogID(), std::string("is_directional["+ std::to_string(i)+"]").c_str()) , (int)(light_list[i]->getgameObjectInfo().getIsLightDirectional()));
-        glUniform1f(glGetUniformLocation(light_list[i]->getprogID(), std::string("radius["+ std::to_string(i)+"]").c_str()) , static_cast<Light*>(light_list[i])->get_radius());
+        GameObject * l = nullptr;
+        if (get_data(light_list[i])->getgameObjectInfo().getIsRendered() == true){
+             l = light_list[i]->getDescendantsData()[1];
+        }
+        else{
+            l = get_data(light_list[i]); 
+        }
+            GLuint lightposlocation = glGetUniformLocation(l->getprogID() , std::string("light_pos["+ std::to_string(i)+"]").c_str());
+            GLuint lightcollocation = glGetUniformLocation(l->getprogID() , std::string("light_col["+ std::to_string(i)+"]").c_str());
+            GLuint lightdirlocation = glGetUniformLocation(l->getprogID() , std::string("light_dir["+ std::to_string(i)+"]").c_str());
+            glUniform3fv(lightposlocation , 1 , &(l->getpos())[0]);
+            glUniform3fv(lightcollocation , 1 , &(l->getcolor())[0]);
+            glUniform3fv(lightdirlocation , 1 , &(l->get_front())[0]);
+        
+            glUniform1i(glGetUniformLocation(l->getprogID(), std::string("is_directional["+ std::to_string(i)+"]").c_str()) , (int)(l->getgameObjectInfo().getIsLightDirectional()));
+            glUniform1f(glGetUniformLocation(l->getprogID(), std::string("radius["+ std::to_string(i)+"]").c_str()) , static_cast<Light*>(l)->get_radius());
+            glUniform1i(glGetUniformLocation(l->getprogID(), std::string("is_on["+ std::to_string(i)+"]").c_str()) , (int)(l->getgameObjectInfo().getIsLightOn()));
     }
-    glUniform1i(glGetUniformLocation(light_list[0]->getprogID() , "numberOfLight") , light_list.size());
+    
+    
+    
+    
+       
     
 }
 
@@ -136,20 +151,50 @@ Node* Scene::make_node_mesh(const std::string & path, unsigned int indice_progra
     node_list.push_back(n);
     return node_list[node_list.size() - 1];
 }
-Node* Scene::make_node_light(bool is_directional ,unsigned int indice_programID)
+Node* Scene::make_node_light(bool is_rendered, bool is_directional ,unsigned int indice_programID)
 {
-    Node* n= new Node();
-    GameObject* go = new Light();
-    go->getgameObjectInfo().setIsRendered(false);
-    go->getgameObjectInfo().setIsLightDirectional(is_directional);
-    go->setprogId(programID_list[indice_programID]);
-    n->add_data(go);
-    if (light_list.size() <  20) {
-        light_list.push_back(go);
-        node_list.push_back(n);
-    }else {
-        std::cout<< "max light set to 20"<<std::endl;   
+    Node* light = new Node();
+    GameObject* golight = new Light();
+    golight->getgameObjectInfo().setIsLightDirectional(is_directional);
+    golight->getgameObjectInfo().setIsLightOn(true);
+    golight->getgameObjectInfo().setIsRendered(false);
+    golight->setprogId(programID_list[indice_programID]);
+    light->add_data(golight);
+    if (!is_directional){
+        golight->set_front(glm::vec3(0.f , 1.f , 0.f ));
     }
+        
+    if (is_rendered)
+    {
+        Node* cubeforlight= new Node();
+        GameObject* cube = new CubeInit();
+        cube->setprogId(programID_list[indice_programID]);
+        cube->getgameObjectInfo().setHasPhysics(false);
+        cubeforlight->add_data(cube);
+        cubeforlight->addChild(light);
+        if (light_list.size() <  20)
+        {
+            light_list.push_back(cubeforlight);
+            node_list.push_back(cubeforlight);
+
+        }
+        else{
+            std::cout<< "max light set to 20"<<std::endl;   
+        }
+    }
+    else
+    {
+        if (light_list.size() <  20)
+        {
+            light_list.push_back(light);
+            node_list.push_back(light);
+        }
+        else
+        {
+            std::cout<< "max light set to 20"<<std::endl;   
+        }   
+    }
+    
     return node_list[node_list.size() - 1];
 }
 
@@ -196,8 +241,9 @@ void Scene::drawscene(Camera* camera, Node* n)
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"viewmat"), 1 ,GL_FALSE, &vm[0][0]);
             glUniformMatrix4fv(glGetUniformLocation(go->getprogID(),"projmat"), 1 ,GL_FALSE, &pm[0][0]);
             glUniformMatrix3fv(glGetUniformLocation(go->getprogID(),"pos_camera_worldspace"), 1 ,GL_FALSE, &(camera_temp->getpos()[0]));
-            go->drawobject();
             SendLightInShader();
+            go->drawobject();
+            
             glBindVertexArray(0);
             glUseProgram(0);
         }

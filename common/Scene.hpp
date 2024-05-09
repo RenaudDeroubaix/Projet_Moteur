@@ -18,7 +18,7 @@ private:
     std::vector<GameObject*> event_list;
     std::vector<GameObject*> npc_list;
     std::vector<GLuint> programID_list;
-    std::vector<GameObject*> light_list;
+    std::vector<Node*> light_list;
     bool reset_s=false;
 
 public:
@@ -35,7 +35,7 @@ public:
     std::vector<GameObject*>& get_camera_list(){return camera_list;}
     std::vector<GameObject*>& get_event_list(){return event_list;}
     std::vector<GameObject*>& get_npc_list(){return npc_list;}
-    std::vector<GameObject*>& get_light_list(){return light_list;}
+    std::vector<Node*>& get_node_light_list(){return light_list;}
     
     Node* make_node_camera(bool is_locked, unsigned int w , unsigned int h, unsigned int  indice_programID); // 1er parametre pour savoir si la camera peut yaw a 360 degree
     Node* make_node_plan(int longeur, int largeur, unsigned int  indice_programID);
@@ -43,7 +43,7 @@ public:
     Node* make_node_cube(unsigned int  indice_programID );
     Node* make_node_npc(unsigned int  indice_programID );
     Node* make_node_npc_mesh(const std::string & path, unsigned int  indice_programID);
-    Node* make_node_light(bool is_directional ,  unsigned int indice_programID);
+    Node* make_node_light(bool is_rendered ,bool is_directional ,  unsigned int indice_programID);
     Node* make_node_mesh(const std::string & path, unsigned int  indice_programID);
     Node* make_node_event(typeEvent typeevent, unsigned int  indice_programID);
     Node* make_node_event(typeEvent typeevent, glm::vec3 p, unsigned int  indice_programID);
@@ -85,6 +85,18 @@ public:
         std::vector<GameObject*> children_data =  get_children_list(*node);
         for (GameObject* go : children_data){
             go->setrotate(angle , axe);
+        }           
+    }
+    void setcolornode(Node * node ,glm::vec3 couleur){ // pour scale tout les enfants du noeud recursivement
+        std::vector<GameObject*> children_data =  get_children_list(*node);
+        for (GameObject* go : children_data){
+            go->set_color(couleur);
+        }           
+    }
+    void setposnode(Node * node ,glm::vec3 pos){ // pour scale tout les enfants du noeud recursivement
+        std::vector<GameObject*> children_data =  get_children_list(*node);
+        for (GameObject* go : children_data){
+            go->set_pos(pos);
         }           
     }
   

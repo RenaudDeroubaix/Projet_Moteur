@@ -32,7 +32,7 @@ unsigned int InputManager::view = 0;
 int main( void )
 {
     SceneManager SM;
-    InputManager& I_M=SM.getInputManager();
+    InputManager& I_M = SM.getInputManager();
 
     
     glfwWindowHint(GLFW_SAMPLES, 4);
@@ -122,7 +122,8 @@ int main( void )
         }
         
         p.applyForce(currentScene , deltaTimeRendu);
-        SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu);        
+        SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu); 
+        SM.set_light_on_off( static_cast<GameObject*>(I_M.current_cam));
         currentScene.drawscene(I_M.current_cam , currentScene.get_node_list()[0]);
         
 
