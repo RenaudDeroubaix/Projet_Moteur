@@ -23,6 +23,7 @@ public:
     SceneManager(){scene_i=0;}
 
     void changeSceneAndTP(Node* node, Event ev ){
+        std::cout << scene_i <<std::endl;
         s[scene_i]->get_node_list()[0]->removeChild(node);
         s[scene_i]->removeNodeFromNodeList(node);
         ev.get_typeEvent()==typeEvent::TP_Scene_Forward ? scene_i++ : ev.get_typeEvent()==typeEvent::TP_Scene_Backward ? scene_i-- : scene_i ;

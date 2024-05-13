@@ -268,6 +268,7 @@ void Scene::deletescene()
     npc_list.clear();
     programID_list.clear();
     light_list.clear();
+    obstacle_list.clear();
 }
 void Scene::resetscene()
 {   
@@ -282,6 +283,7 @@ void Scene::resetscene()
     npc_list.clear();
     programID_list.clear();
     light_list.clear();
+    obstacle_list.clear();
 }
 
 // Fonction récursive pour calculer les boîtes englobantes des enfants d'un nœud

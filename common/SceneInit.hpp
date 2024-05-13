@@ -484,7 +484,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(npc)->setEvent(ev);
 
     sol->addChild(npc);
-/*
+
     ///////////////////// NPC bloque porte
     Node* npc2 = s->make_node_npc(0);
     s->get_data(npc2)->set_front(glm::vec3(-1,0.0,0.0));
@@ -494,7 +494,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(npc2)->setChampVision(CV);
     s->get_data(npc2)->set_color(glm::vec3(0.8f , 0.1f, 0.1f)); 
     sol->addChild(npc2);
-*/
+
     /////////////CAM1 position haut gauche
     Node* SecurityCam1 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT,0);
     s->get_data(SecurityCam1)->set_pos(glm::vec3(17.4 , 4.8 , -29.4 ));
