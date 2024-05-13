@@ -33,6 +33,6 @@ public:
     void setCheckpoint(std::vector<glm::vec3> cp){checkpoint = cp;}
     std::vector<glm::vec3> & get_all_checkpoint(){return checkpoint;}
     unsigned int getCP_i(){return CP_i;}
-    glm::vec3 get_posCP(){std::cout<< CP_i << " || " <<checkpoint.size() - 1 << std::endl; return checkpoint[CP_i];}
+    //glm::vec3 get_posCP(){std::cout<< CP_i << " || " <<checkpoint.size() - 1 << std::endl; return checkpoint[CP_i];}
 
 };
