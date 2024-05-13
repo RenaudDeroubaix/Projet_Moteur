@@ -92,9 +92,9 @@ public:
 
     void set_front(glm::vec3 f)
     {
-        front = f;
-        right = glm::cross(front , glm::vec3(0,1,0));
-        up = glm::cross(right , front);
+        front = glm::normalize(f);
+        right = glm::normalize(glm::cross(front , glm::vec3(0,1,0)));
+        up = glm::normalize(glm::cross(right , front));
     }
 
     void set_pos(glm::vec3 p){modelmat[3][0] = p[0]; modelmat[3][1] = p[1]; modelmat[3][2] = p[2];}
@@ -139,11 +139,13 @@ public:
         for (int i=0; i<3; i+=2){
             vitesse[i] > object_speed? vitesse[i] = object_speed : vitesse[i] < -object_speed ? vitesse[i] = -object_speed: vitesse[i];
         }
-
     }
+   
     void addVitesse(glm::vec3 d){
-        vitesse+=d; 
-     }
+        vitesse +=  d;
+        
+    }
+    
     void reduceVitesse(float ps){
         for (int i=0; i<3; i+=2){
             vitesse[i] < - ps*4 ? vitesse[i] += ps*4 : vitesse[i] > ps*4 ? vitesse[i] -= ps*4 : vitesse[i] = 0;
@@ -211,9 +213,10 @@ public:
         }
         return is_point_inside_cone;
     }*/
-    bool in_champ_de_vision(GameObject* go)
+    bool in_champ_de_vision(GameObject* go , glm::vec3 & nearest_point )
     {
         bool is_point_inside_cylinder = false;
+        nearest_point = go->getpos() + go->get_front() *  (go->champ_de_vision.h + 10);
         for (glm::vec3 point : position)
         {
             glm::vec4 P = modelmat * glm::vec4(point, 1.0f);
@@ -224,12 +227,13 @@ public:
             float dist_along_direction = glm::dot(direction_to_point, go->champ_de_vision.direction);
             glm::vec3 closest_point_on_axis = go->champ_de_vision.origin + dist_along_direction * go->champ_de_vision.direction;
             float dist_to_axis = glm::length(p - closest_point_on_axis);
-
+            
             // Vérification si le point est à l'intérieur du cylindre
             if (dist_to_axis <= go->champ_de_vision.r && 0 <= dist_along_direction && dist_along_direction <= go->champ_de_vision.h)
             {
                 is_point_inside_cylinder = true;
-                break;
+                
+                if (glm::length(go->getpos() - nearest_point) > glm::length(go->getpos() - p)) nearest_point = p;
             }
         }
         return is_point_inside_cylinder;

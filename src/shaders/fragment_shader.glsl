@@ -32,7 +32,8 @@ void main(){
     for (int i = 0 ; i < numberOfLight; i++){
     if (is_on[i] == 1 ){
         float specular=0.0;
-        float diffuse=0.0;
+        float diffuse
+        =0.0;
         vec3 hwd , vue ;
         float anglespec;
         if (is_directional[i] == 1)

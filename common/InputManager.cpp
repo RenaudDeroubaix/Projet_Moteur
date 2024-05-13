@@ -119,6 +119,8 @@ void InputManager::Input_SecurityCam(GameObject * player  ,float deltaTime)
     player->set_front(c->get_front());
     
     
+    
+    
 }
 
 void InputManager::Input_GameObject(GameObject * go , float deltaTime)

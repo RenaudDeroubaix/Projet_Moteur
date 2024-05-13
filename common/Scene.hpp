@@ -12,12 +12,16 @@
 class Scene {
     
 private:
+    
+    
     std::vector<Node*> node_list;
     Node* player;
     std::vector<GameObject*> camera_list;
     std::vector<GameObject*> event_list;
     std::vector<GameObject*> npc_list;
+    std::vector<GameObject*> obstacle_list;
     std::vector<GLuint> programID_list;
+    std::vector<Node*> light_list;
     std::vector<Node*> light_list;
     bool reset_s=false;
     bool pause_s=false;
@@ -30,12 +34,14 @@ public:
     void setprogIdList(std::vector<GLuint>& progID_list){programID_list = progID_list;}
 
     void removeNodeFromNodeList(Node* n){node_list.erase(std::find(node_list.begin(),node_list.end(),n));}
-    
+
     std::vector<GameObject*> get_children_list(Node & n){return n.getDescendantsData();}
     std::vector<Node*>& get_node_list(){return node_list;}
     std::vector<GameObject*>& get_camera_list(){return camera_list;}
     std::vector<GameObject*>& get_event_list(){return event_list;}
     std::vector<GameObject*>& get_npc_list(){return npc_list;}
+    std::vector<GameObject*>& get_obstacle_list(){return obstacle_list;}
+
     std::vector<Node*>& get_node_light_list(){return light_list;}
     
     Node* make_node_camera(bool is_locked, unsigned int w , unsigned int h, unsigned int  indice_programID); // 1er parametre pour savoir si la camera peut yaw a 360 degree
