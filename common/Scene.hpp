@@ -22,7 +22,6 @@ private:
     std::vector<GameObject*> obstacle_list;
     std::vector<GLuint> programID_list;
     std::vector<Node*> light_list;
-    std::vector<Node*> light_list;
     bool reset_s=false;
     bool pause_s=false;
 

@@ -93,24 +93,6 @@ public:
        
        return ptsmin;
    }
-   glm::vec3 ObjectInChampDeVision(GameObject * npc) // renvoie le pts le plus proche
-   {
-       Scene * scene = s[scene_i];
-       float min = FLT_MAX;
-       glm::vec3 ptsmin;
-       for (GameObject* go :  scene->get_obstacle_list())
-       {
-           glm::vec3 point;
-           
-           if (go->in_champ_de_vision( npc , point))
-           {
-               if ( glm::length(npc->getpos() - point) < min ) ptsmin = point;
-           }
-       }
-       
-       
-       return ptsmin;
-   }
 
 
    bool DetecterParNPC(GameObject * Player , float deltatime){

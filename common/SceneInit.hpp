@@ -9,7 +9,6 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
      /////////////LIGHT 
     Node* lumiere1 = s->make_node_light(true,false, 0);
-    Node* lumiere1 = s->make_node_light(true,false, 0);
     sol->addChild(lumiere1);
 
     s->setposnode(lumiere1 , glm::vec3(16.f , 2.f , -0.f));
@@ -56,8 +55,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(lumiere2cube)->set_pos(glm::vec3(-16.f , 2.f , 0.f));
     s->get_data(lumiere2cube)->set_color(glm::vec3(0.3f , 1.0f , 0.3f));
     */
-    Node* lumiere3 = s->make_node_light(false,true , 0);
-    */
+
     Node* lumiere3 = s->make_node_light(false,true , 0);
     sol->addChild(lumiere3);
     s->get_data(lumiere3)->set_color(glm::vec3(1.f)); 
@@ -418,7 +416,6 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->setcolornode(lumiere8 , glm::vec3(1.f) ); 
     sol->addChild(lumiere8);
     
-    Node* lumiere3 = s->make_node_light(false , true , 0);
     Node* lumiere3 = s->make_node_light(false , true , 0);
     sol->addChild(lumiere3);
     s->get_data(lumiere3)->set_color(glm::vec3(1.f)); 
