@@ -47,6 +47,9 @@ set(ALL_LIBS
 	${FREETYPE_LIBRARIES}
 	glfw
 	GLEW_1130
+	pthread  # Ajouter -lpthread
+    	m       # Ajouter -lm
+    	dl      # Ajouter -ldl
 )
 
 add_definitions(
@@ -123,8 +126,10 @@ add_executable(TP
 	
 	common/texteRender.hpp
      common/texteRender.cpp
-	
-	
+     
+     common/miniaudio.h
+     
+     
 	
 )
 target_link_libraries(TP

@@ -9,6 +9,9 @@
 #include "common/Physics.hpp"
 #include "common/SceneManager.hpp"
 #include "common/texteRender.hpp"
+#define MINIAUDIO_IMPLEMENTATION
+#include "common/miniaudio.h"
+
 
 
 using namespace glm;
@@ -29,10 +32,54 @@ unsigned int InputManager::view = 0;
 
 
 
+void data_callback(ma_device* pDevice, void* pOutput, const void* pInput, ma_uint32 frameCount)
+{
+    ma_decoder* pDecoder = (ma_decoder*)pDevice->pUserData;
+    if (pDecoder == NULL) {
+        return;
+    }
+
+    ma_decoder_read_pcm_frames(pDecoder, pOutput, frameCount, NULL);
+
+    (void)pInput;
+}
+
+
 int main( void )
 {
     SceneManager SM;
     InputManager& I_M = SM.getInputManager();
+
+   ma_result result;
+    ma_decoder decoder;
+    ma_device_config deviceConfig;
+    ma_device device;
+
+
+    result = ma_decoder_init_file("../src/music/007_James Bond_Theme.wav", NULL, &decoder);
+    if (result != MA_SUCCESS) {
+        return -2;
+    }
+
+    deviceConfig = ma_device_config_init(ma_device_type_playback);
+    deviceConfig.playback.format   = decoder.outputFormat;
+    deviceConfig.playback.channels = decoder.outputChannels;
+    deviceConfig.sampleRate        = decoder.outputSampleRate;
+    deviceConfig.dataCallback      = data_callback;
+    deviceConfig.pUserData         = &decoder;
+
+    if (ma_device_init(NULL, &deviceConfig, &device) != MA_SUCCESS) {
+        printf("Failed to open playback device.\n");
+        ma_decoder_uninit(&decoder);
+        return -3;
+    }
+
+    if (ma_device_start(&device) != MA_SUCCESS) {
+        printf("Failed to start playback device.\n");
+        ma_device_uninit(&device);
+        ma_decoder_uninit(&decoder);
+        return -4;
+    }
 
     
     glfwWindowHint(GLFW_SAMPLES, 4);
@@ -142,6 +189,10 @@ int main( void )
            glfwWindowShouldClose(window) == 0 );
     glDeleteProgram(progID);
     glDeleteProgram(programIDHUD);
+
+
+    ma_device_uninit(&device);
+    ma_decoder_uninit(&decoder);
     
     s.deletescene();
     

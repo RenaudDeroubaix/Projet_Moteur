@@ -97,9 +97,12 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam
     char buffer[30];
     strftime(buffer, sizeof(buffer), "%I:%M:%S %p", now);
 
+
     float textScale = 0.5f;
     float textX = SCREEN_WIDTH / 2.0 - sizeof(buffer)/2.0; // 
     float textY = 50.0f; // Décaler de 50 pixels depuis le bas
+    
+
 
     glm::vec3 color_text(0.25f,0.25f,0.25f);
     glm::vec3 color_contour(1.f,1.0f,1.0f);
@@ -130,10 +133,10 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam
         RenderText(programIDTXT, VAO, VBO, Characters, "REC", SCREEN_WIDTH -200.0, SCREEN_HEIGHT - 100.0, 1.f, color_rec, color_contour,1.0f);
     }
     else if(gameState == 2){
-        RenderText(programIDTXT, VAO, VBO, Characters, "GAMEOVER", 400  , SCREEN_HEIGHT/2.0  , 2.f, color_rec, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "GAMEOVER", SCREEN_WIDTH / 2.0 - 100  , SCREEN_HEIGHT/2.0  , 2.f, color_rec, color_contour,1.0f);
     }
     else if(gameState == 3){
-        RenderText(programIDTXT, VAO, VBO, Characters, "Victory", 400  , SCREEN_HEIGHT/2.0  , 2.f, color_V, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "Victory", SCREEN_WIDTH / 2.0  -100  , SCREEN_HEIGHT/2.0  , 2.f, color_V, color_contour,1.0f);
     }
 
 
