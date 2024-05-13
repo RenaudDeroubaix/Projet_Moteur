@@ -13,6 +13,7 @@ class Helper
 {
 public: 
     static float stopAngle(float angle , float f);
+    static float stopAngle(float angle_a_clipper , float fmin, float fmax);
     static float interpolation(float value, InterpolationType type);
     static float clipAngle180(float angle_a_clipper);
     static void ProjectVectorOnPlan(const glm::vec3& v, const glm::vec3& n , glm::vec3 & proj);

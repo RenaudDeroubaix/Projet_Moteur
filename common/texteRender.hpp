@@ -84,7 +84,7 @@ public:
         glDeleteBuffers(1, &VBO);
     }
 
-    void renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam_i, unsigned int scene_i, unsigned int gameState);
+    void renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam_i, unsigned int scene_i, int gameState);
 
     
 };

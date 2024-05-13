@@ -18,7 +18,7 @@ protected:
    unsigned int scene_i;
    std::vector<Scene* > s;
    InputManager I_M;
-   unsigned int gameState=0; // 1 = playable // 2=gameOver // 3=Victory
+   int gameState=1; // negative = pause // 1=jeu // 2=gameOver // 3=Victory
 public:
     SceneManager(){scene_i=0;}
 
@@ -27,6 +27,7 @@ public:
         s[scene_i]->removeNodeFromNodeList(node);
         ev.get_typeEvent()==typeEvent::TP_Scene_Forward ? scene_i++ : ev.get_typeEvent()==typeEvent::TP_Scene_Backward ? scene_i-- : scene_i ;
         node->getData()->set_pos(ev.getPos());
+        std::cout << scene_i <<std::endl;
     }
    
    void event(Node* node, Event ev){
@@ -60,6 +61,7 @@ public:
             //std::cout << s[scene_i]->get_node_list().size()<<std::endl;
             s[scene_i]->setNodePlayer(node);
             I_M.current_cam = static_cast<Camera*>(s[scene_i]->get_camera_list()[0]);
+            I_M.view = 0;
         }
         else if( ev.get_typeEvent()==typeEvent::Pickable ){//pour le moment Pickable == victory
             gameState = 3;
@@ -151,7 +153,14 @@ public:
    
 
   
-    unsigned int getGameState(){return gameState;}
+    int getGameState(){return gameState;}
+    void setGameState(unsigned int value){ gameState = value;}
+    void pause(){
+        if(gameState>0)gameState=-gameState;
+    }
+    void unpause(){
+        if(gameState<0)gameState=-gameState;
+    }
    unsigned int getScene_i(){return scene_i;}
     std::vector<Scene* >& getSceneList(){return s;}
    void addSceneToList(Scene* scene){s.push_back(scene);}
@@ -181,6 +190,6 @@ public:
         }
     }
     void initScene(){makeScene();}
-    void resetCurrentScene(){s[scene_i]->set_reset_s(false);scene_i=0;makeScene_0(s[scene_i], SCR_WIDTH, SCR_HEIGHT);;gameState=0;}
+    void resetCurrentScene(){s[scene_i]->set_reset_s(false);scene_i=0;makeScene_0(s[scene_i], SCR_WIDTH, SCR_HEIGHT);;gameState=1;}
 
 };

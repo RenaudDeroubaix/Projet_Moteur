@@ -20,6 +20,7 @@ private:
     std::vector<GLuint> programID_list;
     std::vector<Node*> light_list;
     bool reset_s=false;
+    bool pause_s=false;
 
 public:
     Scene(){} 
@@ -61,7 +62,8 @@ public:
     }
     bool get_reset_s(){return reset_s;}
     void set_reset_s(bool value){reset_s = value;}
-    
+    bool get_pause_s(){return pause_s;}
+    void pause(){pause_s=!pause_s;}
     void resetmodelmatrix(Node * n);
     
     void calculateBoundingBoxRecursive(Node* node);

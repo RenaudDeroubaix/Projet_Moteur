@@ -17,6 +17,12 @@ float Helper::stopAngle(float angle_a_clipper , float f){
     if(angle > f) angle = f;
     return  glm::radians(angle);
 }
+float Helper::stopAngle(float angle_a_clipper , float fmin, float fmax){
+    float angle = glm::degrees(angle_a_clipper);
+    if(angle < fmin) angle = fmin;
+    if(angle > fmax) angle = fmax;
+    return  glm::radians(angle);
+}
 
 float Helper::interpolation(float value, InterpolationType type){
     if(type == InterpolationType::Cos) return (1 - std::cos(value * M_PI)) / 2.;

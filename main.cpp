@@ -50,7 +50,7 @@ int main( void )
     SceneManager SM;
     InputManager& I_M = SM.getInputManager();
 
-   ma_result result;
+    ma_result result;
     ma_decoder decoder;
     ma_device_config deviceConfig;
     ma_device device;
@@ -167,10 +167,16 @@ int main( void )
             //std::cout << SM.getScene_i() << std::endl;
             I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene().get_camera_list()[0]);
         }
-        
-        p.applyForce(currentScene , deltaTimeRendu);
-        SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu); 
-        SM.set_light_on_off( static_cast<GameObject*>(I_M.current_cam));
+        if(SM.getGameState() != 2){
+            if(!currentScene.get_pause_s()){
+                SM.unpause();
+                p.applyForce(currentScene , deltaTimeRendu);
+                SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu); 
+                SM.set_light_on_off( static_cast<GameObject*>(I_M.current_cam));
+                
+            }
+            else{SM.pause();}
+        }
         currentScene.drawscene(I_M.current_cam , currentScene.get_node_list()[0]);
         
 

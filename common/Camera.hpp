@@ -30,6 +30,11 @@ private:
     double _lastX = 0.f ;
     double _lastY = 0.f;
 
+    float limit_yaw_min =-45.f;
+    float limit_yaw_max =45.f;
+    float limit_pitch_min =-50.f;
+    float limit_pitch_max =50.f;
+
     
    
     
@@ -81,6 +86,17 @@ public:
         // Camera matrix
         _ViewMatrix = glm::lookAt(getpos(), getpos() + front, up);
     }
+
+    void setlimit_yaw_min(float value){limit_yaw_min=value;}
+    void setlimit_yaw_max(float value){limit_yaw_max=value;}
+    void setlimit_pitch_min(float value){limit_pitch_min=value;}
+    void setlimit_pitch_max(float value){limit_pitch_max=value;}
+
+    float getlimit_yaw_min(){return limit_yaw_min;}
+    float getlimit_yaw_max(){return limit_yaw_max;}
+    float getlimit_pitch_min(){return limit_pitch_min;}
+    float getlimit_pitch_max(){return limit_pitch_max;}
+    
     
 private :
     

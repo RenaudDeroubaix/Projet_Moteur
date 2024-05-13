@@ -86,7 +86,7 @@ bool InputManager::isKeyHeld(int key)
 //     
 //     current_cam->rotateCamera();
 // }
-void InputManager::Input_SecurityCam(GameObject * player , float limit_yaw , float limit_pitch ,float deltaTime)
+void InputManager::Input_SecurityCam(GameObject * player  ,float deltaTime)
 {
     
 
@@ -103,10 +103,12 @@ void InputManager::Input_SecurityCam(GameObject * player , float limit_yaw , flo
     glfwGetCursorPos(glfwGetCurrentContext(), &mouseX , &mouseY);
     
     current_cam->rotateCamera(previousX - mouseX , previousY - mouseY , deltaTime);
-    if (current_cam->get_is_locked()) 
-        current_cam->setEulerAngle(glm::vec3(Helper::stopAngle(current_cam->getEulerAngle().x , limit_pitch) ,
-                                             Helper::stopAngle(current_cam->getEulerAngle().y , limit_yaw) ,
+    if (current_cam->get_is_locked())
+    {
+        current_cam->setEulerAngle(glm::vec3(Helper::stopAngle(current_cam->getEulerAngle().x , current_cam->getlimit_pitch_min(),current_cam->getlimit_pitch_max()) ,
+                                             Helper::stopAngle(current_cam->getEulerAngle().y , current_cam->getlimit_yaw_min(), current_cam->getlimit_yaw_max()) ,
                                              current_cam->getEulerAngle().z));
+    } 
     current_cam->setlastX(mouseX);
     current_cam->setlastY(mouseY);
     previousX = current_cam->getlastX();
@@ -208,7 +210,12 @@ void InputManager::Input_ViewMode(Scene & s, GameObject* player)
     if (isKeyPressed(GLFW_KEY_R))
     {
         s.reset();      
-    } 
+    }
+    if (isKeyPressed(GLFW_KEY_P))
+    {
+        s.pause();      
+    }
+
 }
 bool InputManager::Input_light_on_off(){
     if (isKeyPressed(GLFW_KEY_E))
@@ -221,5 +228,5 @@ void InputManager::Input_GamePlay(Scene & s , GameObject* player, float deltaTim
 {
     Input_ViewMode(s,player);
     Input_GameObject(player , deltaTime);
-    Input_SecurityCam(player , 50.f, 50.f,deltaTime);
+    Input_SecurityCam(player ,deltaTime);
 }

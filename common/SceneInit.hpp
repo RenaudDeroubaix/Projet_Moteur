@@ -76,39 +76,55 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     */
 
      /////////////CAM1 
-    Node* SecurityCam1 = s->make_node_camera(false,SCR_WIDTH , SCR_HEIGHT,0);
+    Node* SecurityCam1 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT,0);
     s->get_data(SecurityCam1)->set_pos(glm::vec3(-17.25, 5.5 , -25.25));
     s->get_data(SecurityCam1)->set_front(glm::normalize(glm::vec3(17.0 , playerScale/2.0, -23.0) - s->get_data(SecurityCam1)->getpos()));
-    //Helper::setViewtowardFront(s->get_data(SecurityCam1));
+    Helper::setViewtowardFront(s->get_data(SecurityCam1));
     Camera * c1 = static_cast<Camera*>( s->get_data(SecurityCam1));
     c1->setFOV(45.0);
+    c1->setlimit_yaw_min(0.f);
+    c1->setlimit_yaw_max(90.f);
+    c1->setlimit_pitch_min(0.f);
+    c1->setlimit_pitch_max(90.f);
     sol->addChild(SecurityCam1);
 
     /////////////CAM2
-    Node* SecurityCam2 = s->make_node_camera(false,SCR_WIDTH , SCR_HEIGHT,0);
+    Node* SecurityCam2 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT,0);
     s->get_data(SecurityCam2)->set_pos(glm::vec3(-17.25, 5.5 ,14.0));
     //s->get_data(SecurityCam2)->set_front(glm::normalize(s->get_data(player)->getpos() - s->get_data(SecurityCam2)->getpos()));
     //Helper::setViewtowardFront(s->get_data(SecurityCam2));
     Camera * c2 = static_cast<Camera*>( s->get_data(SecurityCam2));
     c2->setFOV(45.0);
+    c2->setlimit_yaw_min(-180.f);
+    c2->setlimit_yaw_max(180.f);
+    c2->setlimit_pitch_min(0.f);
+    c2->setlimit_pitch_max(90.f);
     sol->addChild(SecurityCam2);
 
         /////////////CAM3
-    Node* SecurityCam3 = s->make_node_camera(false,SCR_WIDTH , SCR_HEIGHT,0);
+    Node* SecurityCam3 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT,0);
     s->get_data(SecurityCam3)->set_pos(glm::vec3(17.25, 5.5 , 20.0));
     //s->get_data(SecurityCam3)->set_front(glm::normalize(s->get_data(player)->getpos() - s->get_data(SecurityCam3)->getpos()));
     //Helper::setViewtowardFront(s->get_data(SecurityCam3));
     Camera * c3 = static_cast<Camera*>( s->get_data(SecurityCam3));
     c3->setFOV(45.0);
+    c3->setlimit_yaw_min(-180.f);
+    c3->setlimit_yaw_max(180.f);
+    c3->setlimit_pitch_min(0.f);
+    c3->setlimit_pitch_max(90.f);
     sol->addChild(SecurityCam3);
 
     /////////////CAM4
-    Node* SecurityCam4 = s->make_node_camera(false,SCR_WIDTH , SCR_HEIGHT,0);
+    Node* SecurityCam4 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT,0);
     s->get_data(SecurityCam4)->set_pos(glm::vec3(0.75, 5.5 , 0.75));
     //s->get_data(SecurityCam4)->set_front(glm::normalize(s->get_data(player)->getpos() - s->get_data(SecurityCam4)->getpos()));
     //Helper::setViewtowardFront(s->get_data(SecurityCam4));
     Camera * c4 = static_cast<Camera*>( s->get_data(SecurityCam4));
     c4->setFOV(45.0);
+    c4->setlimit_yaw_min(-180.f);
+    c4->setlimit_yaw_max(180.f);
+    c4->setlimit_pitch_min(0.f);
+    c4->setlimit_pitch_max(90.f);
     sol->addChild(SecurityCam4);
 
 
@@ -178,12 +194,12 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
     Node* changeCam3_2= s->make_node_event(typeEvent::Previous_Camera,6.0,7.0, 3 ,0);
     s->rotatenode(changeCam3_2, 90.f, glm::vec3(1.0, 0.0, 0.0));
-    s->translatenode(changeCam3_2,glm::vec3(9.0, 3.0  ,9.95));
+    s->translatenode(changeCam3_2,glm::vec3(9.0, 3.0  ,10.05));
     sol->addChild(changeCam3_2);
 
     Node* changeCam2_3= s->make_node_event(typeEvent::Next_Camera,6.0,7.0,2 ,0);
     s->rotatenode(changeCam2_3, 90.f, glm::vec3(1.0, 0.0, 0.0));
-    s->translatenode(changeCam2_3,glm::vec3(9.0, 3.0 ,10.05));
+    s->translatenode(changeCam2_3,glm::vec3(9.0, 3.0 ,9.95));
     sol->addChild(changeCam2_3);
 
 
@@ -337,11 +353,11 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(chair2, glm::vec3(-2.0 , 0.0, -13.0));
 
     sol->addChild(chair2);
-
+*/
     Node* eventVictoire=s->make_node_event(typeEvent::Pickable,0);
      s->translatenode(eventVictoire, glm::vec3(9.0 , 0.0, -13.0));
     sol->addChild(eventVictoire);
-    */
+    
 
     s->initscene();
     s->calculateBoundingBoxRecursive(sol);
@@ -467,7 +483,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(npc)->setEvent(ev);
 
     sol->addChild(npc);
-
+/*
     ///////////////////// NPC bloque porte
     Node* npc2 = s->make_node_npc(0);
     s->get_data(npc2)->set_front(glm::vec3(-1,0.0,0.0));
@@ -477,32 +493,44 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(npc2)->setChampVision(CV);
     s->get_data(npc2)->set_color(glm::vec3(0.8f , 0.1f, 0.1f)); 
     sol->addChild(npc2);
-
+*/
     /////////////CAM1 position haut gauche
-    Node* SecurityCam1 = s->make_node_camera(false,SCR_WIDTH , SCR_HEIGHT,0);
+    Node* SecurityCam1 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT,0);
     s->get_data(SecurityCam1)->set_pos(glm::vec3(17.4 , 4.8 , -29.4 ));
     s->get_data(SecurityCam1)->set_front(glm::normalize(s->get_data(player)->getpos() - s->get_data(SecurityCam1)->getpos()));
     Helper::setViewtowardFront(s->get_data(SecurityCam1));
     Camera * c1 = static_cast<Camera*>( s->get_data(SecurityCam1));
+    c1->setlimit_yaw_min(-90.f);
+    c1->setlimit_yaw_max(0.f);
+    c1->setlimit_pitch_min(0.f);
+    c1->setlimit_pitch_max(90.f);
     c1->setFOV(45.0);
     sol->addChild(SecurityCam1);
 
     /////////////CAM2 position centre bas
-    Node* SecurityCam2 = s->make_node_camera(false,SCR_WIDTH , SCR_HEIGHT,0);
+    Node* SecurityCam2 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT,0);
     s->get_data(SecurityCam2)->set_pos(glm::vec3(-17.4 , 4.8 ,0.0));
     s->get_data(SecurityCam2)->set_front(glm::normalize(glm::vec3(0.f) - s->get_data(SecurityCam2)->getpos()));
     Helper::setViewtowardFront(s->get_data(SecurityCam2));
     Camera * c2 = static_cast<Camera*>( s->get_data(SecurityCam2));
     c2->setFOV(45.0);
+    c2->setlimit_yaw_min(-180.f);
+    c2->setlimit_yaw_max(180.f);
+    c2->setlimit_pitch_min(0.f);
+    c2->setlimit_pitch_max(90.f);
     sol->addChild(SecurityCam2);
     
     /////////////CAM3 position haut droit sur une cloiture
-    Node* SecurityCam3 = s->make_node_camera(false,SCR_WIDTH , SCR_HEIGHT,0);
+    Node* SecurityCam3 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT,0);
     s->get_data(SecurityCam3)->set_pos(glm::vec3(8.4 , 3.8 ,23.4));
     s->get_data(SecurityCam3)->set_front(glm::normalize(s->get_data(player)->getpos() - s->get_data(SecurityCam3)->getpos()));
     Helper::setViewtowardFront(s->get_data(SecurityCam3));
     Camera * c3 = static_cast<Camera*>( s->get_data(SecurityCam3));
     c3->setFOV(45.0);
+    c3->setlimit_yaw_min(-180.f);
+    c3->setlimit_yaw_max(180.f);
+    c3->setlimit_pitch_min(0.f);
+    c3->setlimit_pitch_max(90.f);
     sol->addChild(SecurityCam3);
 
     /////////////Obstacle boite milieu 
@@ -557,10 +585,20 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(cloison6,glm::vec3(8.5, 2.5   ,-9.5));
     sol->addChild(cloison6);
 
-    Node* cloison7= s->make_node_mur(2.5, 18.0, 0);
+    Node* cloison7= s->make_node_mur(2.5, 8.0, 0);
     s->rotatenode(cloison7, 90.f, glm::vec3(0.0, 0.0, 1.0));
-    s->translatenode(cloison7,glm::vec3(8.5, 4.5 ,0.5));
+    s->translatenode(cloison7,glm::vec3(8.5, 4.5 , 1.5));
     sol->addChild(cloison7);
+
+    Node* changeCam1_0b= s->make_node_event(typeEvent::Previous_Camera,7.0,8.0, 1 ,0);
+    s->rotatenode(changeCam1_0b, 90.f, glm::vec3(0.0, 0.0, 1.0));
+    s->translatenode(changeCam1_0b,glm::vec3(8.505, 2.5  ,1.5));
+    sol->addChild(changeCam1_0b);
+
+    Node* changeCam0_1b= s->make_node_event(typeEvent::Next_Camera,7.0,8.0, 0 ,0);
+    s->rotatenode(changeCam0_1b, 90.f, glm::vec3(0.0, 0.0, 1.0));
+    s->translatenode(changeCam0_1b,glm::vec3(8.495, 2.5  ,1.5));
+    sol->addChild(changeCam0_1b);
 
 
     Node* cloison8= s->make_node_mur(6.0, 8.0, 0);
@@ -575,12 +613,12 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
         Node* changeCam2_1= s->make_node_event(typeEvent::Previous_Camera,7.0,8.0, 2 ,0);
     s->rotatenode(changeCam2_1, 90.f, glm::vec3(0.0, 0.0, 1.0));
-    s->translatenode(changeCam2_1,glm::vec3(8.45, 3.0  ,20.f));
+    s->translatenode(changeCam2_1,glm::vec3(8.495, 3.0  ,20.f));
     sol->addChild(changeCam2_1);
 
     Node* changeCam1_2= s->make_node_event(typeEvent::Next_Camera,7.0,8.0, 1 ,0);
     s->rotatenode(changeCam1_2, 90.f, glm::vec3(0.0, 0.0, 1.0));
-    s->translatenode(changeCam1_2,glm::vec3(8.55, 3.0 ,20.f));
+    s->translatenode(changeCam1_2,glm::vec3(8.505, 3.0 ,20.f));
     sol->addChild(changeCam1_2);
 
     s->get_data(cloison1)->set_color(glm::vec3(1.f)); 

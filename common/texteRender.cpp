@@ -88,7 +88,7 @@ void RenderText(GLuint programID, GLuint VAO, GLuint VBO, std::map<GLchar, Chara
 
 
 
-void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam_i, unsigned int scene_i, unsigned int gameState) {
+void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam_i, unsigned int scene_i, int gameState) {
 
     // Rendu du texteRender
     // Dans cet exemple, affichez l'heure en bas à droite
@@ -99,7 +99,7 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam
 
 
     float textScale = 0.5f;
-    float textX = SCREEN_WIDTH / 2.0 - sizeof(buffer)/2.0; // 
+    float textX = SCREEN_WIDTH / 2.0 - sizeof(buffer)/2.0 -25; // 
     float textY = 50.0f; // Décaler de 50 pixels depuis le bas
     
 
@@ -127,17 +127,23 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam
     GLint projectionLoc = glGetUniformLocation(programIDTXT, "projection");
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, &projection[0][0]);
 
-    if(gameState == 0 || gameState == 1){
+    if(gameState <= 1 ){
         RenderText(programIDTXT, VAO, VBO, Characters, buffer, textX, textY, textScale, color_text, color_contour,1.0f);
         RenderText(programIDTXT, VAO, VBO, Characters, "CAM  #"+std::to_string(cam_i+1)+" : ROOM " + std::to_string(scene_i), 100.0, SCREEN_HEIGHT - 100.0, 1.f, color_text, color_contour,1.0f);
         RenderText(programIDTXT, VAO, VBO, Characters, "REC", SCREEN_WIDTH -200.0, SCREEN_HEIGHT - 100.0, 1.f, color_rec, color_contour,1.0f);
+        
+    }
+    if (gameState < 0){
+        RenderText(programIDTXT, VAO, VBO, Characters, "PAUSE", SCREEN_WIDTH / 2.0 -50  , SCREEN_HEIGHT/2.0  , 1.f, glm::vec3(0.2,0.2,0.8), color_contour,1.0f);
     }
     else if(gameState == 2){
-        RenderText(programIDTXT, VAO, VBO, Characters, "GAMEOVER", SCREEN_WIDTH / 2.0 - 100  , SCREEN_HEIGHT/2.0  , 2.f, color_rec, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "GAMEOVER", SCREEN_WIDTH / 2.0 -50  , SCREEN_HEIGHT/2.0  , 1.f, color_rec, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "Press R to reset", SCREEN_WIDTH / 2.0 -75  , SCREEN_HEIGHT/2.0 - 50  , 0.8f, color_rec, color_contour,1.0f);
     }
     else if(gameState == 3){
-        RenderText(programIDTXT, VAO, VBO, Characters, "Victory", SCREEN_WIDTH / 2.0  -100  , SCREEN_HEIGHT/2.0  , 2.f, color_V, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "Victory", SCREEN_WIDTH / 2.0  -50  , SCREEN_HEIGHT/2.0  , 1.f, color_V, color_contour,1.0f);
     }
+    
 
 
     // Désactiver le programme de shaders
