@@ -16,7 +16,7 @@ protected:
     bool is_event=false;
     bool is_falling=false;
     bool is_directional=false;
-    
+    bool is_light_on = false;
     
     
     
@@ -71,4 +71,8 @@ public:
     void setIsLightDirectional(bool value){is_directional = value;}
     
     bool getIsLightDirectional() const { return is_directional;}
+    
+    void setIsLightOn(bool value){is_light_on = value;}
+    
+    bool getIsLightOn() const { return is_light_on;}
 };

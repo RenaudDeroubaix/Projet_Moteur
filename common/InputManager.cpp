@@ -115,6 +115,8 @@ void InputManager::Input_SecurityCam(GameObject * player , float limit_yaw , flo
     GameObject* c = static_cast<GameObject*>(current_cam);
 
     player->set_front(c->get_front());
+    
+    
 }
 
 void InputManager::Input_GameObject(GameObject * go , float deltaTime)
@@ -208,7 +210,13 @@ void InputManager::Input_ViewMode(Scene & s, GameObject* player)
         s.reset();      
     } 
 }
-
+bool InputManager::Input_light_on_off(){
+    if (isKeyPressed(GLFW_KEY_E))
+    {
+        return true;
+    }
+    return false;
+}
 void InputManager::Input_GamePlay(Scene & s , GameObject* player, float deltaTime )
 {
     Input_ViewMode(s,player);

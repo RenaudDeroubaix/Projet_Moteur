@@ -10,6 +10,7 @@ uniform vec3 light_col[20];
 uniform vec3 light_dir[20];
 uniform int is_directional[20];
 uniform float radius[20];
+uniform int is_on[20];
 
 
 uniform float shininess;
@@ -29,6 +30,7 @@ void main(){
     
     vec3 L;
     for (int i = 0 ; i < numberOfLight; i++){
+    if (is_on[i] == 1 ){
         float specular=0.0;
         float diffuse
         =0.0;
@@ -52,17 +54,19 @@ void main(){
             L = normalize(L);
             if (distL < 1) 
             {  
-                diffuse = smoothstep( distL , 1  , max(dot(o_normal_worldspace.xyz, L) , 0.f));
+                diffuse = smoothstep(distL  , distL+1  , max(dot(o_normal_worldspace.xyz, L), 0.f) )  + smoothstep ( distL  , distL+1 ,  max(dot(o_normal_worldspace.xyz, - normalize (light_dir[i]) ), 0.f) )  ;
+                
                 if ( diffuse > 0){
                     vue = normalize((-o_position_screenspace.xyz));
                     hwd = normalize( L  + vue);
-                    anglespec =  smoothstep( distL , 1 , max(dot( hwd , o_normal_worldspace.xyz), 0)) ;
-                    specular =  pow(anglespec, shininess) * 0.5;
+                    anglespec =  smoothstep(distL + 0.8 , distL+1 , max(dot( hwd , o_normal_worldspace.xyz), 0)) ;
+                    specular =  pow(anglespec, shininess) ;
                 }
             }
                      
         }
         radiance += light_col[i] *(diffuse + specular + ambiante ); 
+        }
     }
     
     o_color =vec4(mesh_color* color_tex.xyz * radiance  , 1.f);
