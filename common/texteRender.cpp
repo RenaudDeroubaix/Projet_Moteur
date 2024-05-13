@@ -88,18 +88,18 @@ void RenderText(GLuint programID, GLuint VAO, GLuint VBO, std::map<GLchar, Chara
 
 
 
-void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam_i, unsigned int scene_i, int gameState) {
+void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam_i, unsigned int scene_i, int gameState, int fps) {
 
     // Rendu du texteRender
     // Dans cet exemple, affichez l'heure en bas à droite
     time_t t = time(0);
     struct tm *now = localtime(&t);
     char buffer[30];
-    strftime(buffer, sizeof(buffer), "%I:%M:%S %p", now);
+    strftime(buffer, sizeof(buffer), "%I:%M:%S %p - %d/%m/%Y", now);
 
 
     float textScale = 0.5f;
-    float textX = SCREEN_WIDTH / 2.0 - sizeof(buffer)/2.0 -25; // 
+    float textX = SCREEN_WIDTH / 2.0 - sizeof(buffer)/2.0 -125 ; // 
     float textY = 50.0f; // Décaler de 50 pixels depuis le bas
     
 
@@ -131,6 +131,10 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam
         RenderText(programIDTXT, VAO, VBO, Characters, buffer, textX, textY, textScale, color_text, color_contour,1.0f);
         RenderText(programIDTXT, VAO, VBO, Characters, "CAM  #"+std::to_string(cam_i+1)+" : ROOM " + std::to_string(scene_i), 100.0, SCREEN_HEIGHT - 100.0, 1.f, color_text, color_contour,1.0f);
         RenderText(programIDTXT, VAO, VBO, Characters, "REC", SCREEN_WIDTH -200.0, SCREEN_HEIGHT - 100.0, 1.f, color_rec, color_contour,1.0f);
+         // Affichage de la taille de l'écran
+        RenderText(programIDTXT, VAO, VBO, Characters, std::to_string(SCREEN_WIDTH) + "x" + std::to_string(SCREEN_HEIGHT), 100.0, textY, textScale, color_text, color_contour,1.0f);
+        // Affichage du nombre de FPS
+        RenderText(programIDTXT, VAO, VBO, Characters, "FPS: " + std::to_string(fps), SCREEN_WIDTH - 200.0, textY, textScale, color_text, color_contour,1.0f);
         
     }
     if (gameState < 0){
