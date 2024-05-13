@@ -49,6 +49,7 @@ protected:
     std::vector<unsigned short> indices;
     
     glm::vec3 pos = glm::vec3(0.f);
+    glm::vec3 posTminus1 = glm::vec3(0.f);
     glm::vec3 color = glm::vec3();
     float shininess = 16.f;
     glm::vec3 vitesse = glm::vec3(0.f);
@@ -104,6 +105,9 @@ public:
     glm::vec3 getcolor(){return color;}
     glm::vec3 getpos();
     glm::mat4 getmodelmat() const;
+
+    void setOldPos(){posTminus1=glm::vec3(modelmat[3][0] ,modelmat[3][1], modelmat[3][2]);}
+    glm::vec3 getOldPos(){return posTminus1;}
     
     void setmodelmat(glm::mat4 m){modelmat = m;}
 

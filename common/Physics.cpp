@@ -78,7 +78,7 @@ void Physics::applyCollision(GameObject* go, std::vector<Node*>& nodelist, float
             distanceToCollisionz = fabs(distanceToCollisionz);
 
             if(v.x !=0 && collisionAxe.x && distanceToCollisionx < distanceToCollisiony && distanceToCollisionx < distanceToCollisionz){
-                sens = go->getpos().x < otherGO->getpos().x ? -1.0 : 1.0;
+                sens = go->getOldPos().x < otherGO->getpos().x ? -1.0 : 1.0;
                 go->settranslate(glm::vec3(distanceToCollisionx * sens,0.0,0.0));
                 if (go->getgameObjectInfo().getIsFalling() ){v.x=-v.x;} else v.x=0.0;
                 //std::cout<<sens<<std::endl;
@@ -86,14 +86,14 @@ void Physics::applyCollision(GameObject* go, std::vector<Node*>& nodelist, float
                 //std::cout<<otherGO->getpos().x<<std::endl;
             }
             else if(v.y != 0 && collisionAxe.y && distanceToCollisiony < distanceToCollisionx && distanceToCollisiony < distanceToCollisionz){
-                sens = go->getpos().y < otherGO->getpos().y ? -1.0 : 1.0;
+                sens = go->getOldPos().y < otherGO->getpos().y ? -1.0 : 1.0;
                 go->settranslate(glm::vec3(0.0,distanceToCollisiony * sens,0.0));
                 v.y=0.0;
                 go->getgameObjectInfo().setIsFalling(false);
                 //std::cout<<sens<<std::endl;
             } 
             else if(v.z != 0 &&collisionAxe.z && distanceToCollisionz < distanceToCollisiony && distanceToCollisionz < distanceToCollisionx){
-                sens = go->getpos().z < otherGO->getpos().z ? -1.0 : 1.0;
+                sens = go->getOldPos().z < otherGO->getpos().z ? -1.0 : 1.0;
                 go->settranslate(glm::vec3(0.0,0.0,distanceToCollisionz * sens));
                 if (go->getgameObjectInfo().getIsFalling() ){v.z=-v.z;} else v.z=0.0;
                 //std::cout<<sens<<std::endl;

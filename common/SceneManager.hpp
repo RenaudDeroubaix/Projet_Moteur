@@ -141,7 +141,7 @@ public:
             if (cubelight->getgameObjectInfo().getIsRendered() and cubelight->in_champ_de_vision(camera) and I_M.Input_light_on_off())
                 
             {
-                std::cout<< "ici"<<std::endl;
+                //std::cout<< "ici"<<std::endl;
                 GameObject * l = light->getDescendantsData()[1];
                 
                 l->getgameObjectInfo().setIsLightOn(!l->getgameObjectInfo().getIsLightOn());

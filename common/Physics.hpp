@@ -12,6 +12,7 @@ public:
         return masse * gravity;
     }
     void applyVitesse(GameObject* go){
+        go->setOldPos();
         go->setVitesse(go->getVitesse());
         // float vitesseMax = go->getscale() * 4.0;
         // vitesse.x = vitesse.x > vitesseMax ? vitesseMax : vitesse.x < -vitesseMax ? -vitesseMax : vitesse.x; 
