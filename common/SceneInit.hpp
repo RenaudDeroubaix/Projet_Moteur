@@ -338,7 +338,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     sol->addChild(npc7);
 
         /////////////Mesh
-        /*
+        
     Node* chair1 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
     s->get_data(chair1)->set_color(glm::vec3(0.8f , 0.8f, 0.1f)); 
     float chairScale=4.0;
@@ -355,7 +355,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(chair2, glm::vec3(-2.0 , 0.0, -13.0));
 
     sol->addChild(chair2);
-*/
+
     Node* eventVictoire=s->make_node_event(typeEvent::Pickable,0);
      s->translatenode(eventVictoire, glm::vec3(9.0 , 0.0, -13.0));
     sol->addChild(eventVictoire);
@@ -542,6 +542,8 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->scalenode(obstacle1 ,  glm::vec3(obstacle1Scale/2.0 , obstacle1Scale , obstacle1Scale));
     s->translatenode(obstacle1, glm::vec3(-6.0 , obstacle1Scale/2.0, 16.0));
     sol->addChild(obstacle1);
+  
+    
 
   //  Node* obstacle2 = s->make_node_cube(0);
   //  s->get_data(obstacle2)->set_color(glm::vec3(0.8f , 0.8f, 0.1f)); 
@@ -613,7 +615,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(cloison9,glm::vec3(8.5, 4.5 ,20.0));
     sol->addChild(cloison9);
 
-        Node* changeCam2_1= s->make_node_event(typeEvent::Previous_Camera,7.0,8.0, 2 ,0);
+    Node* changeCam2_1= s->make_node_event(typeEvent::Previous_Camera,7.0,8.0, 2 ,0);
     s->rotatenode(changeCam2_1, 90.f, glm::vec3(0.0, 0.0, 1.0));
     s->translatenode(changeCam2_1,glm::vec3(8.495, 3.0  ,20.f));
     sol->addChild(changeCam2_1);
