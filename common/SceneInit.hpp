@@ -97,8 +97,8 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     //Helper::setViewtowardFront(s->get_data(SecurityCam2));
     Camera * c2 = static_cast<Camera*>( s->get_data(SecurityCam2));
     c2->setFOV(45.0);
-    c2->setlimit_yaw_min(-180.f);
-    c2->setlimit_yaw_max(180.f);
+    c2->setlimit_yaw_min(20.f);
+    c2->setlimit_yaw_max(160.f);
     c2->setlimit_pitch_min(0.f);
     c2->setlimit_pitch_max(90.f);
     sol->addChild(SecurityCam2);
@@ -110,8 +110,8 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     //Helper::setViewtowardFront(s->get_data(SecurityCam3));
     Camera * c3 = static_cast<Camera*>( s->get_data(SecurityCam3));
     c3->setFOV(45.0);
-    c3->setlimit_yaw_min(-180.f);
-    c3->setlimit_yaw_max(180.f);
+    c3->setlimit_yaw_min(-160.f);
+    c3->setlimit_yaw_max(-20.f);
     c3->setlimit_pitch_min(0.f);
     c3->setlimit_pitch_max(90.f);
     sol->addChild(SecurityCam3);
@@ -123,8 +123,8 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     //Helper::setViewtowardFront(s->get_data(SecurityCam4));
     Camera * c4 = static_cast<Camera*>( s->get_data(SecurityCam4));
     c4->setFOV(45.0);
-    c4->setlimit_yaw_min(-180.f);
-    c4->setlimit_yaw_max(180.f);
+    c4->setlimit_yaw_min(20.f);
+    c4->setlimit_yaw_max(160.f);
     c4->setlimit_pitch_min(0.f);
     c4->setlimit_pitch_max(90.f);
     sol->addChild(SecurityCam4);
@@ -516,8 +516,8 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     Helper::setViewtowardFront(s->get_data(SecurityCam2));
     Camera * c2 = static_cast<Camera*>( s->get_data(SecurityCam2));
     c2->setFOV(45.0);
-    c2->setlimit_yaw_min(-180.f);
-    c2->setlimit_yaw_max(180.f);
+    c2->setlimit_yaw_min(20.f);
+    c2->setlimit_yaw_max(160.f);
     c2->setlimit_pitch_min(0.f);
     c2->setlimit_pitch_max(90.f);
     sol->addChild(SecurityCam2);
