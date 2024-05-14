@@ -337,7 +337,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     sol->addChild(npc7);
 
         /////////////Mesh
-        /*
+        
     Node* chair1 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
     s->get_data(chair1)->set_color(glm::vec3(0.8f , 0.8f, 0.1f)); 
     float chairScale=4.0;
@@ -354,7 +354,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(chair2, glm::vec3(-2.0 , 0.0, -13.0));
 
     sol->addChild(chair2);
-*/
+
     Node* eventVictoire=s->make_node_event(typeEvent::Pickable,0);
      s->translatenode(eventVictoire, glm::vec3(9.0 , 0.0, -13.0));
     sol->addChild(eventVictoire);
