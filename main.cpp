@@ -132,26 +132,26 @@ int main( void )
     GLuint programIDHUD = LoadShaders( "../src/shaders/vertex_text.glsl" , "../src/shaders/frag_text.glsl");
     texteRender hud(programIDHUD);
     programID_list.push_back(progID);
-    Scene s;
-    s.setprogIdList(programID_list);
-    SM.addSceneToList(&s);
+     Scene*  s = new Scene();
+    s->setprogIdList(programID_list);
+    SM.addSceneToList(s);
     SM.initScene();
     Physics p;
 
-    Scene s2;
-    s2.setprogIdList(programID_list);
-    SM.addSceneToList(&s2);
+    Scene*  s2 = new Scene();
+    s2->setprogIdList(programID_list);
+    SM.addSceneToList(s2);
  
     double lastTime = glfwGetTime();
     int nbFrames = 0;
-    I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene().get_camera_list()[0]);
+    I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene()->get_camera_list()[0]);
     //glfwSwapInterval(0); //pour uncap les fps
 
     do{ 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //std::cout<<"test"<<std::endl;
-        Scene& currentScene=SM.getCurrentScene();
-        SM.hasEventHappened(currentScene.getNodePlayer());
+        Scene * currentScene = SM.getCurrentScene();
+        SM.hasEventHappened(currentScene->getNodePlayer());
         //std::cout << &currentScene << std::endl;
         float currentFrame = glfwGetTime();
         deltaTimeRendu = currentFrame - lastFrame;
@@ -160,24 +160,26 @@ int main( void )
 
     
        
-        I_M.Input_GamePlay(currentScene , currentScene.getNodePlayer()->getData(), deltaTimeRendu);
-        if(currentScene.get_reset_s()){
-            SM.resetCurrentScene();
-            currentScene=SM.getCurrentScene();
+        I_M.Input_GamePlay(*currentScene , currentScene->getNodePlayer()->getData(), deltaTimeRendu);
+
+        if(currentScene->get_reset_s()){
+            SM.resetGame(programID_list);
+            //std::cout << currentScene << (SM.getCurrentScene()) << std::endl;
+            currentScene = SM.getCurrentScene();
             //std::cout << SM.getScene_i() << std::endl;
-            I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene().get_camera_list()[0]);
+            I_M.current_cam = static_cast<Camera*>(SM.getCurrentScene()->get_camera_list()[0]);
         }
         if(SM.getGameState() != 2){
-            if(!currentScene.get_pause_s()){
+            if(!currentScene->get_pause_s()){
                 SM.unpause();
-                p.applyForce(currentScene , deltaTimeRendu);
-                SM.DetecterParNPC(currentScene.getNodePlayer()->getData() , deltaTimeRendu); 
+                p.applyForce(*currentScene , deltaTimeRendu);
+                SM.DetecterParNPC(currentScene->getNodePlayer()->getData() , deltaTimeRendu); 
                 SM.set_light_on_off( static_cast<GameObject*>(I_M.current_cam));
                 
             }
             else{SM.pause();}
         }
-        currentScene.drawscene(I_M.current_cam , currentScene.get_node_list()[0]);
+        currentScene->drawscene(I_M.current_cam , currentScene->get_node_list()[0]);
         
 
         GLint oldVAO;
@@ -200,7 +202,7 @@ int main( void )
     ma_device_uninit(&device);
     ma_decoder_uninit(&decoder);
     
-    s.deletescene();
+    SM.deleteAllScene();
     
     glfwTerminate();
     return 0;

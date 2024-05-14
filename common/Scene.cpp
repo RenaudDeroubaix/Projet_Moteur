@@ -257,34 +257,19 @@ void Scene::deletescene()
 {   
     for(Node * n : node_list){
         GameObject * go = n->getData();
-        if (go->getgameObjectInfo().getIsRendered()){
-            glDeleteProgram(go->getprogID());
-            go->deleteobject();
-        }
-    }
-    node_list.clear();
-    camera_list.clear();
-    event_list.clear();
-    npc_list.clear();
-    programID_list.clear();
-    light_list.clear();
-    obstacle_list.clear();
-}
-void Scene::resetscene()
-{   
-    for(Node * n : node_list){
-        GameObject * go = n->getData();
         go->deleteobject();
-        
+        delete(n);
     }
     node_list.clear();
     camera_list.clear();
     event_list.clear();
     npc_list.clear();
+    obstacle_list.clear();
     programID_list.clear();
     light_list.clear();
-    obstacle_list.clear();
+   
 }
+
 
 // Fonction récursive pour calculer les boîtes englobantes des enfants d'un nœud
 void Scene::calculateBoundingBoxRecursive(Node* node) {

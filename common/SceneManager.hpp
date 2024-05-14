@@ -23,12 +23,12 @@ public:
     SceneManager(){scene_i=0;}
 
     void changeSceneAndTP(Node* node, Event ev ){
-        std::cout << scene_i <<std::endl;
+        std::cout << s.size() <<std::endl;
         s[scene_i]->get_node_list()[0]->removeChild(node);
         s[scene_i]->removeNodeFromNodeList(node);
         ev.get_typeEvent()==typeEvent::TP_Scene_Forward ? scene_i++ : ev.get_typeEvent()==typeEvent::TP_Scene_Backward ? scene_i-- : scene_i ;
         node->getData()->set_pos(ev.getPos());
-        std::cout << scene_i <<std::endl;
+        //std::cout << scene_i <<std::endl;
     }
    
    void event(Node* node, Event ev){
@@ -51,6 +51,7 @@ public:
             }
         }
         else if(ev.get_typeEvent()==typeEvent::TP_Scene_Forward || ev.get_typeEvent()==typeEvent::TP_Scene_Backward ){
+            std::cout << &ev<<std::endl;
             changeSceneAndTP(node,ev);
             if(scene_i >= s.size() || scene_i==-1){
                 scene_i=0;
@@ -226,8 +227,8 @@ public:
    unsigned int getScene_i(){return scene_i;}
     std::vector<Scene* >& getSceneList(){return s;}
    void addSceneToList(Scene* scene){s.push_back(scene);}
-   Scene& getCurrentScene(){
-    return *s[scene_i];
+   Scene * getCurrentScene(){
+    return s[scene_i];
    }
    Node getRoot(){return root;}
 
@@ -252,6 +253,33 @@ public:
         }
     }
     void initScene(){makeScene();}
-    void resetCurrentScene(){s[scene_i]->set_reset_s(false);scene_i=0;makeScene_0(s[scene_i], SCR_WIDTH, SCR_HEIGHT);;gameState=1;}
+     void resetGame( std::vector<GLuint> & programID_list){
+        for (Scene * S : s){
+            S->deletescene();
+            delete(S);
+    
+        }
+        s.clear();
+
+        scene_i =0;
+        Scene*  s1 = new Scene();
+        s1->setprogIdList(programID_list);
+        addSceneToList(s1);
+        initScene();
+
+        Scene * s2 = new Scene();
+        s2->setprogIdList(programID_list);
+        addSceneToList(s2);
+
+        gameState=1;
+
+     }
+
+     void deleteAllScene(){
+        for (Scene * S : s){
+            S->deletescene();
+    
+        }
+     }
 
 };

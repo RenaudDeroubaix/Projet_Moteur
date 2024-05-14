@@ -2,7 +2,8 @@
 #include "common/Scene.hpp"
 
 void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
-    s->resetscene();
+    //s->resetscene();
+
     Node* sol = makeRoom(*s,36,53,7,glm::vec3(1.0f),0); 
 
 
@@ -297,7 +298,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
     Node* npc4 = s->make_node_npc(0);
     
-    s->get_data(npc4)->set_front(glm::vec3(-1.0,0.0,0.0));
+    s->get_data(npc4)->set_front(glm::vec3(1.0,0.0,0.0));
     s->scalenode(npc4 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
     s->translatenode(npc4, glm::vec3(2.5 , (npcScale*npcHauteur)/2.f  , 8.0));
     ChampVision CVnpc4 = ChampVision(s->get_data(npc4)->getpos() , s->get_data(npc4)->get_front() , 1.f * s->get_data(npc4)->getscale()  , 20.f * s->get_data(npc4)->getscale(), 1.f * s->get_data(npc4)->getscale()); // rayon , hauteur , rayon au sol
@@ -307,7 +308,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
     Node* npc5 = s->make_node_npc(0);
     
-    s->get_data(npc5)->set_front(glm::vec3(1.0,0.0,0.0));
+    s->get_data(npc5)->set_front(glm::vec3(-1.0,0.0,0.0));
     s->scalenode(npc5 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
     s->translatenode(npc5, glm::vec3(15.0 , (npcScale*npcHauteur)/2.f  , 6.0));
     ChampVision CVnpc5 = ChampVision(s->get_data(npc5)->getpos() , s->get_data(npc5)->get_front() , 1.f * s->get_data(npc5)->getscale()  , 20.f * s->get_data(npc5)->getscale(), 1.f * s->get_data(npc5)->getscale()); // rayon , hauteur , rayon au sol
@@ -369,7 +370,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
 
 void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
-    s->resetscene();
+    //s->resetscene();
 
     //////////////ROOM 
     Node* sol = makeRoom(*s,36,60,6,glm::vec3(1.0f),0);   
@@ -646,7 +647,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 }
 
 void makeScene_test(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
-    s->resetscene();
+    //s->resetscene();
 
     Node* sol = makeRoom(*s,50,50,10,glm::vec3(2.0f), 0);  
     float cubeScale=0.5;
@@ -669,7 +670,7 @@ void makeScene_test(Scene* s, const unsigned int SCR_WIDTH, const unsigned int S
 }
 
 void makeScene_test2(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
-    s->resetscene();
+    //s->resetscene();
     Node* sol = makeRoom(*s,50,25,10,glm::vec3(5.0f), 0);   
    
     Node* cube = s->make_node_cube(0);
