@@ -104,6 +104,9 @@ add_executable(TP
 	common/CubeInit.hpp
 	common/CubeInit.cpp
 	
+	common/PyramideInit.hpp
+	common/PyramideInit.cpp
+	
 	common/Room.hpp
 	
 	common/GOInfo.hpp

@@ -6,6 +6,7 @@
 #include "Mur.hpp"
 #include "lumiere.hpp"
 #include "CubeInit.hpp"
+#include "PyramideInit.hpp"
 #include "Camera.hpp"
 #include "Mesh.hpp"
 
