@@ -184,7 +184,7 @@ public:
             float distanceToCP = glm::length(posCP - posAI );
             glm::quat rotation;
             glm::vec3 lastfront;
-            std::cout<< distanceToCP<<std::endl;
+            //std::cout<< distanceToCP<<std::endl;
             if(distanceToCP < 0.6f) //si proche alors on regarde le checkpoint suivant
             {
                 lastfront = glm::normalize(glm::vec3(Player->getpos().x ,posAI.y, Player->getpos().z) - posAI); 

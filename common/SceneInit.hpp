@@ -64,8 +64,9 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
      //////////////PLAYER
      float playerScale=0.40;
-     /*
+     
     //Node* player = s->make_node_mesh("../src/maillages/Cubone/pkm.off",0);
+    /*
     Node* player = s->make_node_cube(0);
     s->setNodePlayer(player);
     s->get_data(player)->set_color(glm::vec3(0.1f , 0.1f, 1.f)); 
@@ -206,13 +207,14 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
 
     ////Cube obstacle
+ 
     Node* obstacle1 = s->make_node_cube(0);
     s->get_data(obstacle1)->set_color(glm::vec3(0.8f , 0.8f, 0.1f)); 
     s->scalenode(obstacle1 ,  glm::vec3(4.0, 1.5 , 10.0));
     s->translatenode(obstacle1, glm::vec3(-10.50 , 1.5/2.0, -13.0));
     sol->addChild(obstacle1);
 
-    Node* obstacle2 = s->make_node_cube(0);
+ /*   Node* obstacle2 = s->make_node_cube(0);
     s->get_data(obstacle2)->set_color(glm::vec3(0.8f , 0.8f, 0.1f)); 
     s->scalenode(obstacle2 ,  glm::vec3(2.50, 5.0 , 2.5));
     s->translatenode(obstacle2, glm::vec3(-15.5 , 5.0/2.0, 8.0));
@@ -222,7 +224,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(obstacle3)->set_color(glm::vec3(0.8f , 0.8f, 0.1f)); 
     s->scalenode(obstacle3 ,  glm::vec3(2.50, 5.0 , 2.50));
     s->translatenode(obstacle3, glm::vec3(-2.5 , 5.0/2.0, 8.0));
-    sol->addChild(obstacle3);
+    sol->addChild(obstacle3);*/
 
     Node* obstacle4 = s->make_node_cube(0);
     s->get_data(obstacle4)->set_color(glm::vec3(0.8f , 0.8f, 0.1f)); 
@@ -244,7 +246,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     
     s->get_data(npc)->set_front(glm::vec3(.0,0.0,-1.0));
     s->scalenode(npc , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
-    s->translatenode(npc, glm::vec3(-5.0 , (npcScale*npcHauteur)/2.f  , -2.0));
+    s->translatenode(npc, glm::vec3(-5.0 , (npcScale*npcHauteur)/2.f  , -3.0));
     ChampVision CVnpc = ChampVision(s->get_data(npc)->getpos() , s->get_data(npc)->get_front() , 1.f * s->get_data(npc)->getscale()  , 60.f * s->get_data(npc)->getscale(), 1.f * s->get_data(npc)->getscale()); // rayon , hauteur , rayon au sol
     s->get_data(npc)->setChampVision(CVnpc);
     s->get_data(npc)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
@@ -254,7 +256,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     cp_vec.push_back(s->get_data(npc)->getpos());
     cp_vec.push_back(glm::vec3(-5.0 , (npcScale*npcHauteur)/2.f, -21.0));
     cp_vec.push_back(glm::vec3(-16.0 , (npcScale*npcHauteur)/2.f, -21.0));
-    cp_vec.push_back(glm::vec3(-16.0 , (npcScale*npcHauteur)/2.f, -2.0));
+    cp_vec.push_back(glm::vec3(-16.0 , (npcScale*npcHauteur)/2.f, -3.0));
     ev.setCheckpoint(cp_vec);
     s->get_data(npc)->setEvent(ev);
 
@@ -355,6 +357,132 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->translatenode(chair2, glm::vec3(-2.0 , 0.0, -13.0));
 
     sol->addChild(chair2);
+
+    Node* plant = s->make_node_mesh("../src/maillages/House_plant/houseplant.off",0);
+    s->get_data(plant)->set_color(glm::vec3(0.4f , 0.8f, 0.3f)); 
+    s->scalenode(plant ,  glm::vec3(0.6));
+    s->translatenode(plant, glm::vec3(-1.2 , 0.0, -18.0));
+    sol->addChild(plant);
+
+    Node* plant2 = s->make_node_mesh("../src/maillages/House_plant/houseplant.off",0);
+    s->get_data(plant2)->set_color(glm::vec3(0.4f , 0.8f, 0.3f)); 
+    s->scalenode(plant2 ,  glm::vec3(0.6));
+    s->translatenode(plant2, glm::vec3(-1.2 , 0.0, -10.0));
+    sol->addChild(plant2);
+
+    Node* table = s->make_node_mesh("../src/maillages/Table/model.off",0);
+    s->get_data(table)->set_color(glm::vec3(88/255.f , 41/255.f, 0.f)); 
+    s->scalenode(table ,  glm::vec3(2.0));
+    //s->rotatenode(table, 90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->translatenode(table, glm::vec3(-13.50 , 1.5/2.0, -1.0));
+    sol->addChild(table);
+    
+    /*
+    Node* table2 = s->make_node_mesh("../src/maillages/Table/model.off",0);
+    s->get_data(table2)->set_color(glm::vec3(88/255.f , 41/255.f, 0.f)); 
+    s->scalenode(table2 ,  glm::vec3(2.0));
+    s->rotatenode(table2, 90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->translatenode(table2, glm::vec3(-11.50 , 1.5/2.0, -13.0));
+    sol->addChild(table2);*/
+
+     Node* chair3 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair3)->set_color(glm::vec3(0.8f , 0.4f, 0.1f)); 
+    s->rotatenode(chair3, 90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair3 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair3, glm::vec3(15.50 , 0.0, -15.0));
+
+    sol->addChild(chair3);
+
+     Node* chair4 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair4)->set_color(glm::vec3(0.7f , 0.3f, 0.1f)); 
+    s->rotatenode(chair4, -90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair4 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair4, glm::vec3(2.5 , 0.0, -12.0));
+
+    sol->addChild(chair4);
+
+     Node* chair5 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair5)->set_color(glm::vec3(0.8f , 0.3f, 0.3f)); 
+    s->rotatenode(chair5, 90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair5 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair5, glm::vec3(15.50 , 0.0, -12.0));
+
+    sol->addChild(chair5);
+
+    Node* chair6 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair6)->set_color(glm::vec3(0.8f , 0.5f, 0.3f)); 
+    s->rotatenode(chair6, 180.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair6 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair6, glm::vec3(11.0, 0.0, -17.0));
+
+    sol->addChild(chair6);
+
+    Node* chair7 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair7)->set_color(glm::vec3(0.4f , 0.5f, 0.3f)); 
+    s->rotatenode(chair7, 180.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair7 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair7, glm::vec3(7.0, 0.0, -17.0));
+
+    sol->addChild(chair7);
+
+    Node* chair8 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair8)->set_color(glm::vec3(0.5f , 0.1f, 0.3f)); 
+    s->rotatenode(chair8, 180.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair8 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair8, glm::vec3(3.0, 0.0, -17.0));
+
+    sol->addChild(chair8);
+
+    Node* plant3 = s->make_node_mesh("../src/maillages/House_plant/houseplant.off",0);
+    s->get_data(plant3)->set_color(glm::vec3(0.4f , 0.6f, 0.3f)); 
+    s->scalenode(plant3 ,  glm::vec3(0.6));
+    s->translatenode(plant3, glm::vec3(16.50 , 0.0, -17.50));
+    sol->addChild(plant3);
+
+    Node* plant4 = s->make_node_mesh("../src/maillages/House_plant/houseplant.off",0);
+    s->get_data(plant4)->set_color(glm::vec3(0.4f , 0.8f, 0.3f)); 
+    s->scalenode(plant4 ,  glm::vec3(0.6));
+    s->translatenode(plant4, glm::vec3(1.5 , 0.0, -17.50));
+    sol->addChild(plant4);
+
+    Node* plant5 = s->make_node_mesh("../src/maillages/House_plant/houseplant.off",0);
+    s->get_data(plant5)->set_color(glm::vec3(0.4f , 0.8f, 0.3f)); 
+    s->scalenode(plant5 ,  glm::vec3(0.6));
+    s->translatenode(plant5, glm::vec3(16.5 , 0.0, -8.0));
+    sol->addChild(plant5);
+
+    Node* chair9 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair9)->set_color(glm::vec3(0.5f , 0.9f, 0.7f)); 
+    s->scalenode(chair9 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair9, glm::vec3(-9.0, 0.0, 23.50));
+
+    sol->addChild(chair9);
+
+    Node* chair10 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair10)->set_color(glm::vec3(0.4f , 0.7f, 0.3f)); 
+    s->scalenode(chair10 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair10, glm::vec3(-14.0, 0.0, 23.50));
+
+    sol->addChild(chair10);
+
+    Node* chair11 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair11)->set_color(glm::vec3(0.47f , 0.4f, 0.93f)); 
+    s->scalenode(chair11 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair11, glm::vec3(-4.0, 0.0, 23.50));
+
+    sol->addChild(chair11);
+
+        Node* pilar = s->make_node_mesh("../src/maillages/Roman_Pillar/model.off",0);
+    s->get_data(pilar)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
+    s->scalenode(pilar ,  glm::vec3(4.0));
+    s->translatenode(pilar, glm::vec3(-15.5 , 2.0, 8.0));
+    sol->addChild(pilar);
+
+    Node* pilar2 = s->make_node_mesh("../src/maillages/Roman_Pillar/model.off",0);
+    s->get_data(pilar2)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
+    s->scalenode(pilar2 ,  glm::vec3(4.0));
+    s->translatenode(pilar2, glm::vec3(-2.5 , 2.0, 8.0));
+    sol->addChild(pilar2);
 
     Node* eventVictoire=s->make_node_event(typeEvent::Pickable,0);
      s->translatenode(eventVictoire, glm::vec3(9.0 , 0.0, -13.0));
@@ -496,6 +624,12 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(npc2)->set_color(glm::vec3(0.8f , 0.1f, 0.1f)); 
     sol->addChild(npc2);
 
+    Event ev2(typeEvent::NPC_Checkpoint);
+    std::vector<glm::vec3> cp_vec2;
+    cp_vec2.push_back(s->get_data(npc2)->getpos());
+    ev.setCheckpoint(cp_vec2);
+    s->get_data(npc2)->setEvent(ev2);
+
     /////////////CAM1 position haut gauche
     Node* SecurityCam1 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT,0);
     s->get_data(SecurityCam1)->set_pos(glm::vec3(17.4 , 4.8 , -29.4 ));
@@ -634,6 +768,156 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(cloison7)->set_color(glm::vec3(1.f)); 
     s->get_data(cloison8)->set_color(glm::vec3(1.f));
     s->get_data(cloison9)->set_color(glm::vec3(1.f)); 
+
+        Node* chair1 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair1)->set_color(glm::vec3(0.8f , 0.8f, 0.1f)); 
+    float chairScale=4.0;
+    s->rotatenode(chair1, -90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair1 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair1, glm::vec3(-15.50 , 0.0, -21.0));
+
+    sol->addChild(chair1);
+
+     Node* chair2 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair2)->set_color(glm::vec3(0.8f , 0.8f, 0.4f)); 
+    s->rotatenode(chair2, -90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair2 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair2, glm::vec3(-15.50 , 0.0, -25.0));
+
+    sol->addChild(chair2);
+
+    Node* plant = s->make_node_mesh("../src/maillages/House_plant/houseplant.off",0);
+    s->get_data(plant)->set_color(glm::vec3(0.4f , 0.8f, 0.3f)); 
+    s->scalenode(plant ,  glm::vec3(0.5));
+    s->translatenode(plant, glm::vec3(-16 , 0.0, -28.0));
+    sol->addChild(plant);
+
+    Node* plant2 = s->make_node_mesh("../src/maillages/House_plant/houseplant.off",0);
+    s->get_data(plant2)->set_color(glm::vec3(0.4f , 0.8f, 0.3f)); 
+    s->scalenode(plant2 ,  glm::vec3(0.5));
+    s->translatenode(plant2, glm::vec3(-16 , 0.0, -20.0));
+    sol->addChild(plant2);
+
+    Node* table = s->make_node_mesh("../src/maillages/Table/model.off",0);
+    s->get_data(table)->set_color(glm::vec3(88/255.f , 41/255.f, 0.f)); 
+    s->scalenode(table ,  glm::vec3(2.0));
+    s->rotatenode(table, 90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->translatenode(table, glm::vec3(-1, 1.5/2.0, -6.0));
+    sol->addChild(table);
+    
+    
+    Node* table2 = s->make_node_mesh("../src/maillages/Table/model.off",0);
+    s->get_data(table2)->set_color(glm::vec3(88/255.f , 41/255.f, 0.f)); 
+    s->scalenode(table2 ,  glm::vec3(2.0));
+    s->rotatenode(table2, 90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->translatenode(table2, glm::vec3(-4, 1.5/2.0, -6.0));
+    sol->addChild(table2);
+
+     Node* chair3 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair3)->set_color(glm::vec3(0.8f , 0.4f, 0.1f)); 
+    s->rotatenode(chair3, 90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair3 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair3, glm::vec3(15.50 , 0.0, -15.0));
+
+    sol->addChild(chair3);
+
+     Node* chair4 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair4)->set_color(glm::vec3(0.7f , 0.3f, 0.1f)); 
+    s->rotatenode(chair4, -90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair4 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair4, glm::vec3(-15.5 , 0.0, -12.0));
+
+    sol->addChild(chair4);
+
+     Node* chair5 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair5)->set_color(glm::vec3(0.8f , 0.3f, 0.3f)); 
+    s->rotatenode(chair5, 90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair5 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair5, glm::vec3(15.50 , 0.0, -12.0));
+
+    sol->addChild(chair5);
+
+    Node* chair6 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair6)->set_color(glm::vec3(0.8f , 0.5f, 0.3f)); 
+    s->rotatenode(chair6, 180.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair6 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair6, glm::vec3(3.0, 0.0, -16.0));
+
+    sol->addChild(chair6);
+
+    Node* lounge = s->make_node_mesh("../src/maillages/Lounge_Sofa/loungesofaottoman.off",0);
+    s->get_data(lounge)->set_color(glm::vec3(0.8f , 0.5f, 0.3f)); 
+    s->scalenode(lounge ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(lounge, glm::vec3(6.0, 0.0, -13.0));
+
+    sol->addChild(lounge);
+
+    Node* chair7 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair7)->set_color(glm::vec3(0.4f , 0.5f, 0.3f)); 
+    s->rotatenode(chair7, 180.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair7 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair7, glm::vec3(0.0, 0.0, -16.0));
+
+    sol->addChild(chair7);
+
+    Node* chair8 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair8)->set_color(glm::vec3(0.5f , 0.1f, 0.3f)); 
+    s->rotatenode(chair8, 180.f, glm::vec3(0.0, 1.0, 0.0));
+    s->scalenode(chair8 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair8, glm::vec3(-3, 0.0, -16.0));
+
+    sol->addChild(chair8);
+
+    Node* plant3 = s->make_node_mesh("../src/maillages/House_plant/houseplant.off",0);
+    s->get_data(plant3)->set_color(glm::vec3(0.4f , 0.6f, 0.3f)); 
+    s->scalenode(plant3 ,  glm::vec3(0.6));
+    s->translatenode(plant3, glm::vec3(6.5 , 0.0, -16.50));
+    sol->addChild(plant3);
+
+    Node* plant4 = s->make_node_mesh("../src/maillages/House_plant/houseplant.off",0);
+    s->get_data(plant4)->set_color(glm::vec3(0.4f , 0.8f, 0.3f)); 
+    s->scalenode(plant4 ,  glm::vec3(0.6));
+    s->translatenode(plant4, glm::vec3(-5 , 0.0, -16.50));
+    sol->addChild(plant4);
+
+    Node* plant5 = s->make_node_mesh("../src/maillages/House_plant/houseplant.off",0);
+    s->get_data(plant5)->set_color(glm::vec3(0.4f , 0.8f, 0.3f)); 
+    s->scalenode(plant5 ,  glm::vec3(0.6));
+    s->translatenode(plant5, glm::vec3(16.5 , 0.0, -8.0));
+    sol->addChild(plant5);
+
+    Node* chair9 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair9)->set_color(glm::vec3(0.5f , 0.9f, 0.7f)); 
+    s->scalenode(chair9 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair9, glm::vec3(-9.0, 0.0, 26.50));
+
+    sol->addChild(chair9);
+
+    Node* chair10 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair10)->set_color(glm::vec3(0.4f , 0.7f, 0.3f)); 
+    s->scalenode(chair10 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair10, glm::vec3(-14.0, 0.0, 26.50));
+
+    sol->addChild(chair10);
+
+    Node* chair11 = s->make_node_mesh("../src/maillages/Chair/chair.off",0);
+    s->get_data(chair11)->set_color(glm::vec3(0.47f , 0.4f, 0.93f)); 
+    s->scalenode(chair11 ,  glm::vec3(chairScale , chairScale , chairScale));
+    s->translatenode(chair11, glm::vec3(-4.0, 0.0, 26.50));
+
+    sol->addChild(chair11);
+
+        Node* pilar = s->make_node_mesh("../src/maillages/Roman_Pillar/model.off",0);
+    s->get_data(pilar)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
+    s->scalenode(pilar ,  glm::vec3(3.5));
+    s->translatenode(pilar, glm::vec3(-15.5 , 2.0, 8.0));
+    sol->addChild(pilar);
+
+    Node* pilar2 = s->make_node_mesh("../src/maillages/Roman_Pillar/model.off",0);
+    s->get_data(pilar2)->set_color(glm::vec3(0.8f , 0.8f, 0.8f)); 
+    s->scalenode(pilar2 ,  glm::vec3(3.50));
+    s->translatenode(pilar2, glm::vec3(4.0 , 2.0, 8.0));
+    sol->addChild(pilar2);
 
     float eventScale = 3.0;
     Node* eventPorte=s->make_node_event(typeEvent::TP_Scene_Forward,glm::vec3(17.f,playerScale/2.0,-23.f), 0);
