@@ -29,6 +29,28 @@ float Helper::interpolation(float value, InterpolationType type){
     if(type == InterpolationType::Exp) return std::pow(value , 2.718281828459);
     if(type == InterpolationType::Log) return std::log(value * 9 + 1);
 }
+bool Helper::computeBarycentre(glm::vec3 P , glm::vec3 A ,  glm::vec3 B , glm::vec3 C ) {
+    
+    glm::vec3 v0 = B - A, v1 = C - A, v2 = P - A;
+    float d00 = dot(v0, v0);
+    float d01 = dot(v0, v1);
+    float d11 = dot(v1, v1);
+    float d20 = dot(v2, v0);
+    float d21 = dot(v2, v1);
+    float denom = d00 * d11 - d01 * d01;
+    float v = (d11 * d20 - d01 * d21) / denom;
+    float w = (d00 * d21 - d01 * d20) / denom;
+    float u = 1.0f - v - w;
+    return u >= 0 && v >= 0 && w >= 0;
+    
+}
+
+glm::vec3 Helper::intersectionDroitePlan(glm::vec3 NPC ,glm::vec3 PLAYER ,glm::vec3 A, glm::vec3 B, glm::vec3 C) {
+    glm::vec3 NPCPLAYER = PLAYER - NPC;
+    glm::vec3 N = glm::normalize(glm::cross(B - A, C - A));
+    float t = dot(N, A - NPC) / dot(N, NPCPLAYER);
+    return NPC + t * NPCPLAYER;
+}
 
 
 glm::vec3 Helper::quatToEuler(glm::quat _quat)

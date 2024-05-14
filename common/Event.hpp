@@ -2,7 +2,7 @@
 #include "common/utils.hpp"
 
 
-typedef enum {NO_Event,TP_Scene_Forward, TP_Scene_Backward, NPC_Checkpoint, NPC_return_to_Checkpoint ,NPC_following_player, Next_Camera, Previous_Camera, Pickable} typeEvent;
+typedef enum {NO_Event,TP_Scene_Forward, TP_Scene_Backward, NPC_Checkpoint, NPC_return_to_Checkpoint ,NPC_looking_for_player,NPC_following_player, Next_Camera, Previous_Camera, Pickable} typeEvent;
 
 class Event {
 public:
@@ -21,6 +21,7 @@ public:
     Event( typeEvent event) :type_evenement(event) {}
     Event( typeEvent event, unsigned int num_cam) :type_evenement(event),CP_i(num_cam) {}
     glm::vec3 getPos(){return pos;}
+    void setposLastSeen(glm::vec3 p){pos = p;}
     typeEvent get_typeEvent();
     void set_typeEvent(typeEvent type){type_evenement = type;}
     void nextCP(){

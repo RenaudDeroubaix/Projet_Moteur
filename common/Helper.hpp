@@ -19,4 +19,6 @@ public:
     static void ProjectVectorOnPlan(const glm::vec3& v, const glm::vec3& n , glm::vec3 & proj);
 	static glm::vec3 quatToEuler(glm::quat _quat);
     static void setViewtowardFront(GameObject* go );
+    static bool computeBarycentre(glm::vec3 P , glm::vec3 A ,  glm::vec3 B , glm::vec3 C );
+    static glm::vec3 intersectionDroitePlan(glm::vec3 NPC ,glm::vec3 PLAYER ,glm::vec3 A, glm::vec3 B, glm::vec3 C);
 };
