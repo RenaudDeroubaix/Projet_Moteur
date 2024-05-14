@@ -140,6 +140,8 @@ Node* Scene::make_node_cube(unsigned int indice_programID)
     go->calculateBoundingBox();
     n->add_data(go);
     node_list.push_back(n);
+    obstacle_list.push_back(go);
+
     return node_list[node_list.size() - 1];
 }  
 
