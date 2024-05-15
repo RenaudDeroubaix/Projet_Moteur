@@ -23,7 +23,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     
     Node* lumiere2 = s->make_node_light(true,false, 0);
     sol->addChild(lumiere2);
-    s->setposnode(lumiere2 , glm::vec3(-10.5f , 4.5f , -14.f ));
+    s->setposnode(lumiere2 , glm::vec3(-10.5f , 2.0f , -14.f ));
     s->setcolornode(lumiere2 ,glm::vec3(0.3f , 1.f , 0.3f));  
 
     Node* lumiere4 = s->make_node_light(true,false, 0);
