@@ -23,7 +23,7 @@ public:
     SceneManager(){scene_i=0;}
 
     void changeSceneAndTP(Node* node, Event ev ){
-        std::cout << s.size() <<std::endl;
+       //std::cout << s.size() <<std::endl;
         s[scene_i]->get_node_list()[0]->removeChild(node);
         s[scene_i]->removeNodeFromNodeList(node);
         ev.get_typeEvent()==typeEvent::TP_Scene_Forward ? scene_i++ : ev.get_typeEvent()==typeEvent::TP_Scene_Backward ? scene_i-- : scene_i ;
@@ -51,7 +51,7 @@ public:
             }
         }
         else if(ev.get_typeEvent()==typeEvent::TP_Scene_Forward || ev.get_typeEvent()==typeEvent::TP_Scene_Backward ){
-            std::cout << &ev<<std::endl;
+           //std::cout << &ev<<std::endl;
             changeSceneAndTP(node,ev);
             if(scene_i >= s.size() || scene_i==-1){
                 scene_i=0;
@@ -77,25 +77,23 @@ public:
             }
         }    
    }
-   glm::vec3 ObjectInChampDeVision(GameObject * npc) // renvoie le pts le plus proche
+      GameObject* ObjectInChampDeVision(GameObject * npc , glm::vec3 & ptsmin ) // renvoie le pts le plus proche
    {
        Scene * scene = s[scene_i];
+       GameObject* closest_object;
        float min = FLT_MAX;
-       glm::vec3 ptsmin;
        for (GameObject* go :  scene->get_obstacle_list())
        {
+           
            glm::vec3 point;
-           
-           
-           
            if (go->in_champ_de_vision(npc , point))
            {
-               if (glm::length(npc->getpos() - point) < min ) ptsmin = point;
+               if (glm::length(npc->getpos() - point) < min ) {closest_object = go; ptsmin =  point;}
            }
        }
        
        
-       return ptsmin;
+       return closest_object;
    }
 
 
@@ -104,14 +102,15 @@ public:
     {
          glm::vec3 point_detection_player;
          if(Player->in_champ_de_vision(go , point_detection_player)){
+            //std::cout<< "le joueur est caché" << std::endl;
             bool b = true;
-            glm::vec3 pts_min = ObjectInChampDeVision(go);
-           
+            glm::vec3 pts_min;
+            GameObject* closest_object = ObjectInChampDeVision(go , pts_min);
             if (glm::length(pts_min - go->getpos()) < glm::length(point_detection_player - go->getpos())) 
             {
                 
-               glm::vec3 minPos = go->getMinBB();
-               glm::vec3 maxPos = go->getMaxBB();
+               glm::vec3 minPos = closest_object->getMinBB();
+               glm::vec3 maxPos = closest_object->getMaxBB();
                
                //tri 1
                glm::vec3 tri1A(minPos.x, minPos.y, minPos.z);
@@ -143,41 +142,33 @@ public:
 
                 //ajout d'un event npc pour qu'il aill a la position du joueur rapidement avant de retourner au checkpoint
             }
-            //std::cout<< dist_detected[0]<<std::endl;
             if (b){
-
+               //std::cout<< "je vois le joueur" << std::endl;
                 go->set_speed(0.07f);
                 go->getEvent().set_typeEvent(typeEvent::NPC_following_player);
                 glm::vec3 posAI = go->getpos();
+                go->getEvent().setposLastSeen(Player->getpos());
                 glm::vec3 posPlayer = Player->getpos();
-                glm::vec3 lastfront = glm::normalize(glm::vec3(posPlayer.x,posAI.y , posPlayer.z) - posAI);
-                glm::quat rotation =   RotationBetweenVectors(go->get_front() , lastfront);
+                glm::vec3 lastfront = glm::normalize(glm::vec3(posPlayer.x,posPlayer.y , posPlayer.z) - posAI);
+                glm::quat rotation =   LookAt( lastfront , go->get_up());
                 glm::vec3 eulerangle = Helper::quatToEuler(rotation);
                 go->setVitesse(go->get_front());
-                go->rotateeulerYaw(eulerangle);
+                go->setrotateeulerYaw(eulerangle);
                 go->set_front(lastfront);
                 go->getgameObjectInfo().setMovedRecently(true);
                 go->update_champ_de_vision();
                 
             }
-            if (go->getEvent().get_typeEvent() == NPC_following_player and !b)
-            {
-                go->getEvent().set_typeEvent(typeEvent::NPC_looking_for_player);
-                go->getEvent().setposLastSeen(Player->getpos());
-            }
+            //std::cout<< dist_detected[0]<<std::endl;
+        }
+        if (go->getEvent().get_typeEvent() == NPC_following_player)
+        {
+           //std::cout<< "je suis le joueur je vais a sa dernier position" << std::endl;
+            go->getEvent().set_typeEvent(typeEvent::NPC_looking_for_player);
             
-//             if (go->getEvent().get_typeEvent() == NPC_return_to_Checkpoint and !b)
-//             {
-//                 go->getEvent().set_typeEvent(typeEvent::NPC_looking_for_player);
-//                 go->getEvent().setposLastSeen(Player->getpos());
-//             }
-//             
-           
-            
-            //std::cout<< glm::to_string(rotation)<<std::endl;
-            //std::cout<< glm::to_string(go->getmodelmat())<<std::endl;
         }
         else if (go->getEvent().get_typeEvent() == typeEvent::NPC_looking_for_player){
+           //std::cout<< "je cherche le joueur" << std::endl;
             Event* ev = &go->getEvent();
             glm::vec3 posAI = go->getpos(); //pos actuel du npc
             glm::vec3 posCP = ev->getPos(); //pos de l'endroit ou il se dirige
@@ -185,20 +176,19 @@ public:
             glm::quat rotation;
             glm::vec3 lastfront;
             //std::cout<< distanceToCP<<std::endl;
-            if(distanceToCP < 0.6f) //si proche alors on regarde le checkpoint suivant
+            if(distanceToCP < 2.f) //si proche alors on regarde le checkpoint suivant
             {
-                lastfront = glm::normalize(glm::vec3(Player->getpos().x ,posAI.y, Player->getpos().z) - posAI); 
-                
+                lastfront = glm::normalize(glm::vec3(Player->getpos().x ,Player->getpos().y, Player->getpos().z) - posAI); 
                 go->getEvent().set_typeEvent(typeEvent::NPC_return_to_Checkpoint);
 
             }
             else{
-                lastfront = glm::normalize(glm::vec3(posCP.x, posAI.y , posCP.z) -  posAI); 
+                lastfront = glm::normalize(glm::vec3(posCP.x, posCP.y , posCP.z) -  posAI); 
             }
 
-             rotation = RotationBetweenVectors(go->get_front() , lastfront);
-             glm::vec3 eulerangle = Helper::quatToEuler(rotation);
-//             
+            rotation = LookAt( lastfront , go->get_up());
+            glm::vec3 eulerangle = Helper::quatToEuler(rotation);
+            go->setrotateeulerYaw(eulerangle); 
             go->set_front(lastfront);
             go->setVitesse(go->get_front());
             
@@ -209,6 +199,7 @@ public:
             
         }
         else if (go->getEvent().get_typeEvent() == typeEvent::NPC_return_to_Checkpoint){
+           //std::cout<< "je retourne au checkpoint" << std::endl;
              Event* ev = &go->getEvent();
              std::vector<glm::vec3> list_cp = ev->get_all_checkpoint();
              glm::vec3 posAI = go->getpos();
@@ -221,26 +212,25 @@ public:
              }
              ev->setCP_i(j);
              //std::cout<< distanceToCP <<  " :: " << ev->getCP_i()<< std::endl;
-
              go->getEvent().set_typeEvent( typeEvent::NPC_Checkpoint);
-             
-             go->set_front(go->get_front());
-             
+                        
         }
         
-        else if (go->getEvent().get_typeEvent() == typeEvent::NPC_Checkpoint and (&go->getEvent())->get_all_checkpoint().size() > 0){
+        else if (go->getEvent().get_typeEvent() == typeEvent::NPC_Checkpoint){
+           //std::cout<< "je fais mon parcour habituel" << std::endl;
             Event* ev = &go->getEvent();
             glm::vec3 posAI = go->getpos(); //pos actuel du npc
             glm::vec3 posCP = ev->get_posCP(); //pos de l'endroit ou il se dirige
             float distanceToCP = glm::length(posCP - posAI);
             glm::quat rotation;
             glm::vec3 lastfront;
-           if(distanceToCP < 0.5f) //si proche alors on regarde le checkpoint suivant
+            
+            if(distanceToCP < 1.0f) //si proche alors on regarde le checkpoint suivant
             {
+            
                 ev->nextCP();
                 posCP = ev->get_posCP();
                 lastfront = glm::normalize(glm::vec3(posCP.x, posAI.y , posCP.z) -  posAI); 
-                go->setVitesse(go->get_front());
 
                 
             }
@@ -248,17 +238,18 @@ public:
                 lastfront = glm::normalize(glm::vec3(posCP.x, posAI.y , posCP.z)-  posAI); 
             }
             
-            rotation = RotationBetweenVectors(go->get_front() , lastfront);
+            rotation = LookAt( lastfront , go->get_up());
 
             //std::cout<< glm::to_string(rotation) << std::endl;
             glm::vec3 eulerangle = Helper::quatToEuler(rotation);
-            go->rotateeulerYaw(eulerangle);
+            go->setrotateeulerYaw(eulerangle);
             go->set_front(lastfront);
             go->setVitesse(go->get_front());
             
             go->getgameObjectInfo().setMovedRecently(true);
             go->update_champ_de_vision();
         }
+      
         
        
         //else{go->reduceVitesse(deltatime * 0.05f);}
@@ -299,6 +290,7 @@ public:
             
         }
    }
+   
    
 
     int getGameState(){return gameState;}

@@ -1,7 +1,7 @@
 #pragma once
 #include "common/Scene.hpp"
 
-void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
+void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
     //s->resetscene();
 
     Node* sol = makeRoom(*s,36,53,7,glm::vec3(1.0f),0); 
@@ -66,7 +66,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
      float playerScale=0.40;
      
     //Node* player = s->make_node_mesh("../src/maillages/Cubone/pkm.off",0);
-    /*
+    
     Node* player = s->make_node_cube(0);
     s->setNodePlayer(player);
     s->get_data(player)->set_color(glm::vec3(0.1f , 0.1f, 1.f)); 
@@ -76,7 +76,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
    // s->get_data(player)->calculateBoundingBox();
     s->get_data(player)->setMasse(40.f);
     sol->addChild(player); 
-    */
+    
 
      /////////////CAM1 
     Node* SecurityCam1 = s->make_node_camera(true,SCR_WIDTH , SCR_HEIGHT,0);
@@ -240,14 +240,17 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
     ////////enemy
 
-    Node* npc = s->make_node_npc(0);
+    //Node* npc = s->make_node_npc(0);
+    float PlayerScale = 0.4;
     float npcScale=1.50;
     float npcHauteur=1.0;
-    
+    Node* npc =s->make_node_npc_mesh("../src/maillages/enemy_2legs.off",0);
+    s->scalenode(npc , glm::vec3(0.01));
+    s->translatenode(npc, glm::vec3(-5.0 , 0.0  , -3.0));
     s->get_data(npc)->set_front(glm::vec3(.0,0.0,-1.0));
-    s->scalenode(npc , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
-    s->translatenode(npc, glm::vec3(-5.0 , (npcScale*npcHauteur)/2.f  , -3.0));
-    ChampVision CVnpc = ChampVision(s->get_data(npc)->getpos() , s->get_data(npc)->get_front() , 1.f * s->get_data(npc)->getscale()  , 60.f * s->get_data(npc)->getscale(), 1.f * s->get_data(npc)->getscale()); // rayon , hauteur , rayon au sol
+    //s->scalenode(npc , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
+    //s->translatenode(npc, glm::vec3(-5.0 , (npcScale*npcHauteur)/2.f  , -3.0));
+    ChampVision CVnpc = ChampVision(s->get_data(npc)->getpos() , s->get_data(npc)->get_front() , 1.f * PlayerScale  , 60.f * PlayerScale, 1.f * PlayerScale); // rayon , hauteur , rayon au sol
     s->get_data(npc)->setChampVision(CVnpc);
     s->get_data(npc)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
 
@@ -262,12 +265,15 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
     sol->addChild(npc);
 
-    Node* npc2 = s->make_node_npc(0);
+    //Node* npc2 = s->make_node_npc(0);
     
+    Node* npc2 =s->make_node_npc_mesh("../src/maillages/enemy_2legs.off",0);
+    s->scalenode(npc2 , glm::vec3(0.01));
+    s->translatenode(npc2, glm::vec3(-2.50 , 0.0  , 5.0));
     s->get_data(npc2)->set_front(glm::vec3(-1.0,0.0,0.0));
-    s->scalenode(npc2 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
-    s->translatenode(npc2, glm::vec3(-2.5 , (npcScale*npcHauteur)/2.f  , 5.0));
-    ChampVision CVnpc2 = ChampVision(s->get_data(npc2)->getpos() , s->get_data(npc2)->get_front() , 1.f * s->get_data(npc2)->getscale()  , 20.f * s->get_data(npc2)->getscale(), 1.f * s->get_data(npc2)->getscale()); // rayon , hauteur , rayon au sol
+    //s->scalenode(npc2 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
+    //s->translatenode(npc2, glm::vec3(-2.5 , (npcScale*npcHauteur)/2.f  , 5.0));
+    ChampVision CVnpc2 = ChampVision(s->get_data(npc2)->getpos() , s->get_data(npc2)->get_front() , 1.f *PlayerScale  , 20.f *PlayerScale, 1.f *PlayerScale); // rayon , hauteur , rayon au sol
     s->get_data(npc2)->setChampVision(CVnpc2);
     s->get_data(npc2)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
 
@@ -281,11 +287,14 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     sol->addChild(npc2);
 
     Node* npc3 = s->make_node_npc(0);
+    /*Node* npc3 =s->make_node_npc_mesh("../src/maillages/enemie.off",0);
+    s->scalenode(npc3 , glm::vec3(0.01));
+    s->translatenode(npc3, glm::vec3(-15.50 , 0.0  , 11.0));*/
     
     s->get_data(npc3)->set_front(glm::vec3(1.0,0.0,0.0));
     s->scalenode(npc3 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
     s->translatenode(npc3, glm::vec3(-15.50 , (npcScale*npcHauteur)/2.f  , 11.0));
-    ChampVision CVnpc3 = ChampVision(s->get_data(npc3)->getpos() , s->get_data(npc3)->get_front() , 1.f * s->get_data(npc3)->getscale()  , 20.f * s->get_data(npc3)->getscale(), 1.f * s->get_data(npc3)->getscale()); // rayon , hauteur , rayon au sol
+    ChampVision CVnpc3 = ChampVision(s->get_data(npc3)->getpos() , s->get_data(npc3)->get_front() , 1.f * PlayerScale  , 20.f * PlayerScale, 1.f * PlayerScale); // rayon , hauteur , rayon au sol
     s->get_data(npc3)->setChampVision(CVnpc3);
     s->get_data(npc3)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
 
@@ -299,42 +308,50 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     sol->addChild(npc3);
 
     Node* npc4 = s->make_node_npc(0);
-    
+    /*Node* npc4 =s->make_node_npc_mesh("../src/maillages/enemie.off",0);
+    s->scalenode(npc4 , glm::vec3(0.01));
+    s->translatenode(npc4, glm::vec3(2.5 , 0.0  , 8.0));*/
     s->get_data(npc4)->set_front(glm::vec3(1.0,0.0,0.0));
     s->scalenode(npc4 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
     s->translatenode(npc4, glm::vec3(2.5 , (npcScale*npcHauteur)/2.f  , 8.0));
-    ChampVision CVnpc4 = ChampVision(s->get_data(npc4)->getpos() , s->get_data(npc4)->get_front() , 1.f * s->get_data(npc4)->getscale()  , 20.f * s->get_data(npc4)->getscale(), 1.f * s->get_data(npc4)->getscale()); // rayon , hauteur , rayon au sol
+    ChampVision CVnpc4 = ChampVision(s->get_data(npc4)->getpos() , s->get_data(npc4)->get_front() , 1.f * PlayerScale  , 20.f * PlayerScale, 1.f * PlayerScale); // rayon , hauteur , rayon au sol
     s->get_data(npc4)->setChampVision(CVnpc4);
     s->get_data(npc4)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
     sol->addChild(npc4);
 
     Node* npc5 = s->make_node_npc(0);
-    
+    /*Node* npc5 =s->make_node_npc_mesh("../src/maillages/enemie.off",0);
+    s->scalenode(npc5 , glm::vec3(0.01));
+    s->translatenode(npc5, glm::vec3(15.0 , 0.0  , 6.0));*/
     s->get_data(npc5)->set_front(glm::vec3(-1.0,0.0,0.0));
     s->scalenode(npc5 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
     s->translatenode(npc5, glm::vec3(15.0 , (npcScale*npcHauteur)/2.f  , 6.0));
-    ChampVision CVnpc5 = ChampVision(s->get_data(npc5)->getpos() , s->get_data(npc5)->get_front() , 1.f * s->get_data(npc5)->getscale()  , 20.f * s->get_data(npc5)->getscale(), 1.f * s->get_data(npc5)->getscale()); // rayon , hauteur , rayon au sol
+    ChampVision CVnpc5 = ChampVision(s->get_data(npc5)->getpos() , s->get_data(npc5)->get_front() , 1.f * PlayerScale  , 20.f * PlayerScale, 1.f * PlayerScale); // rayon , hauteur , rayon au sol
     s->get_data(npc5)->setChampVision(CVnpc5);
     s->get_data(npc5)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
     sol->addChild(npc5);
 
     
     Node* npc6 = s->make_node_npc(0);
-    
+    /*Node* npc6 =s->make_node_npc_mesh("../src/maillages/enemie.off",0);
+    s->scalenode(npc6 , glm::vec3(0.01));
+    s->translatenode(npc6, glm::vec3(2.5 , 0.0  , 24.0));*/
     s->get_data(npc6)->set_front(glm::vec3(0.0,0.0,-1.0));
     s->scalenode(npc6 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
     s->translatenode(npc6, glm::vec3(2.5 , (npcScale*npcHauteur)/2.f  , 24.0));
-    ChampVision CVnpc6 = ChampVision(s->get_data(npc6)->getpos() , s->get_data(npc6)->get_front() , 1.f * s->get_data(npc6)->getscale()  , 10.f * s->get_data(npc6)->getscale(), 1.f * s->get_data(npc6)->getscale()); // rayon , hauteur , rayon au sol
+    ChampVision CVnpc6 = ChampVision(s->get_data(npc6)->getpos() , s->get_data(npc6)->get_front() , 1.f * PlayerScale  , 10.f * PlayerScale, 1.f * PlayerScale); // rayon , hauteur , rayon au sol
     s->get_data(npc6)->setChampVision(CVnpc6);
     s->get_data(npc6)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
     sol->addChild(npc6);
 
     Node* npc7 = s->make_node_npc(0);
-    
+    /*Node* npc7 =s->make_node_npc_mesh("../src/maillages/enemie.off",0);
+    s->scalenode(npc7 , glm::vec3(0.01));
+    s->translatenode(npc7, glm::vec3(5.5 , 0.0  , 24.0));*/
     s->get_data(npc7)->set_front(glm::vec3(0.0,0.0,-1.0));
     s->scalenode(npc7 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
     s->translatenode(npc7, glm::vec3(5.5 , (npcScale*npcHauteur)/2.f  , 24.0));
-    ChampVision CVnpc7 = ChampVision(s->get_data(npc7)->getpos() , s->get_data(npc7)->get_front() , 1.f * s->get_data(npc7)->getscale()  , 6.f * s->get_data(npc7)->getscale(), 1.f * s->get_data(npc7)->getscale()); // rayon , hauteur , rayon au sol
+    ChampVision CVnpc7 = ChampVision(s->get_data(npc7)->getpos() , s->get_data(npc7)->get_front() , 1.f * PlayerScale  , 6.f * PlayerScale, 1.f * PlayerScale); // rayon , hauteur , rayon au sol
     s->get_data(npc7)->setChampVision(CVnpc7);
     s->get_data(npc7)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
     sol->addChild(npc7);
@@ -497,7 +514,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 }
 
 
-void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
+void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
     //s->resetscene();
 
     //////////////ROOM 
@@ -593,41 +610,54 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
 
     ///////////////////// premier NPC couloir haut
-    //Node* npc = s->make_node_npc_mesh("../src/maillages/Gorilla/gorilla.off",0);
-    Node* npc = s->make_node_npc(0);
+    Node* npc = s->make_node_npc_mesh("../src/maillages/enemie.off",0);
+    //Node* npc = s->make_node_npc(0);
     float npcScale=1.50;
     float npcHauteur=1.0;
     
     s->get_data(npc)->set_front(glm::vec3(.0,0.0,-1.0));
-    s->scalenode(npc , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
-    s->translatenode(npc, glm::vec3(13.0 , (npcScale*npcHauteur)/2.f  , 1.0));
-    ChampVision CVnpc2 = ChampVision(s->get_data(npc)->getpos() , s->get_data(npc)->get_front() , 1.f * s->get_data(npc)->getscale()  , 60.f * s->get_data(npc)->getscale(), 1.f * s->get_data(npc)->getscale()); // rayon , hauteur , rayon au sol
+    s->scalenode(npc , glm::vec3(0.01));
+    //s->scalenode(npc , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
+    //s->translatenode(npc, glm::vec3(13.0 , (npcScale*npcHauteur)/2.f  , 1.0));
+    s->translatenode(npc, glm::vec3(13.0 , 0.0  , 1.0));
+    ChampVision CVnpc2 = ChampVision(s->get_data(npc)->getpos() , s->get_data(npc)->get_front() , 1.f * s->get_data(player)->getscale()  , 60.f * s->get_data(player)->getscale(), 1.f * s->get_data(player)->getscale()); // rayon , hauteur , rayon au sol
     s->get_data(npc)->setChampVision(CVnpc2);
     s->get_data(npc)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
 
     Event ev(typeEvent::NPC_Checkpoint);
     std::vector<glm::vec3> cp_vec;
     cp_vec.push_back(s->get_data(npc)->getpos());
-    cp_vec.push_back(glm::vec3(13.0 , (npcScale*npcHauteur)/2.f, -15.0));
+    cp_vec.push_back(glm::vec3(13.0 , 0.0, -15.0));
     ev.setCheckpoint(cp_vec);
     s->get_data(npc)->setEvent(ev);
 
     sol->addChild(npc);
 
     ///////////////////// NPC bloque porte
+   /*
     Node* npc2 = s->make_node_npc(0);
     s->get_data(npc2)->set_front(glm::vec3(-1,0.0,0.0));
     s->scalenode(npc2 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
-    s->translatenode(npc2, glm::vec3(7.5 , (npcScale*npcHauteur)/2.f, 16.0));
+    s->translatenode(npc2, glm::vec3(2.0 , (npcScale*npcHauteur)/2.f, 9.0));
     ChampVision CV = ChampVision(s->get_data(npc2)->getpos() , s->get_data(npc2)->get_front() , 1.f * s->get_data(npc2)->getscale()  , 60.f * s->get_data(npc2)->getscale(), 1.f * s->get_data(npc2)->getscale()); // rayon , hauteur , rayon au sol
     s->get_data(npc2)->setChampVision(CV);
     s->get_data(npc2)->set_color(glm::vec3(0.8f , 0.1f, 0.1f)); 
+*/     
+     Node* npc2 = s->make_node_npc_mesh("../src/maillages/enemie.off",0);
+    s->get_data(npc2)->set_front(glm::vec3(-1,0.0,0.0));
+    s->scalenode(npc2 , glm::vec3(0.01));
+    s->rotatenode(npc2, -90.f, glm::vec3(0.0, 1.0, 0.0));
+    s->translatenode(npc2, glm::vec3(7.5 , 0.0, 13.0));
+    ChampVision CV = ChampVision(s->get_data(npc2)->getpos() , s->get_data(npc2)->get_front() , 1.f * s->get_data(player)->getscale()  , 60.f * s->get_data(player)->getscale(), 1.f * s->get_data(player)->getscale()); // rayon , hauteur , rayon au sol
+    s->get_data(npc2)->setChampVision(CV);
+    s->get_data(npc2)->set_color(glm::vec3(0.8f , 0.1f, 0.1f)); 
+
     sol->addChild(npc2);
 
-    Event ev2(typeEvent::NPC_Checkpoint);
+    Event ev2(typeEvent::NPC_stand_still);
     std::vector<glm::vec3> cp_vec2;
     cp_vec2.push_back(s->get_data(npc2)->getpos());
-    ev.setCheckpoint(cp_vec2);
+    ev2.setCheckpoint(cp_vec2);
     s->get_data(npc2)->setEvent(ev2);
 
     /////////////CAM1 position haut gauche

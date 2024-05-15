@@ -115,7 +115,7 @@ public:
     void setscale(glm::vec3 s);
     void settranslate(glm::vec3 t);
     void setrotate(float angle , glm::vec3 axe);
-    void rotateeulerYaw(glm::vec3 euler);
+    void setrotateeulerYaw(glm::vec3 euler);
 
     void setgameObjectInfo(GOInfo goi){ gameObjectInfo = goi; }
     GOInfo& getgameObjectInfo(){ return gameObjectInfo ;}

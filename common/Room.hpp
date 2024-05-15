@@ -51,7 +51,7 @@ Node * makeRoom(Scene &s, int longueur, int largeur, int hauteur, glm::vec3 scal
     
     // Attribution des textures
     std::cout << "set texture .. "<< std::endl;
-    s.get_data(sol)->settexture("../src/textures/ground.png" , s.get_data(sol)->getprogID() ,"tex"); 
+    s.get_data(sol)->settexture("../src/textures/wall1.png" , s.get_data(sol)->getprogID() ,"tex"); 
     s.get_data(plafond)->settexture("../src/textures/wall1.png" , s.get_data(plafond)->getprogID() ,"tex"); 
     s.get_data(mur1)->settexture("../src/textures/wall1.png" , s.get_data(mur1)->getprogID() , "tex");
     s.get_data(mur2)->settexture("../src/textures/wall1.png" , s.get_data(mur2)->getprogID() , "tex");

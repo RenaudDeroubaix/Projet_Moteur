@@ -67,8 +67,9 @@ bool Mesh::loadOFF( const std::string & filename)
         }
     }
 
+    
+    computeNormals();
     myfile.close();
-     computeNormals();
     return true;
    
 }
@@ -94,7 +95,7 @@ bool Mesh::loadOFF( const std::string & filename)
     }
 
     //Compute vertices normals as the average of its incident faces normals
-    void Mesh::computeVerticesNormals(std::vector<glm::vec3> triangle_normals) {
+    void Mesh::computeVerticesNormals(std::vector<glm::vec3>& triangle_normals) {
         // flush normal list
         normals.clear(); //Commencez par décommenter cette ligne
 
@@ -116,8 +117,8 @@ bool Mesh::loadOFF( const std::string & filename)
     }
 
     void Mesh::computeNormals() {
-       
-        computeVerticesNormals(computeTrianglesNormals());
+       std::vector<glm::vec3> v = computeTrianglesNormals();
+        computeVerticesNormals(v);
     }
 
 

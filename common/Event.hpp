@@ -2,7 +2,7 @@
 #include "common/utils.hpp"
 
 
-typedef enum {NO_Event,TP_Scene_Forward, TP_Scene_Backward, NPC_Checkpoint, NPC_return_to_Checkpoint ,NPC_looking_for_player,NPC_following_player, Next_Camera, Previous_Camera, Pickable} typeEvent;
+typedef enum {NO_Event,TP_Scene_Forward, TP_Scene_Backward, NPC_Checkpoint,NPC_stand_still, NPC_return_to_Checkpoint ,NPC_looking_for_player,NPC_following_player, Next_Camera, Previous_Camera, Pickable} typeEvent;
 
 class Event {
 public:
@@ -24,11 +24,16 @@ public:
     void setposLastSeen(glm::vec3 p){pos = p;}
     typeEvent get_typeEvent();
     void set_typeEvent(typeEvent type){type_evenement = type;}
-    void nextCP(){
-        if(type_evenement == typeEvent::NPC_Checkpoint){
+  void nextCP(){
+        if (checkpoint.size() > 1 ){
             CP_i++;
             CP_i = CP_i % checkpoint.size();
+            //std::cout<< CP_i << " " <<checkpoint.size() << std::endl;
+        }else
+        {
+           type_evenement = NPC_stand_still;
         }
+        
     }
     void setCP_i(unsigned int value){CP_i = value;}
     void setCheckpoint(std::vector<glm::vec3> cp){checkpoint = cp;}
