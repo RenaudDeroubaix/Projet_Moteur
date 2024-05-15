@@ -85,7 +85,7 @@ bool Mesh::loadOFF( const std::string & filename)
             glm::vec3 e1 = position[indices[i+2]] - position[indices[i]];
             glm::vec3 n = glm::cross(e0, e1);
             //Normaliser le resultat, utiliser la fonction normalize()
-            glm::normalize(n);
+            n = glm::normalize(n);
             //Ajouter dans triangle_normales
             triangle_normals.push_back(n);
         }
@@ -105,13 +105,13 @@ bool Mesh::loadOFF( const std::string & filename)
             //Pour chaque triangle i
             //Ajouter la normal au triangle à celle de chacun des sommets
          
-                normals[indices[i]] += triangle_normals[i];
-                normals[indices[i+1]] += triangle_normals[i];
-                normals[indices[i+2]] += triangle_normals[i];
+                normals[indices[i]] += triangle_normals[i/3];
+                normals[indices[i+1]] += triangle_normals[i/3];
+                normals[indices[i+2]] += triangle_normals[i/3];
         }
         //Iterer sur les normales et les normaliser
         for (unsigned int i = 0; i < position.size(); i++)
-            glm::normalize(normals[i]);
+            normals[i] = glm::normalize(normals[i]);
     }
 
     void Mesh::computeNormals() {
