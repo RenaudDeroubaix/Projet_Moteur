@@ -6,7 +6,7 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
     glGenVertexArrays(1, &VertexArrayID);
     glGenBuffers(1, &vertexbuffer);
     glGenBuffers(1, &normalbuffer);
-    //glGenBuffers(1, &texbuffer);
+    glGenBuffers(1, &texbuffer);
     glGenBuffers(1, &elementbuffer);
 
     glBindVertexArray(VertexArrayID);
