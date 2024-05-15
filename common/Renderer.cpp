@@ -98,7 +98,7 @@ void Renderer::deletebuffers()
 {   
     glDeleteBuffers(1, &vertexbuffer);
     glDeleteBuffers(1, &normalbuffer);
-    //glDeleteBuffers(1, &texbuffer);
+    glDeleteBuffers(1, &texbuffer);
     glDeleteBuffers(1, &elementbuffer);  
     for(GLuint tex : tex_id_list){
         glDeleteTextures(1, &tex);
@@ -119,7 +119,6 @@ void Renderer::loadtextures()
         glActiveTexture(GL_TEXTURE0 + tex_id_list[i]);
         glBindTexture(GL_TEXTURE_2D, tex_id_list[i]);
         glUniform1i(glGetUniformLocation(programID, names_in_shader[i].c_str()),tex_id_list[i]);
-        glActiveTexture(GL_TEXTURE0);
     }
     
 }

@@ -4,6 +4,8 @@
 
 bool Mesh::loadOFF( const std::string & filename)
 {
+    bool convertToTriangles = false;
+    bool randomize = false;
 
     std::ifstream myfile;
     myfile.open(filename.c_str());
@@ -64,15 +66,14 @@ bool Mesh::loadOFF( const std::string & filename)
             return false;
         }
     }
-
-    
     computeNormals();
     myfile.close();
     return true;
-   
 }
+    
 
-   std::vector<glm::vec3> Mesh::computeTrianglesNormals() {
+
+std::vector<glm::vec3> Mesh::computeTrianglesNormals() {
         // Vider le vecteur triangle_normals
         std::vector<glm::vec3> triangle_normals;
         //TODO: implémenter le calcul des normales par face
@@ -85,7 +86,7 @@ bool Mesh::loadOFF( const std::string & filename)
             glm::vec3 e1 = position[indices[i+2]] - position[indices[i]];
             glm::vec3 n = glm::cross(e0, e1);
             //Normaliser le resultat, utiliser la fonction normalize()
-            glm::normalize(n);
+            n =glm::normalize(n);
             //Ajouter dans triangle_normales
             triangle_normals.push_back(n);
         }
@@ -93,28 +94,26 @@ bool Mesh::loadOFF( const std::string & filename)
     }
 
     //Compute vertices normals as the average of its incident faces normals
-    void Mesh::computeVerticesNormals(std::vector<glm::vec3>& triangle_normals) {
+void Mesh::computeVerticesNormals(std::vector<glm::vec3>& triangle_normals) {
         // flush normal list
-        normals.clear(); //Commencez par décommenter cette ligne
-
-        //TODO: implémenter le calcul des normales par sommet comme la moyenne des normales des triangles incidents
+        normals.clear(); 
         //Initializer le vecteur normals taille vertices.size() avec Vec3(0., 0., 0.)
-        normals.resize(position.size(), glm::vec3(0.f));
+        normals.resize(position.size(), glm::vec3(0.f)); 
         //Iterer sur les triangles
         for (unsigned int i = 0; i < indices.size(); i+=3) {
             //Pour chaque triangle i
             //Ajouter la normal au triangle à celle de chacun des sommets
-         
-                normals[indices[i]] += triangle_normals[i];
-                normals[indices[i+1]] += triangle_normals[i];
-                normals[indices[i+2]] += triangle_normals[i];
-        }
+                //std::cout << indices[i] << std::endl;
+                normals[indices[i]] += triangle_normals[i/3];
+                normals[indices[i+1]] += triangle_normals[i/3];
+                normals[indices[i+2]] += triangle_normals[i/3];
+        } 
         //Iterer sur les normales et les normaliser
         for (unsigned int i = 0; i < position.size(); i++)
-            glm::normalize(normals[i]);
+            normals[i]=glm::normalize(normals[i]);
     }
 
-    void Mesh::computeNormals() {
+void Mesh::computeNormals() {
        std::vector<glm::vec3> v = computeTrianglesNormals();
         computeVerticesNormals(v);
     }
