@@ -617,7 +617,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(player)->set_color(glm::vec3(0.1f , 0.1f, 1.f)); 
     float playerScale=0.4;
     s->scalenode(player , glm::vec3(playerScale));
-    s->translatenode(player, glm::vec3(0.0 , playerScale/2.0, -29.4));
+    s->translatenode(player, glm::vec3(0.0 , playerScale/2.0, -26.4));
     s->get_data(player)->getgameObjectInfo().setHasPhysics(true);
    // s->get_data(player)->calculateBoundingBox();
     s->get_data(player)->setMasse(40.f);
