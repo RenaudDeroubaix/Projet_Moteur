@@ -1,7 +1,7 @@
 #pragma once
 #include "common/Scene.hpp"
 
-void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
+void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
     //s->resetscene();
 
     Node* sol = makeRoom(*s,36,53,7,glm::vec3(1.0f),0); 
@@ -66,7 +66,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
      float playerScale=0.40;
      
     //Node* player = s->make_node_mesh("../src/maillages/Cubone/pkm.off",0);
-    
+    /*
     Node* player = s->make_node_cube(0);
     s->setNodePlayer(player);
     s->get_data(player)->set_color(glm::vec3(0.1f , 0.1f, 1.f)); 
@@ -75,7 +75,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(player)->getgameObjectInfo().setHasPhysics(true);
    // s->get_data(player)->calculateBoundingBox();
     s->get_data(player)->setMasse(40.f);
-    sol->addChild(player); 
+    sol->addChild(player); */
     
 
      /////////////CAM1 
@@ -265,14 +265,14 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 
     sol->addChild(npc);
 
-    //Node* npc2 = s->make_node_npc(0);
-    
+    Node* npc2 = s->make_node_npc(0);
+    /*
     Node* npc2 =s->make_node_npc_mesh("../src/maillages/enemy_2legs.off",0);
     s->scalenode(npc2 , glm::vec3(0.01));
-    s->translatenode(npc2, glm::vec3(-2.50 , 0.0  , 5.0));
+    s->translatenode(npc2, glm::vec3(-2.50 , 0.0  , 5.0));*/
     s->get_data(npc2)->set_front(glm::vec3(-1.0,0.0,0.0));
-    //s->scalenode(npc2 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
-    //s->translatenode(npc2, glm::vec3(-2.5 , (npcScale*npcHauteur)/2.f  , 5.0));
+    s->scalenode(npc2 , glm::vec3(npcScale , npcScale*npcHauteur , npcScale));
+    s->translatenode(npc2, glm::vec3(-2.5 , (npcScale*npcHauteur)/2.f  , 5.0));
     ChampVision CVnpc2 = ChampVision(s->get_data(npc2)->getpos() , s->get_data(npc2)->get_front() , 1.f *PlayerScale  , 20.f *PlayerScale, 1.f *PlayerScale); // rayon , hauteur , rayon au sol
     s->get_data(npc2)->setChampVision(CVnpc2);
     s->get_data(npc2)->set_color(glm::vec3(0.8f , 0.1f, 0.1f));
@@ -514,7 +514,7 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
 }
 
 
-void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
+void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT){
     //s->resetscene();
 
     //////////////ROOM 
