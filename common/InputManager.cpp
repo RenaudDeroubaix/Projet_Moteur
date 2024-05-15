@@ -226,6 +226,35 @@ bool InputManager::Input_light_on_off(){
     }
     return false;
 }
+bool InputManager::toggleFullScreen(unsigned int& SCR_WIDTH, unsigned int& SCR_HEIGHT) {
+
+
+    if (isKeyPressed(GLFW_KEY_F)) {
+        GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
+        const GLFWvidmode* mode = glfwGetVideoMode(primaryMonitor);
+
+        // Basculer entre le mode plein écran et le mode fenêtré
+        if (mode->width == SCR_WIDTH) {
+            // Quitter le mode plein écran
+            SCR_WIDTH=1280;
+            SCR_HEIGHT=720;
+            glfwSetWindowSize(glfwGetCurrentContext(),SCR_WIDTH , SCR_HEIGHT);
+        } else {
+                if (mode != nullptr) {
+                    SCR_WIDTH=mode->width;
+                    SCR_HEIGHT= mode->height -50;
+                    glfwSetWindowSize(glfwGetCurrentContext(), SCR_WIDTH, SCR_HEIGHT);
+                }
+            
+        }
+        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+
+        return true; // Indique que la touche "F" a été enfoncée
+    }
+
+    return false; // La touche "F" n'a pas été enfoncée
+}
+
 void InputManager::Input_GamePlay(Scene & s , GameObject* player, float deltaTime )
 {
     Input_ViewMode(s,player);

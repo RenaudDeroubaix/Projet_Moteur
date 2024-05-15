@@ -6,7 +6,7 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
     glGenVertexArrays(1, &VertexArrayID);
     glGenBuffers(1, &vertexbuffer);
     glGenBuffers(1, &normalbuffer);
-    glGenBuffers(1, &texbuffer);
+    //glGenBuffers(1, &texbuffer);
     glGenBuffers(1, &elementbuffer);
 
     glBindVertexArray(VertexArrayID);
@@ -31,7 +31,7 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
         sizeof(glm::vec3),                  // stride
         (void*)0       // array buffer offset
     );
-    
+    /*
     glBindBuffer(GL_ARRAY_BUFFER, texbuffer);
     glBufferData(GL_ARRAY_BUFFER, tex_coords.size() * sizeof(glm::vec2), &(tex_coords)[0], GL_STATIC_DRAW);
     glVertexAttribPointer(
@@ -42,7 +42,7 @@ void Renderer::genbuffer(std::vector<glm::vec3> & position , std::vector<glm::ve
         sizeof(glm::vec2),                  // stride
         (void*)0       // array buffer offset
     );
-    
+    */
     // Generate a buffer for the indices as well
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &(indices)[0] , GL_STATIC_DRAW);
@@ -98,9 +98,12 @@ void Renderer::deletebuffers()
 {   
     glDeleteBuffers(1, &vertexbuffer);
     glDeleteBuffers(1, &normalbuffer);
-    glDeleteBuffers(1, &texbuffer);
+    //glDeleteBuffers(1, &texbuffer);
     glDeleteBuffers(1, &elementbuffer);  
-    glDeleteBuffers(1, &VertexArrayID);
+    for(GLuint tex : tex_id_list){
+        glDeleteTextures(1, &tex);
+    }
+    glDeleteVertexArrays(1, &VertexArrayID);
  
 }
 
@@ -116,6 +119,7 @@ void Renderer::loadtextures()
         glActiveTexture(GL_TEXTURE0 + tex_id_list[i]);
         glBindTexture(GL_TEXTURE_2D, tex_id_list[i]);
         glUniform1i(glGetUniformLocation(programID, names_in_shader[i].c_str()),tex_id_list[i]);
+        glActiveTexture(GL_TEXTURE0);
     }
     
 }

@@ -102,7 +102,7 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam
     float textX = SCREEN_WIDTH / 2.0 - sizeof(buffer)/2.0 -125 ; // 
     float textY = 50.0f; // Décaler de 50 pixels depuis le bas
     
-
+    float ratio = SCREEN_WIDTH/SCREEN_HEIGHT;
 
     glm::vec3 color_text(0.25f,0.25f,0.25f);
     glm::vec3 color_contour(1.f,1.0f,1.0f);
@@ -129,23 +129,23 @@ void texteRender::renderTXT(int SCREEN_WIDTH, int SCREEN_HEIGHT,unsigned int cam
 
     if(gameState <= 1 ){
         RenderText(programIDTXT, VAO, VBO, Characters, buffer, textX, textY, textScale, color_text, color_contour,1.0f);
-        RenderText(programIDTXT, VAO, VBO, Characters, "CAM  #"+std::to_string(cam_i+1)+" : ROOM " + std::to_string(scene_i), 100.0, SCREEN_HEIGHT - 100.0, 1.f, color_text, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "CAM  #"+std::to_string(cam_i+1)+" : ROOM " + std::to_string(scene_i), 100.0, SCREEN_HEIGHT - 100.0,ratio * 1.f, color_text, color_contour,1.0f);
         RenderText(programIDTXT, VAO, VBO, Characters, "REC", SCREEN_WIDTH -200.0, SCREEN_HEIGHT - 100.0, 1.f, color_rec, color_contour,1.0f);
          // Affichage de la taille de l'écran
-        RenderText(programIDTXT, VAO, VBO, Characters, std::to_string(SCREEN_WIDTH) + "x" + std::to_string(SCREEN_HEIGHT), 100.0, textY, textScale, color_text, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, std::to_string(SCREEN_WIDTH) + "x" + std::to_string(SCREEN_HEIGHT), 100.0, textY,ratio * textScale, color_text, color_contour,1.0f);
         // Affichage du nombre de FPS
-        RenderText(programIDTXT, VAO, VBO, Characters, "FPS: " + std::to_string(fps), SCREEN_WIDTH - 200.0, textY, textScale, color_text, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "FPS: " + std::to_string(fps), SCREEN_WIDTH - 200.0, textY,ratio * textScale, color_text, color_contour,1.0f);
         
     }
     if (gameState < 0){
-        RenderText(programIDTXT, VAO, VBO, Characters, "PAUSE", SCREEN_WIDTH / 2.0 -50  , SCREEN_HEIGHT/2.0  , 1.f, glm::vec3(0.2,0.2,0.8), color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "PAUSE", SCREEN_WIDTH / 2.0 -50  , SCREEN_HEIGHT/2.0  ,ratio * 1.f, glm::vec3(0.2,0.2,0.8), color_contour,1.0f);
     }
     else if(gameState == 2){
-        RenderText(programIDTXT, VAO, VBO, Characters, "GAMEOVER", SCREEN_WIDTH / 2.0 -50  , SCREEN_HEIGHT/2.0  , 1.f, color_rec, color_contour,1.0f);
-        RenderText(programIDTXT, VAO, VBO, Characters, "Press R to reset", SCREEN_WIDTH / 2.0 -75  , SCREEN_HEIGHT/2.0 - 50  , 0.8f, color_rec, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "GAMEOVER", SCREEN_WIDTH / 2.0 -50  , SCREEN_HEIGHT/2.0  ,ratio * 1.f, color_rec, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "Press R to reset", SCREEN_WIDTH / 2.0 -75  , SCREEN_HEIGHT/2.0 - 50  ,ratio * 0.8f, color_rec, color_contour,1.0f);
     }
     else if(gameState == 3){
-        RenderText(programIDTXT, VAO, VBO, Characters, "Victory", SCREEN_WIDTH / 2.0  -50  , SCREEN_HEIGHT/2.0  , 1.f, color_V, color_contour,1.0f);
+        RenderText(programIDTXT, VAO, VBO, Characters, "Victory", SCREEN_WIDTH / 2.0  -50  , SCREEN_HEIGHT/2.0  ,ratio * 1.f, color_V, color_contour,1.0f);
     }
     
 

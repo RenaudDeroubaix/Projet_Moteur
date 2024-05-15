@@ -4,8 +4,6 @@
 
 bool Mesh::loadOFF( const std::string & filename)
 {
-    bool convertToTriangles = false;
-    bool randomize = false;
 
     std::ifstream myfile;
     myfile.open(filename.c_str());
@@ -108,8 +106,8 @@ bool Mesh::loadOFF( const std::string & filename)
             //Ajouter la normal au triangle à celle de chacun des sommets
          
                 normals[indices[i]] += triangle_normals[i];
-                normals[indices[i+1]] += triangle_normals[i+1];
-                normals[indices[i+2]] += triangle_normals[i+2];
+                normals[indices[i+1]] += triangle_normals[i];
+                normals[indices[i+2]] += triangle_normals[i];
         }
         //Iterer sur les normales et les normaliser
         for (unsigned int i = 0; i < position.size(); i++)

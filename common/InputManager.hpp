@@ -25,6 +25,7 @@ public:
     void Input_ViewMode(Scene & s, GameObject* player);
     void Input_GamePlay(Scene & s , GameObject * go , float deltaTime);
     bool Input_light_on_off();
+    bool toggleFullScreen(unsigned int &SCR_WIDTH, unsigned int& SCR_HEIGHT);
 public:
     static double previousX;
     static double previousY;

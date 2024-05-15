@@ -148,6 +148,8 @@ int main( void )
     //glfwSwapInterval(0); //pour uncap les fps
 
     do{ 
+        glfwPollEvents();
+        I_M.toggleFullScreen(SM.SCR_WIDTH, SM.SCR_HEIGHT);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         //std::cout<<"test"<<std::endl;
         Scene * currentScene = SM.getCurrentScene();
@@ -190,7 +192,7 @@ int main( void )
         glBindVertexArray(oldVAO);
         
         glfwSwapBuffers(window);
-        glfwPollEvents();
+        
 
     } // Check if the ESC key was pressed or the window was closed
     while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&

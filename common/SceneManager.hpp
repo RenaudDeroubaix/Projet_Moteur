@@ -9,8 +9,8 @@
 class SceneManager {
 public:
 
-const unsigned int SCR_WIDTH = 1280;
-const unsigned int SCR_HEIGHT = 720;
+unsigned int SCR_WIDTH = 1280;
+unsigned int SCR_HEIGHT = 720;
 
 
 protected: 
@@ -149,7 +149,7 @@ public:
                 glm::vec3 posAI = go->getpos();
                 go->getEvent().setposLastSeen(Player->getpos());
                 glm::vec3 posPlayer = Player->getpos();
-                glm::vec3 lastfront = glm::normalize(glm::vec3(posPlayer.x,posPlayer.y , posPlayer.z) - posAI);
+                glm::vec3 lastfront = glm::normalize(glm::vec3(posPlayer.x,posAI.y , posPlayer.z) - posAI);
                 glm::quat rotation =   LookAt( lastfront , go->get_up());
                 glm::vec3 eulerangle = Helper::quatToEuler(rotation);
                 go->setVitesse(go->get_front());
@@ -178,12 +178,12 @@ public:
             //std::cout<< distanceToCP<<std::endl;
             if(distanceToCP < 2.f) //si proche alors on regarde le checkpoint suivant
             {
-                lastfront = glm::normalize(glm::vec3(Player->getpos().x ,Player->getpos().y, Player->getpos().z) - posAI); 
+                lastfront = glm::normalize(glm::vec3(Player->getpos().x ,posAI.y, Player->getpos().z) - posAI); 
                 go->getEvent().set_typeEvent(typeEvent::NPC_return_to_Checkpoint);
 
             }
             else{
-                lastfront = glm::normalize(glm::vec3(posCP.x, posCP.y , posCP.z) -  posAI); 
+                lastfront = glm::normalize(glm::vec3(posCP.x, posAI.y , posCP.z) -  posAI); 
             }
 
             rotation = LookAt( lastfront , go->get_up());
