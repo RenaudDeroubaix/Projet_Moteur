@@ -188,7 +188,7 @@ int main( void )
         // Appeler glGetIntegerv en passant l'adresse de la variable oldVAO
         glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &oldVAO);
         //glBindFramebuffer(GL_FRAMEBUFFER, 0); 
-        //hud.renderTXT(SM.SCR_WIDTH,SM.SCR_HEIGHT,I_M.view , SM.getScene_i(),SM.getGameState(), 1/deltaTimeRendu);
+        hud.renderTXT(SM.SCR_WIDTH,SM.SCR_HEIGHT,I_M.view , SM.getScene_i(),SM.getGameState(), 1/deltaTimeRendu);
         glBindVertexArray(oldVAO);
         
         glfwSwapBuffers(window);
