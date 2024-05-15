@@ -4,6 +4,7 @@
 *.zip
 *.gz
 */build/*
+build/*
 #ignore hidden file
 .*
  

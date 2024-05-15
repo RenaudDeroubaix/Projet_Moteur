@@ -4,18 +4,20 @@
 
 class Node {
 private:
-    std::vector<Node> children;
-    std::vector<Node> parent;
-    GameObject* data;
+    std::vector<Node*> children;
+    Node* parent = nullptr;
+    GameObject* data = nullptr;
 
 public:
     Node(){}
     ~Node(){}
     void add_data(GameObject* data) {this->data = data;}
     GameObject* getData() {return data;}
-    void addChild(Node & child) ;
-    void addParent(Node & p);
-    std::vector<Node> getDescendantsNode() ;
+    void addChild(Node * child)  ;
+    void removeChild(Node* child);
+    void addParent(Node * p) {parent = p ;}
+    GameObject* getparent() {return parent->getData();}
+    std::vector<Node*> getDescendantsNode() ;
     std::vector<GameObject*> getDescendantsData() ;
 
     

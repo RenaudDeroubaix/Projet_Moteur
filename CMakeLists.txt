@@ -3,7 +3,8 @@ cmake_minimum_required (VERSION 3.1)
 project (Tutorials)
 
 find_package(OpenGL REQUIRED)
-
+# Recherche de la bibliothèque FreeType
+find_package(Freetype REQUIRED)
 
 if( CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR )
     message( FATAL_ERROR "Please select another Build Directory ! (and give it a clever name, like bin_Visual2012_64bits/)" )
@@ -33,6 +34,7 @@ endif(INCLUDE_DISTRIB)
 
 
 include_directories(
+	${FREETYPE_INCLUDE_DIRS}
 	external/glfw-3.1.2/include/
 	external/glm-0.9.7.1/
 	external/glew-1.13.0/include/
@@ -42,8 +44,12 @@ include_directories(
 
 set(ALL_LIBS
 	${OPENGL_LIBRARY}
+	${FREETYPE_LIBRARIES}
 	glfw
 	GLEW_1130
+	pthread  # Ajouter -lpthread
+    	m       # Ajouter -lm
+    	dl      # Ajouter -ldl
 )
 
 add_definitions(
@@ -55,7 +61,7 @@ add_definitions(
 )
 
 # TP3
-add_executable(TP4
+add_executable(TP
     main.cpp
     common/utils.hpp
     common/stb_image.hpp
@@ -65,7 +71,9 @@ add_executable(TP4
 	common/texture.hpp
 	common/vboindexer.cpp
 	common/vboindexer.hpp
-	
+	common/quaternion_utils.cpp
+    common/quaternion_utils.hpp
+
 	common/Renderer.cpp
 	common/Renderer.hpp
 	
@@ -81,6 +89,9 @@ add_executable(TP4
 	common/Plan.hpp
 	common/Plan.cpp
 	
+	common/Mur.hpp
+	common/Mur.cpp
+	
 	common/Mesh.hpp
 	common/Mesh.cpp
 	
@@ -93,21 +104,49 @@ add_executable(TP4
 	common/CubeInit.hpp
 	common/CubeInit.cpp
 	
+	common/PyramideInit.hpp
+	common/PyramideInit.cpp
 	
+	common/Room.hpp
+	
+	common/GOInfo.hpp
+	
+	common/Physics.hpp
+	common/Physics.cpp
+
+    common/Helper.cpp
+    common/Helper.hpp
+    
+    common/SceneManager.hpp
+    
+    common/Event.hpp
+    common/Event.cpp
+    
+    common/SceneInit.hpp
+    
+     common/lumiere.hpp
+     common/lumiere.cpp
+	
+	common/texteRender.hpp
+     common/texteRender.cpp
+     
+     common/miniaudio.h
+     
+     
 	
 )
-target_link_libraries(TP4
+target_link_libraries(TP
 	${ALL_LIBS}
 	
 )
 
 # Xcode and Visual working directories
-set_target_properties(TP4 PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-create_target_launcher(TP4 WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+set_target_properties(TP PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+create_target_launcher(TP WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
 if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode" )
 add_custom_command(
-   TARGET TP4 POST_BUILD
+   TARGET TP POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )

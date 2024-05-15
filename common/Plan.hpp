@@ -9,6 +9,7 @@ private:
     glm::vec3 pos;
     glm::mat4 modelmat = glm::mat4(1.f);
     int h ; int l;
+    float pas_l , pas_h;
     
 public:
     Plan() : GameObject() {}
@@ -21,7 +22,6 @@ public:
     void drawobject() override;
     void deleteobject() override;
     void settexture(const std::string & path , GLuint textureIndex, const std::string & name_in_shader) override;
-    void loadtextures() override;
 
    
     

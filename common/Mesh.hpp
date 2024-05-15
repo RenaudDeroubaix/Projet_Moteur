@@ -17,7 +17,9 @@ private:
     
 public:
     bool loadOFF(const std::string & filename);
-
+    void computeNormals();
+    void computeVerticesNormals(std::vector<glm::vec3>& triangle_normals);
+    std::vector<glm::vec3> computeTrianglesNormals();
     Mesh(const std::string & filename):GameObject()
     {
         loadOFF(filename);
@@ -31,6 +33,5 @@ public:
     void drawobject() override;
     void deleteobject() override;
     void settexture(const std::string & path , GLuint textureIndex, const std::string & name_in_shader) override;
-    void loadtextures() override;
                   
 };
