@@ -13,7 +13,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     sol->addChild(lumiere1);
 
     s->setposnode(lumiere1 , glm::vec3(16.f , 2.f , -0.f));
-    s->setcolornode(lumiere1 , glm::vec3(1.f , 0.4f , 0.4f)); 
+    s->setcolornode(lumiere1 , glm::vec3(0.4f , 0.4f , 1.0f)); 
 /*
     Node* lumiere1cube = s->make_node_cube(0);
     sol->addChild(lumiere1cube);
@@ -23,7 +23,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     
     Node* lumiere2 = s->make_node_light(true,false, 0);
     sol->addChild(lumiere2);
-    s->setposnode(lumiere2 , glm::vec3(-10.5f , 2.f , -14.f ));
+    s->setposnode(lumiere2 , glm::vec3(-10.5f , 4.5f , -14.f ));
     s->setcolornode(lumiere2 ,glm::vec3(0.3f , 1.f , 0.3f));  
 
     Node* lumiere4 = s->make_node_light(true,false, 0);
@@ -49,7 +49,7 @@ void makeScene_1(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     Node* lumiere8 = s->make_node_light(true,false, 0);
     sol->addChild(lumiere8);
     s->setposnode(lumiere8 , glm::vec3(12.f , 4.5f , 24.f ));
-    s->setcolornode(lumiere8 ,glm::vec3(1.f , 1.f , 1.f)); 
+    s->setcolornode(lumiere8 ,glm::vec3(1.f , 0.4f , 0.4f)); 
 /*
        Node* lumiere2cube = s->make_node_cube(0);
     sol->addChild(lumiere2cube);
@@ -538,28 +538,28 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     sol->addChild(lumiere2);
 
     Node* lumiere4 = s->make_node_light(true,false , 0);    
-    s->setposnode(lumiere4 , glm::vec3(-17.f , 4.5f , -24.f) );
-    s->setcolornode(lumiere4 , glm::vec3(1.f) ); 
+    s->setposnode(lumiere4 , glm::vec3(-13.f , 4.5f , -24.f) );
+    s->setcolornode(lumiere4 , glm::vec3(0.4f, 01.0, 0.4) ); 
     sol->addChild(lumiere4);
 
     Node* lumiere5 = s->make_node_light(true,false , 0);    
     s->setposnode(lumiere5 , glm::vec3(13.f , 4.5f , 1.f) );
-    s->setcolornode(lumiere5 , glm::vec3(1.f) ); 
+    s->setcolornode(lumiere5 , glm::vec3(1.f, 0.4, 0.4) ); 
     sol->addChild(lumiere5);
 
     Node* lumiere6 = s->make_node_light(true,false , 0);    
-    s->setposnode(lumiere6 , glm::vec3(-16.f , 4.5f , 26.f) );
-    s->setcolornode(lumiere6 , glm::vec3(1.f) ); 
+    s->setposnode(lumiere6 , glm::vec3(-13.f , 4.5f , 23.f) );
+    s->setcolornode(lumiere6 , glm::vec3(1.0f, 1.0, 0.40) ); 
     sol->addChild(lumiere6);
 
     Node* lumiere7 = s->make_node_light(true,false , 0);    
     s->setposnode(lumiere7 , glm::vec3(13.f , 4.5f , 26.f) );
-    s->setcolornode(lumiere7 , glm::vec3(1.f) ); 
+    s->setcolornode(lumiere7 , glm::vec3(0.4f, 1.0, 1.00)  ); 
     sol->addChild(lumiere7);
 
     Node* lumiere8 = s->make_node_light(true,false , 0);    
     s->setposnode(lumiere8 , glm::vec3(-16.f , 4.5f , -14.f) );
-    s->setcolornode(lumiere8 , glm::vec3(1.f) ); 
+    s->setcolornode(lumiere8 , glm::vec3(1.0, 0.4, 1.0)  ); 
     sol->addChild(lumiere8);
     
     Node* lumiere3 = s->make_node_light(false , true , 0);
@@ -567,6 +567,11 @@ void makeScene_0(Scene* s, const unsigned int SCR_WIDTH, const unsigned int SCR_
     s->get_data(lumiere3)->set_color(glm::vec3(1.f)); 
     s->get_data(lumiere3)->set_front(glm::normalize(glm::vec3(1.f ,-1.f , 0.f )));
     sol->addChild(lumiere3);
+
+    Node* lumiere9 = s->make_node_light(true,false , 0);    
+    s->setposnode(lumiere9 , glm::vec3(2.f , 4.5f , -10.f) );
+    s->setcolornode(lumiere9 , glm::vec3(0.4f, 0.4, 1.0) ); 
+    sol->addChild(lumiere9);
 
     
     
